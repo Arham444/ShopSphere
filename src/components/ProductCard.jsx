@@ -8,10 +8,7 @@ function ProductCard({ product }) {
   const dispatch = useDispatch();
   return (
     <div style={styles.card}>
-      <Link
-        to={`/products/${product.id}`}
-        style={{ textDecoration: "none", color: "var(--text-h)" }}
-      >
+      <Link to={`/products/${product.id}`}>
         <img src={product.image} alt={product.name} style={styles.image} />
       </Link>
       <div style={styles.body}>
@@ -42,47 +39,38 @@ function ProductCard({ product }) {
 
 const styles = {
   card: {
-    border: "1px solid var(--border)",
+    border: "1px solid #ddd",
     padding: "1rem",
     borderRadius: "8px",
     overflow: "hidden",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "var(--card-bg)",
-    boxShadow: "var(--shadow)",
-    transition: "transform 0.2s ease, box-shadow 0.2s ease",
   },
   image: {
     width: "100%",
     height: "200px",
     objectFit: "cover",
-    borderRadius: "4px",
   },
   body: {
-    padding: "0.75rem 0 0 0",
+    padding: "1rem",
     display: "flex",
     flexDirection: "column",
     gap: "0.5rem",
   },
   category: {
-    fontSize: "0.75rem",
-    color: "var(--text)",
+    fontSize: "0.75 rem",
+    color: "#888",
     margin: "0",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
   },
   name: {
     fontWeight: "bold",
     textDecoration: "none",
-    color: "var(--text-h)",
-    fontSize: "1.1rem",
-    lineHeight: "1.3",
+    color: "#1a1a1a",
   },
   price: {
     fontWeight: "600",
-    color: "var(--accent)",
+    color: "#e44d26",
     margin: "0",
-    fontSize: "1.2rem",
   },
   rating: {
     margin: 0,
@@ -93,30 +81,23 @@ const styles = {
     display: "flex",
     gap: "0.5rem",
     marginTop: "auto",
-    paddingTop: "0.75rem",
   },
   cartBtn: {
     flex: 1,
-    padding: "0.6rem",
-    backgroundColor: "var(--text-h)",
-    color: "var(--bg)",
+    padding: "0.5rem",
+    backgroundColor: "#1a1a1a",
+    color: "white",
     border: "none",
-    borderRadius: "6px",
-    fontWeight: "600",
+    borderRadius: "4px",
     cursor: "pointer",
-    transition: "opacity 0.2s ease",
   },
   wishBtn: {
-    padding: "0.6rem 0.8rem",
-    backgroundColor: "var(--accent-bg)",
-    color: "var(--accent)",
-    border: "1px solid var(--accent-border)",
-    borderRadius: "6px",
+    padding: "0.5rem",
+    backgroundColor: "#f59e0b",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
     cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "background-color 0.2s ease",
   },
 };
 
