@@ -4,10 +4,12 @@ import Navbar from "./components/Navbar";
 function App() {
   return (
     <>
-      <Navbar>
+      <Navbar />
+      <main style={{ padding: "1rem" }}>
         <Outlet />
-      </Navbar>
+      </main>
     </>
   );
 }
+
 export default App;

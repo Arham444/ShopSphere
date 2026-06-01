@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCartItemCounter } from "../features/cart/cartSelectors";
+import { selectCartItemCount } from "../features/cart/cartSelectors";
 
 function Navbar() {
-  const cartCount = useSelector(selectCartItemCounter);
+  const cartCount = useSelector(selectCartItemCount);
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.logo}>
@@ -20,4 +20,38 @@ function Navbar() {
     </nav>
   );
 }
+
+const styles = {
+  nav: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "1rem 2rem",
+    background: "#1a1a1a",
+    color: "white",
+  },
+  logo: {
+    color: "white",
+    textDecoration: "none",
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+  },
+  links: {
+    display: "flex",
+    gap: "1.5rem",
+  },
+  link: {
+    color: "white",
+    textDecoration: "none",
+  },
+  badge: {
+    background: "red",
+    color: "white",
+    borderRadius: "50%",
+    padding: "2px 7px",
+    fontSize: "0.75 rem",
+    marginLeft: "0.5rem",
+  },
+};
+
 export default Navbar;
