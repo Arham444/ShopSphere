@@ -6,7 +6,7 @@ const wishListSlice = createSlice({
   name: "wishlist",
   initialState,
   reducers: {
-    addToWishList(state, action) {
+    addToWishlist(state, action) {
       const inWishList = state.wishListItems.find(
         (item) => item.id === action.payload.id,
       );
@@ -14,12 +14,14 @@ const wishListSlice = createSlice({
         state.wishListItems.push(action.payload);
       }
     },
-    removeFromWishList(state, action) {
+    removeFromWishlist(state, action) {
       state.wishListItems = state.wishListItems.filter(
         (item) => item.id !== action.payload,
       );
     },
   },
 });
-export const { addToWishList, removeFromWishList } = wishListSlice.actions;
+export const { addToWishlist, removeFromWishlist } = wishListSlice.actions;
+export const addToWishList = addToWishlist;
+export const removeFromWishList = removeFromWishlist;
 export default wishListSlice.reducer;
