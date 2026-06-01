@@ -9,7 +9,7 @@ const products = [
     stock: 12,
     createdAt: "2024-01-10",
     image:
-      "https://res.cloudinary.com/demo/image/upload/v1/samples/ecommerce/headphones.jpg",
+      "https://res.cloudinary.com/dnwohqbqt/image/upload/v1780331667/1MORE-SonoFlow-SE-Noise-Cancelling-Headphones-HQ30-Product-vendor-100433474_smxugy.jpg",
     description:
       "Over-ear headphones with active noise cancellation, 30-hour battery life, and foldable design.",
   },
@@ -22,7 +22,7 @@ const products = [
     stock: 8,
     createdAt: "2024-02-14",
     image:
-      "https://res.cloudinary.com/demo/image/upload/v1/samples/ecommerce/accessories-bag.jpg",
+      "https://res.cloudinary.com/dnwohqbqt/image/upload/v1780331847/BEST-MECHANICAL-KEYBOARDS-2048px-EVOWORKS-80-926_mnzmrg.jpg",
     description:
       "Compact TKL mechanical keyboard with RGB backlighting and tactile switches.",
   },
@@ -35,7 +35,7 @@ const products = [
     stock: 20,
     createdAt: "2024-03-01",
     image:
-      "https://res.cloudinary.com/demo/image/upload/v1/samples/ecommerce/leather-bag-gray.jpg",
+      "https://res.cloudinary.com/dnwohqbqt/image/upload/v1780331879/61KYtBCqyfL._AC_UF894_1000_QL80__gekm15.jpg",
     description:
       "Expand your laptop with HDMI, USB-A, SD card, and PD charging ports.",
   },
@@ -48,7 +48,7 @@ const products = [
     stock: 15,
     createdAt: "2024-03-15",
     image:
-      "https://res.cloudinary.com/demo/image/upload/v1/samples/ecommerce/accessories-bag.jpg",
+      "https://res.cloudinary.com/dnwohqbqt/image/upload/v1780331969/portablebluetoothspeakers-2048px-9130_duqyul.jpg",
     description: "Waterproof speaker with 360° sound and 12-hour playtime.",
   },
 
