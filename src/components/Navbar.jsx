@@ -13,13 +13,13 @@ function Navbar() {
       </Link>
       <div style={styles.links}>
         <Link to="/wishlist" style={styles.link}>
-          Wishlist
+          Wishlist{" "}
           {wishlistCount > 0 && (
             <span style={styles.badge}>{wishlistCount}</span>
           )}
         </Link>
         <Link to="/cart" style={styles.link}>
-          Cart{cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
+          Cart {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
         </Link>
       </div>
     </nav>
