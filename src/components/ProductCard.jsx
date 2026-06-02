@@ -29,7 +29,7 @@ function ProductCard({ product }) {
             onClick={() => dispatch(addToWishlist(product))}
             style={styles.wishBtn}
           >
-            ♡
+            <FaHeart />
           </button>
         </div>
       </div>
