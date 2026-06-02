@@ -1,11 +1,26 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
-import { addToWishlist } from "../features/wishlist/wishlistSlice";
+import { selectIsInWishlist } from "../features/wishlist/wishlistSelectors";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../features/wishlist/wishlistSlice";
 import { FaHeart } from "react-icons/fa";
 
 function ProductCard({ product }) {
   const dispatch = useDispatch();
+  const isInWishlist = useSelector((state) =>
+    selectIsInWishlist(state, product.id),
+  );
+  const handleWishListClick = () => {
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(product.id));
+    } else {
+      dispatch(addToWishlist(product));
+    }
+  };
+
   return (
     <div style={styles.card}>
       <Link to={`/products/${product.id}`}>
@@ -25,11 +40,13 @@ function ProductCard({ product }) {
           >
             Add to Cart
           </button>
-          <button
-            onClick={() => dispatch(addToWishlist(product))}
-            style={styles.wishBtn}
-          >
-            <FaHeart />
+          <button onClick={handleWishListClick} style={styles.wishBtn}>
+            <FaHeart
+              style={{
+                color: isInWishlist ? "red" : "white",
+                cursor: "pointer",
+              }}
+            />
           </button>
         </div>
       </div>
