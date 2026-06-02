@@ -107,11 +107,12 @@ const styles = {
     textAlign: "right",
   },
   removeBtn: {
-    padding: "5px 10px",
+    padding: "3px 6px",
     cursor: "pointer",
     border: "1px solid #ff4d4d",
     borderRadius: "4px",
     color: "#ff4d4d",
+    marginLeft: "10px",
   },
 };
 

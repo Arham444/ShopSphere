@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartItemCount } from "../features/cart/cartSelectors";
+import { selectWishlistItemsCount } from "../features/wishlist/wishlistSelectors";
 
 function Navbar() {
+  const wishlistCount = useSelector(selectWishlistItemsCount);
   const cartCount = useSelector(selectCartItemCount);
   return (
     <nav style={styles.nav}>
@@ -11,10 +13,13 @@ function Navbar() {
       </Link>
       <div style={styles.links}>
         <Link to="/wishlist" style={styles.link}>
-          Wishlist
+          Wishlist{" "}
+          {wishlistCount > 0 && (
+            <span style={styles.badge}>{wishlistCount}</span>
+          )}
         </Link>
         <Link to="/cart" style={styles.link}>
-          Cart{cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
+          Cart {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
         </Link>
       </div>
     </nav>
