@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const productSlice = createSlice({
-  name: "prodcuts",
+  name: "products",
   initialState,
   reducers: {
     setSearchQuery(state, action) {

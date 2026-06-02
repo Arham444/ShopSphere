@@ -7,6 +7,7 @@ import {
   removeFromWishlist,
 } from "../features/wishlist/wishlistSlice";
 import { FaHeart } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 function ProductCard({ product }) {
   const dispatch = useDispatch();
@@ -23,12 +24,12 @@ function ProductCard({ product }) {
 
   return (
     <div style={styles.card}>
-      <Link to={`/products/${product.id}`}>
+      <Link to={`/product/${product.id}`}>
         <img src={product.image} alt={product.name} style={styles.image} />
       </Link>
       <div style={styles.body}>
         <p style={styles.category}>{product.category}</p>
-        <Link to={`/products/${product.id}`} style={styles.name}>
+        <Link to={`/product/${product.id}`} style={styles.name}>
           {product.name}
         </Link>
         <p style={styles.price}>${product.price}</p>
@@ -53,6 +54,18 @@ function ProductCard({ product }) {
     </div>
   );
 }
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    stock: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 const styles = {
   card: {
