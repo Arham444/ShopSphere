@@ -73,6 +73,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "0.5rem",
+    flex: 1,
   },
   category: {
     fontSize: "0.75 rem",
@@ -83,6 +84,12 @@ const styles = {
     fontWeight: "bold",
     textDecoration: "none",
     color: "#1a1a1a",
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    height: "2.8rem",
+    lineHeight: "1.4rem",
   },
   price: {
     fontWeight: "600",
