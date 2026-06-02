@@ -1,26 +1,13 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
-import { selectIsInWishlist } from "../features/wishlist/wishlistSelectors";
-import {
-  addToWishlist,
-  removeFromWishlist,
-} from "../features/wishlist/wishlistSlice";
+import { useWishlist } from "../features/wishlist/useWishlist";
 import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 function ProductCard({ product }) {
   const dispatch = useDispatch();
-  const isInWishlist = useSelector((state) =>
-    selectIsInWishlist(state, product.id),
-  );
-  const handleWishListClick = () => {
-    if (isInWishlist) {
-      dispatch(removeFromWishlist(product.id));
-    } else {
-      dispatch(addToWishlist(product));
-    }
-  };
+  const { isInWishlist, toggleWishlist } = useWishlist(product);
 
   return (
     <div style={styles.card}>
@@ -41,7 +28,7 @@ function ProductCard({ product }) {
           >
             Add to Cart
           </button>
-          <button onClick={handleWishListClick} style={styles.wishBtn}>
+          <button onClick={toggleWishlist} style={styles.wishBtn}>
             <FaHeart
               style={{
                 color: isInWishlist ? "red" : "white",

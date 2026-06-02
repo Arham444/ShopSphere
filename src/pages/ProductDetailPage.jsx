@@ -1,32 +1,18 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectProductById } from "../features/products/productSelectors";
-import { selectIsInWishlist } from "../features/wishlist/wishlistSelectors";
 import { addToCart } from "../features/cart/cartSlice";
 import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import {
-  addToWishlist,
-  removeFromWishlist,
-} from "../features/wishlist/wishlistSlice";
+import { useWishlist } from "../features/wishlist/useWishlist";
+
 function ProductDetailPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const product = useSelector(selectProductById(id));
-  const isInWishlist = useSelector((state) => selectIsInWishlist(state, id));
 
-  if (!product) {
-    return <Navigate to="/404" replace />;
-  }
-  const handleWishListClick = () => {
-    if (isInWishlist) {
-      dispatch(removeFromWishlist(id));
-    } else {
-      dispatch(addToWishlist(product));
-    }
-  };
-
+  if (!product) return <Navigate to="/404" replace />;
+  const { isInWishlist, toggleWishlist } = useWishlist(product);
   return (
     <div style={styles.container}>
       <Link to="/" style={styles.backLink}>
@@ -71,7 +57,7 @@ function ProductDetailPage() {
               Add to cart
             </button>
             <button
-              onClick={handleWishListClick}
+              onClick={toggleWishlist}
               style={{
                 ...styles.wishlistBtn,
                 borderColor: isInWishlist ? "#ef4444" : "#ccc",
