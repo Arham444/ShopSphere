@@ -28,8 +28,12 @@ function SearchBar() {
 
 const styles = {
   input: {
-    //fill with placeholders so i can see changes later when i fix them.
     width: "100%",
+    padding: "0.6rem 1rem",
+    fontSize: "1rem",
+    border: "2px solid #c4c4c4",
+    borderRadius: "6px",
+    boxSizing: "border-box",
   },
 };
 
