@@ -9,7 +9,9 @@ function CartItem({ item }) {
       <img src={item.image} alt={item.name} style={styles.image} />
       <div style={styles.details}>
         <p style={styles.name}>{item.name}</p>
-        <p style={styles.price}>{item.price}each</p>
+        <p style={styles.price}>
+          $ {item.price} {item.quantity > 1 ? "each" : ""}
+        </p>
       </div>
       <div style={styles.controls}>
         <button

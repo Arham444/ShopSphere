@@ -55,7 +55,7 @@ function CartPage() {
             Proceed to Checkout
           </Link>
           <Link to="/" style={styles.continueLink}>
-            ← Continue Shopping
+            Continue Shopping
           </Link>
         </div>
       </div>
