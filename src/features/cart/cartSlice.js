@@ -12,24 +12,25 @@ const cartSlice = createSlice({
       const existingItem = state.cartItems.find(
         (item) => item.id === Product.id,
       );
-      if (existingItem) {
-        existingItem.quantity += 1; //imer
-      } else {
-        state.cartItems.push({ ...Product, quantity: 1 }); //spread
-      }
+
+      if (existingItem && existingItem.quantity < Product.stock)
+        existingItem.quantity += 1;
+      if (!existingItem && Product.stock > 0)
+        state.cartItems.push({ ...Product, quantity: 1 });
     },
+
     removeFromCart(state, action) {
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== action.payload,
-      ); //filter removes item by not adding the one with id eqaul.
+      );
     },
+
     updateQuantity(state, action) {
       const { id, quantity } = action.payload;
       const existingItem = state.cartItems.find((item) => item.id === id);
-      if (existingItem) {
-        existingItem.quantity = quantity;
-      }
+      if (existingItem) existingItem.quantity = quantity;
     },
+
     clearCart(state) {
       state.cartItems = [];
     },
