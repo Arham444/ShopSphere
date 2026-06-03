@@ -1,3 +1,4 @@
+//load from storage as json(extract Object) then return default value if error
 export const loadState = (key, defaultVal) => {
   try {
     const savedState = localStorage.getItem(key);
@@ -6,7 +7,7 @@ export const loadState = (key, defaultVal) => {
     return defaultVal;
   }
 };
-
+//save to storage
 export const saveState = (key, value) => {
   try {
     localStorage.setItem(key, JSON.stringify(value));
