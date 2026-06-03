@@ -1,13 +1,20 @@
 import { useSelector } from "react-redux";
-import { selectAllProducts } from "../features/products/productSelectors";
+import { selectFilteredProducts } from "../features/products/productSelectors";
 import ProductCard from "../components/ProductCard";
+import SearchBar from "../components/SearchBar";
+import Filters from "../components/Filters";
 
 function ProductListingPage() {
-  const products = useSelector(selectAllProducts);
+  const products = useSelector(selectFilteredProducts);
 
   return (
-    <div>
-      <h1>All Products</h1>
+    <div style={styles.page}>
+      <h1 style={styles.title}>All Products</h1>
+      <div style={styles.searchWrapper}>
+        <SearchBar />
+      </div>
+      <Filters />
+      {products.length === 0 ? "No Products Found" : null}
       <div style={styles.grid}>
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />

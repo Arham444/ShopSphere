@@ -28,10 +28,16 @@ function ProductCard({ product }) {
           >
             Add to Cart
           </button>
-          <button onClick={toggleWishlist} style={styles.wishBtn}>
+          <button
+            onClick={toggleWishlist}
+            style={{
+              ...styles.wishBtn,
+              borderColor: isInWishlist ? "#ef4444" : "#ccc",
+            }}
+          >
             <FaHeart
               style={{
-                color: isInWishlist ? "red" : "white",
+                color: isInWishlist ? "#ef4444" : "#6b7280",
                 cursor: "pointer",
               }}
             />
