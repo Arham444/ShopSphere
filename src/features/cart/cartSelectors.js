@@ -1,9 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 export const selectCartItems = (state) => state.cart.cartItems;
 
-export const selectCartItemCount = createSelector(
-  [selectCartItems],
-  (items) => items.reduce((total, item) => total + item.quantity, 0),
+export const selectCartItemCount = createSelector([selectCartItems], (items) =>
+  items.reduce((total, item) => total + item.quantity, 0),
 );
 export const selectCartWithSubtotals = createSelector(
   [selectCartItems],
@@ -11,7 +10,7 @@ export const selectCartWithSubtotals = createSelector(
     items.map((item) => ({
       ...item,
       subtotal: parseFloat(
-        (Number(item.price) * Number(item.quantity)).toFixed(2)
+        (Number(item.price) * Number(item.quantity)).toFixed(2),
       ),
     })),
 );
@@ -22,6 +21,6 @@ export const selectCartTotal = createSelector([selectCartItems], (items) =>
         (sum, item) => sum + Number(item.price) * Number(item.quantity),
         0,
       )
-      .toFixed(2)
+      .toFixed(2),
   ),
 );
