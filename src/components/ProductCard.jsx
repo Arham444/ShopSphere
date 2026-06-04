@@ -1,13 +1,20 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
+import { selectCartItems } from "../features/cart/cartSelectors";
 
 function ProductCard({ product }) {
   const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
   const { isInWishlist, toggleWishlist } = useWishlist(product);
+
+  const cartItem = cartItems.find((item) => item.id === product.id);
+  const cartQuantity = cartItem ? cartItem.quantity : 0;
+  const isOutOfStock = product.stock <= 0;
+  const isLimitReached = isOutOfStock || cartQuantity >= product.stock;
 
   return (
     <div style={styles.card}>
@@ -21,12 +28,34 @@ function ProductCard({ product }) {
         </Link>
         <p style={styles.price}>${product.price}</p>
         <p style={styles.rating}>⭐ {product.rating}</p>
+        <p style={{
+          color: isOutOfStock ? "#ef4444" : (cartQuantity >= product.stock ? "#f59e0b" : "#10b981"),
+          fontWeight: "600",
+          fontSize: "0.85rem",
+          margin: 0
+        }}>
+          {isOutOfStock
+            ? "Out of Stock"
+            : cartQuantity >= product.stock
+            ? `Limit Reached (${product.stock} in Cart)`
+            : `In Stock (${product.stock - cartQuantity} left)`}
+        </p>
         <div style={styles.actions}>
           <button
             onClick={() => dispatch(addToCart(product))}
-            style={styles.cartBtn}
+            disabled={isLimitReached}
+            style={{
+              ...styles.cartBtn,
+              backgroundColor: isLimitReached ? "#e5e7eb" : "#1a1a1a",
+              color: isLimitReached ? "#9ca3af" : "white",
+              cursor: isLimitReached ? "not-allowed" : "pointer"
+            }}
           >
-            Add to Cart
+            {isOutOfStock
+              ? "Out of Stock"
+              : cartQuantity >= product.stock
+              ? "Limit Reached"
+              : "Add to Cart"}
           </button>
           <button
             onClick={toggleWishlist}
@@ -82,7 +111,7 @@ const styles = {
     flex: 1,
   },
   category: {
-    fontSize: "0.75 rem",
+    fontSize: "0.75rem",
     color: "#888",
     margin: "0",
   },
@@ -115,18 +144,18 @@ const styles = {
   cartBtn: {
     flex: 1,
     padding: "0.5rem",
-    backgroundColor: "#1a1a1a",
-    color: "white",
     border: "none",
     borderRadius: "4px",
-    cursor: "pointer",
   },
   wishBtn: {
     padding: "0.5rem",
     backgroundColor: "white",
-    color: "white",
+    border: "1px solid",
     borderRadius: "4px",
     cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 };
 
