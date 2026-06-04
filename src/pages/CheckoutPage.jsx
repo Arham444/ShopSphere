@@ -110,7 +110,7 @@ function CheckoutPage() {
 }
 
 const styles = {
-  page: { maxWidth: "1000px", margin: "0 auto", padding: "1rem" },
+  page: { padding: "1.5rem 3rem" },
   layout: {
     display: "grid",
     gridTemplateColumns: "1fr 320px",
@@ -200,4 +200,7 @@ const styles = {
     fontSize: "1rem",
   },
 };
+
+CheckoutPage.propTypes = {};
+
 export default CheckoutPage;

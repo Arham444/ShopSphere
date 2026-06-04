@@ -6,6 +6,8 @@ import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { selectCartItems } from "../features/cart/cartSelectors";
 
+import StockStatus from "../components/StockStatus";
+
 function ProductDetailPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -35,18 +37,7 @@ function ProductDetailPage() {
           <h1 style={styles.title}>{product.name}</h1>
           <div style={styles.metaRow}>
             <span style={styles.rating}>⭐ {product.rating}</span>
-            <span
-              style={{
-                ...styles.stock,
-                color: isOutOfStock ? "#ef4444" : (cartQuantity >= product.stock ? "#f59e0b" : "#10b981"),
-              }}
-            >
-              {isOutOfStock
-                ? "Out of Stock"
-                : cartQuantity >= product.stock
-                ? `Limit Reached (${product.stock} in Cart)`
-                : `In Stock (${product.stock - cartQuantity} left)`}
-            </span>
+            <StockStatus product={product} style={styles.stock} />
           </div>
           <div style={styles.priceRow}>
             <span style={styles.price}>${product.price}</span>
@@ -96,9 +87,7 @@ function ProductDetailPage() {
 }
 const styles = {
   container: {
-    maxWidth: "1000px",
-    margin: "2rem auto",
-    padding: "0 1.5rem",
+    padding: "1.5rem 3rem",
     fontFamily: "system-ui, sans-serif",
   },
   backLink: {
@@ -207,5 +196,7 @@ const styles = {
     width: "55px",
   },
 };
+
+ProductDetailPage.propTypes = {};
 
 export default ProductDetailPage;

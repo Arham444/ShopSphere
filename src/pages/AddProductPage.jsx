@@ -212,13 +212,7 @@ function AddProductPage() {
 
 const styles = {
   page: {
-    maxWidth: "600px",
-    margin: "2rem auto",
-    padding: "2.5rem",
-    background: "#ffffff",
-    border: "1px solid #eee",
-    borderRadius: "12px",
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+    padding: "2.5rem 3rem",
     fontFamily: "system-ui, sans-serif",
   },
   title: {
@@ -232,6 +226,13 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem",
+    maxWidth: "600px",
+    margin: "0 auto",
+    border: "1px solid #eee",
+    borderRadius: "12px",
+    padding: "2.5rem",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+    background: "#ffffff",
   },
   group: {
     display: "flex",
@@ -305,5 +306,7 @@ const styles = {
     transition: "background 0.2s",
   },
 };
+
+AddProductPage.propTypes = {};
 
 export default AddProductPage;

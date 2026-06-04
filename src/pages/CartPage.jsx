@@ -64,7 +64,7 @@ function CartPage() {
 }
 
 const styles = {
-  page: { maxWidth: "1000px", margin: "0 auto", padding: "1rem" },
+  page: { padding: "1.5rem 3rem" },
   layout: {
     display: "grid",
     gridTemplateColumns: "1fr 300px",
@@ -105,5 +105,7 @@ const styles = {
   empty: { textAlign: "center", padding: "4rem" },
   link: { color: "#1a1a1a" },
 };
+
+CartPage.propTypes = {};
 
 export default CartPage;

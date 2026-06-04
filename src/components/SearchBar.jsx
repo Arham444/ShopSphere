@@ -37,4 +37,6 @@ const styles = {
   },
 };
 
+SearchBar.propTypes = {};
+
 export default SearchBar;

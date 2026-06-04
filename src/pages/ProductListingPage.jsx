@@ -29,9 +29,7 @@ function ProductListingPage() {
 
 const styles = {
   page: {
-    maxWidth: "1200px",
-    margin: "0 auto",
-    padding: "2rem 1.5rem",
+    padding: "2rem 3rem",
     fontFamily: "system-ui, sans-serif",
   },
 
@@ -57,5 +55,7 @@ const styles = {
     color: "#111827",
   },
 };
+
+ProductListingPage.propTypes = {};
 
 export default ProductListingPage;

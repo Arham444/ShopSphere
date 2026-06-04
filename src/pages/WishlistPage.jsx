@@ -4,6 +4,7 @@ import { selectWishlistItems } from "../features/wishlist/wishlistSelectors";
 import { removeFromWishlist } from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
 import { selectAllProducts } from "../features/products/productSelectors";
+import StockStatus from "../components/StockStatus";
 
 function WishlistPage() {
   const items = useSelector(selectWishlistItems);
@@ -23,7 +24,14 @@ function WishlistPage() {
   return (
     <div style={styles.page}>
       <h1>Your WishList has ({items.length} items)</h1>
-      <div style={styles.grid}>
+      <div
+        style={{
+          ...styles.grid,
+          ...(items.length > 2
+            ? { gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }
+            : { gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))" }),
+        }}
+      >
         {items.map((item) => {
           const savedProduct =
             allProducts.find((p) => p.id === item.id) || item;
@@ -40,17 +48,7 @@ function WishlistPage() {
                 </Link>
                 <p style={styles.price}>${item.price}</p>
                 <p style={styles.rating}>⭐{item.rating}</p>
-                <p
-                  style={{
-                    color: isOutOfStock ? "#ef4444" : "#10b981",
-                    fontWeight: "600",
-                    margin: 0,
-                  }}
-                >
-                  {isOutOfStock
-                    ? "Out of Stock"
-                    : `In Stock (${savedProduct.stock} left)`}
-                </p>
+                <StockStatus product={savedProduct} />
               </div>
               <div style={styles.actions}>
                 <button
@@ -83,12 +81,12 @@ function WishlistPage() {
 }
 
 const styles = {
-  page: { maxWidth: "1000px", margin: "0 auto", padding: "1rem" },
+  page: { padding: "1.5rem 3rem" },
   empty: {},
   link: {},
   grid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
     gap: "1rem",
     marginTop: "1rem",
   },
@@ -155,5 +153,7 @@ const styles = {
     cursor: "pointer",
   },
 };
+
+WishlistPage.propTypes = {};
 
 export default WishlistPage;

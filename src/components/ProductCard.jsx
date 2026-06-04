@@ -6,6 +6,8 @@ import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { selectCartItems } from "../features/cart/cartSelectors";
 
+import StockStatus from "./StockStatus";
+
 function ProductCard({ product }) {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
@@ -28,18 +30,7 @@ function ProductCard({ product }) {
         </Link>
         <p style={styles.price}>${product.price}</p>
         <p style={styles.rating}>⭐ {product.rating}</p>
-        <p style={{
-          color: isOutOfStock ? "#ef4444" : (cartQuantity >= product.stock ? "#f59e0b" : "#10b981"),
-          fontWeight: "600",
-          fontSize: "0.85rem",
-          margin: 0
-        }}>
-          {isOutOfStock
-            ? "Out of Stock"
-            : cartQuantity >= product.stock
-            ? `Limit Reached (${product.stock} in Cart)`
-            : `In Stock (${product.stock - cartQuantity} left)`}
-        </p>
+        <StockStatus product={product} />
         <div style={styles.actions}>
           <button
             onClick={() => dispatch(addToCart(product))}
@@ -48,14 +39,14 @@ function ProductCard({ product }) {
               ...styles.cartBtn,
               backgroundColor: isLimitReached ? "#e5e7eb" : "#1a1a1a",
               color: isLimitReached ? "#9ca3af" : "white",
-              cursor: isLimitReached ? "not-allowed" : "pointer"
+              cursor: isLimitReached ? "not-allowed" : "pointer",
             }}
           >
             {isOutOfStock
               ? "Out of Stock"
               : cartQuantity >= product.stock
-              ? "Limit Reached"
-              : "Add to Cart"}
+                ? "Limit Reached"
+                : "Add to Cart"}
           </button>
           <button
             onClick={toggleWishlist}

@@ -17,18 +17,19 @@ function Navbar() {
       <div style={styles.links}>
         <Link to="/wishlist" style={styles.link}>
           <FaHeart />
-          Wishlist{" "}
+          <span>Wishlist</span>
           {wishlistCount > 0 && (
             <span style={styles.badge}>{wishlistCount}</span>
           )}
         </Link>
         <Link to="/cart" style={styles.link}>
           <IoCartOutline />
-          Cart {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
+          <span>Cart</span>
+          {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
         </Link>
         <Link to="/AddProduct" style={styles.link}>
           <IoMdAddCircle />
-          Add Product
+          <span>Add Product</span>
         </Link>
       </div>
     </nav>
@@ -53,19 +54,24 @@ const styles = {
   links: {
     display: "flex",
     gap: "1.5rem",
+    alignItems: "center",
   },
   link: {
     color: "white",
     textDecoration: "none",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.4rem",
   },
   badge: {
     background: "red",
     color: "white",
     borderRadius: "50%",
     padding: "2px 7px",
-    fontSize: "0.75 rem",
-    marginLeft: "0.5rem",
+    fontSize: "0.75rem",
   },
 };
+
+Navbar.propTypes = {};
 
 export default Navbar;
