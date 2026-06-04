@@ -75,8 +75,8 @@ function Filters() {
           style={styles.select}
         >
           <option value="newest">Newest</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
+          <option value="price-ascending">Price: Low to High</option>
+          <option value="price-descending">Price: High to Low</option>
           <option value="name">Name</option>
         </select>
       </div>

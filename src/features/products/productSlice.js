@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import products from "./productData";
+import { loadState, saveState } from "../../utils/localStorage";
 
 const initialState = {
-  items: products,
+  items: [...products, ...loadState("addedProducts", [])],
   searchQuery: "",
   selectedCategory: "All",
   priceRange: [0, 500],
@@ -31,6 +32,8 @@ const productSlice = createSlice({
     },
     addProduct(state, action) {
       state.items.push(action.payload);
+      const currentAdded = loadState("addedProducts", []);
+      saveState("addedProducts", [...currentAdded, action.payload]);
     },
   },
 });
