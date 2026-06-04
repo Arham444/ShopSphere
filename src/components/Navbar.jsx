@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCartItemCount } from "../features/cart/cartSelectors";
 import { selectWishlistItemsCount } from "../features/wishlist/wishlistSelectors";
+import { FaHeart } from "react-icons/fa";
+import { IoCartOutline } from "react-icons/io5";
+import { IoMdAddCircle } from "react-icons/io";
 
 function Navbar() {
   const wishlistCount = useSelector(selectWishlistItemsCount);
@@ -13,13 +16,19 @@ function Navbar() {
       </Link>
       <div style={styles.links}>
         <Link to="/wishlist" style={styles.link}>
+          <FaHeart />
           Wishlist{" "}
           {wishlistCount > 0 && (
             <span style={styles.badge}>{wishlistCount}</span>
           )}
         </Link>
         <Link to="/cart" style={styles.link}>
+          <IoCartOutline />
           Cart {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
+        </Link>
+        <Link to="/AddProduct" style={styles.link}>
+          <IoMdAddCircle />
+          Add Product
         </Link>
       </div>
     </nav>
