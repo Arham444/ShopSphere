@@ -153,7 +153,4 @@ const styles = {
     cursor: "pointer",
   },
 };
-
-WishlistPage.propTypes = {};
-
 export default WishlistPage;

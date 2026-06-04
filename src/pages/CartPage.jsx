@@ -105,7 +105,4 @@ const styles = {
   empty: { textAlign: "center", padding: "4rem" },
   link: { color: "#1a1a1a" },
 };
-
-CartPage.propTypes = {};
-
 export default CartPage;

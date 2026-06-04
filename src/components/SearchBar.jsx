@@ -36,7 +36,4 @@ const styles = {
     boxSizing: "border-box",
   },
 };
-
-SearchBar.propTypes = {};
-
 export default SearchBar;

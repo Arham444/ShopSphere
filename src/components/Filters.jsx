@@ -302,7 +302,4 @@ const styles = {
     transition: "border-color 0.2s",
   },
 };
-
-Filters.propTypes = {};
-
 export default Filters;

@@ -55,7 +55,4 @@ const styles = {
     color: "#111827",
   },
 };
-
-ProductListingPage.propTypes = {};
-
 export default ProductListingPage;

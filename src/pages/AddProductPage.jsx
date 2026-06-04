@@ -306,7 +306,4 @@ const styles = {
     transition: "background 0.2s",
   },
 };
-
-AddProductPage.propTypes = {};
-
 export default AddProductPage;

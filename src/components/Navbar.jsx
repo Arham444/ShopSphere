@@ -72,6 +72,4 @@ const styles = {
   },
 };
 
-Navbar.propTypes = {};
-
 export default Navbar;

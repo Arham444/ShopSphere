@@ -200,7 +200,4 @@ const styles = {
     fontSize: "1rem",
   },
 };
-
-CheckoutPage.propTypes = {};
-
 export default CheckoutPage;

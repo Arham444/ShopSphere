@@ -196,7 +196,4 @@ const styles = {
     width: "55px",
   },
 };
-
-ProductDetailPage.propTypes = {};
-
 export default ProductDetailPage;
