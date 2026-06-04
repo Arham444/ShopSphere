@@ -123,9 +123,8 @@ const styles = {
   },
   wishBtn: {
     padding: "0.5rem",
-    backgroundColor: "#f59e0b",
+    backgroundColor: "white",
     color: "white",
-    border: "none",
     borderRadius: "4px",
     cursor: "pointer",
   },

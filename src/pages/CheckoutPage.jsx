@@ -8,6 +8,7 @@ import {
 } from "../features/cart/cartSelectors";
 import { TiTick } from "react-icons/ti";
 import { clearCart } from "../features/cart/cartSlice";
+import { checkoutProducts } from "../features/products/productSlice";
 const TAX_RATE = 0.08;
 
 function CheckoutPage() {
@@ -49,6 +50,7 @@ function CheckoutPage() {
   const taxAmount = total * TAX_RATE;
   const grandTotal = total + taxAmount;
   const handlePlaceOrder = () => {
+    dispatch(checkoutProducts(items.map(item => ({ id: item.id, quantity: item.quantity }))));
     dispatch(clearCart());
     setOrderPlaced(true);
   };

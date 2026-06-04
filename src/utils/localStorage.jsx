@@ -3,7 +3,7 @@ export const loadState = (key, defaultVal) => {
   try {
     const savedState = localStorage.getItem(key);
     return savedState ? JSON.parse(savedState) : defaultVal;
-  } catch (err) {
+  } catch {
     return defaultVal;
   }
 };

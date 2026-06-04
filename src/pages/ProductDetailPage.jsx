@@ -9,10 +9,10 @@ function ProductDetailPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const product = useSelector(selectProductById(id));
+  const product = useSelector((state) => selectProductById(state, id));
+  const { isInWishlist, toggleWishlist } = useWishlist(product);
 
   if (!product) return <Navigate to="/404" replace />;
-  const { isInWishlist, toggleWishlist } = useWishlist(product);
   return (
     <div style={styles.container}>
       <Link to="/" style={styles.backLink}>

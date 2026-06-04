@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { selectWishlistItems } from "../features/wishlist/wishlistSelectors";
 import { removeFromWishlist } from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
+import { selectAllProducts } from "../features/products/productSelectors";
 
 function WishlistPage() {
   const items = useSelector(selectWishlistItems);
   const dispatch = useDispatch();
+  const allProducts = useSelector(selectAllProducts);
+
   if (items.length === 0) {
     return (
       <div style={styles.empty}>
@@ -21,38 +24,59 @@ function WishlistPage() {
     <div style={styles.page}>
       <h1>Your WishList has ({items.length} items)</h1>
       <div style={styles.grid}>
-        {items.map((item) => (
-          <div key={item.id} style={styles.card}>
-            <Link to={`/product/${item.id}`}>
-              <img src={item.image} alt={item.name} style={styles.image} />
-            </Link>
-            <div style={styles.body}>
-              <p style={styles.category}>{item.category}</p>
-              <Link to={`/product/${item.id}`} style={styles.name}>
-                {item.name}
+        {items.map((item) => {
+          const savedProduct =
+            allProducts.find((p) => p.id === item.id) || item;
+          const isOutOfStock = savedProduct.stock <= 0;
+          return (
+            <div key={item.id} style={styles.card}>
+              <Link to={`/product/${item.id}`}>
+                <img src={item.image} alt={item.name} style={styles.image} />
               </Link>
-              <p style={styles.price}>${item.price}</p>
-              <p style={styles.rating}>⭐{item.rating}</p>
+              <div style={styles.body}>
+                <p style={styles.category}>{item.category}</p>
+                <Link to={`/product/${item.id}`} style={styles.name}>
+                  {item.name}
+                </Link>
+                <p style={styles.price}>${item.price}</p>
+                <p style={styles.rating}>⭐{item.rating}</p>
+                <p
+                  style={{
+                    color: isOutOfStock ? "#ef4444" : "#10b981",
+                    fontWeight: "600",
+                    margin: 0,
+                  }}
+                >
+                  {isOutOfStock
+                    ? "Out of Stock"
+                    : `In Stock (${savedProduct.stock} left)`}
+                </p>
+              </div>
+              <div style={styles.actions}>
+                <button
+                  onClick={() => {
+                    dispatch(addToCart(item));
+                    dispatch(removeFromWishlist(item.id));
+                  }}
+                  disabled={isOutOfStock}
+                  style={{
+                    ...styles.MoveBtn,
+                    opacity: isOutOfStock ? 0.6 : 1,
+                    cursor: isOutOfStock ? "not-allowed" : "pointer",
+                  }}
+                >
+                  {isOutOfStock ? "Out of Stock" : "Move To Cart!"}
+                </button>
+                <button
+                  onClick={() => dispatch(removeFromWishlist(item.id))}
+                  style={styles.removeBtn}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
-            <div style={styles.actions}>
-              <button
-                onClick={() => {
-                  dispatch(addToCart(item));
-                  dispatch(removeFromWishlist(item.id));
-                }}
-                style={styles.MoveBtn}
-              >
-                Move To Cart!
-              </button>
-              <button
-                onClick={() => dispatch(removeFromWishlist(item.id))}
-                style={styles.removeBtn}
-              >
-                Remove
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

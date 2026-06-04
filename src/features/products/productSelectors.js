@@ -7,10 +7,9 @@ export const selectPriceRange = (state) => state.products.priceRange;
 export const selectMinRating = (state) => state.products.minRating;
 export const selectSortBy = (state) => state.products.sortBy;
 
-export const selectProductById = (productId) =>
-  createSelector([selectAllProducts], (items) =>
-    items.find((item) => item.id === productId),
-  );
+export const selectProductById = (state, productId) => {
+  return state.products.items.find((item) => item.id === productId);
+};
 
 export const selectFilteredProducts = createSelector(
   [

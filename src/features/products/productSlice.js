@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import products from "./productData";
 import { loadState, saveState } from "../../utils/localStorage";
+const persistedStocks = loadState("productStocks", {});
 
 const initialState = {
-  items: [...products, ...loadState("addedProducts", [])],
+  items: [...products, ...loadState("addedProducts", [])].map((p) => ({
+    ...p,
+    stock:
+      persistedStocks[p.id] !== undefined ? persistedStocks[p.id] : p.stock,
+  })),
   searchQuery: "",
   selectedCategory: "All",
   priceRange: [0, 500],
@@ -35,6 +40,17 @@ const productSlice = createSlice({
       const currentAdded = loadState("addedProducts", []);
       saveState("addedProducts", [...currentAdded, action.payload]);
     },
+    checkoutProducts(state, action) {
+      const persistedStocks = loadState("productStocks", {});
+      action.payload.forEach(({ id, quantity }) => {
+        const product = state.items.find((p) => p.id == id);
+        if (product) {
+          product.stock -= quantity;
+          persistedStocks[id] = product.stock;
+        }
+      });
+      saveState("productStocks", persistedStocks);
+    },
   },
 });
 export const {
@@ -44,5 +60,6 @@ export const {
   setMinRating,
   setSortBy,
   addProduct,
+  checkoutProducts,
 } = productSlice.actions;
 export default productSlice.reducer;
