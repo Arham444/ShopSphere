@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItemCount } from "../features/cart/cartSelectors";
@@ -12,6 +13,8 @@ import {
   IoCartOutline,
   IoLogOutOutline,
   IoLogInOutline,
+  IoSunnyOutline,
+  IoMoonOutline,
 } from "react-icons/io5";
 import { IoMdAddCircle } from "react-icons/io";
 import { theme } from "../theme";
@@ -23,12 +26,42 @@ function Navbar() {
   const currentUser = useSelector(selectCurrentUser);
   const isAdmin = useSelector(selectIsAdmin);
 
+  const [themeName, setThemeName] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved;
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    return systemPrefersDark ? "dark" : "light";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", themeName);
+    localStorage.setItem("theme", themeName);
+  }, [themeName]);
+
+  const toggleTheme = () => {
+    setThemeName((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.logo}>
         ShopSphere
       </Link>
       <div style={styles.links}>
+        <button
+          onClick={toggleTheme}
+          style={styles.themeToggle}
+          className="theme-toggle-btn"
+          aria-label="Toggle Theme"
+        >
+          {themeName === "dark" ? (
+            <IoSunnyOutline size={20} />
+          ) : (
+            <IoMoonOutline size={20} />
+          )}
+        </button>
         <Link to="/wishlist" style={styles.link}>
           <FaHeart />
           <span>Wishlist</span>
@@ -77,11 +110,11 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "1rem 2rem",
-    background: theme.colors.primary,
-    color: "white",
+    background: "var(--navbar-bg)",
+    color: "var(--navbar-text)",
   },
   logo: {
-    color: "white",
+    color: "var(--navbar-text)",
     textDecoration: "none",
     fontSize: "1.5rem",
     fontWeight: "bold",
@@ -92,7 +125,7 @@ const styles = {
     alignItems: "center",
   },
   link: {
-    color: "white",
+    color: "var(--navbar-text)",
     textDecoration: "none",
     display: "flex",
     alignItems: "center",
@@ -117,21 +150,22 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "0.75rem",
-    borderLeft: `1px solid ${theme.colors.border}40`,
+    borderLeft: "1px solid rgba(255, 255, 255, 0.15)",
     paddingLeft: "0.75rem",
   },
   userBadge: {
     fontSize: "0.85rem",
     fontWeight: "600",
-    backgroundColor: "rgba(255, 255, 255, 0.15)",
+    backgroundColor: "var(--color-secondary)",
     padding: "0.25rem 0.6rem",
     borderRadius: "4px",
-    color: "#ffffff",
+    color: "var(--color-primary)",
   },
   logoutBtn: {
     background: "transparent",
     border: "none",
-    color: "#9ca3af",
+    color: "var(--navbar-text)",
+    opacity: 0.8,
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
@@ -139,20 +173,33 @@ const styles = {
     fontSize: "0.85rem",
     fontWeight: "500",
     outline: "none",
-    transition: "color 0.2s",
+    transition: "all 0.2s",
   },
   loginBtn: {
-    color: "white",
+    color: "var(--navbar-text)",
     textDecoration: "none",
     display: "flex",
     alignItems: "center",
     gap: "0.25rem",
     fontSize: "0.85rem",
     fontWeight: "500",
-    border: "1px solid white",
+    border: "1px solid var(--navbar-text)",
     padding: "0.3rem 0.75rem",
     borderRadius: "6px",
     transition: "all 0.2s",
+  },
+  themeToggle: {
+    background: "transparent",
+    border: "none",
+    color: "var(--navbar-text)",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0.4rem",
+    borderRadius: "50%",
+    transition: "all 0.2s ease",
+    outline: "none",
   },
 };
 

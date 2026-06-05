@@ -140,9 +140,15 @@ function Filters() {
                             }
                             style={{
                               ...styles.pill,
-                              backgroundColor: isActive ? "#1a1a1a" : "#f3f4f6",
-                              color: isActive ? "#ffffff" : "#4b5563",
-                              borderColor: isActive ? "#1a1a1a" : "#e5e7eb",
+                              backgroundColor: isActive
+                                ? "var(--button-primary-bg)"
+                                : "var(--color-background-light)",
+                              color: isActive
+                                ? "var(--button-primary-color)"
+                                : "var(--color-text-dark)",
+                              borderColor: isActive
+                                ? "var(--button-primary-bg)"
+                                : "var(--color-border)",
                               fontWeight: isActive ? "600" : "500",
                             }}
                           >
@@ -337,8 +343,8 @@ const styles = {
     right: 0,
     width: "400px",
     height: "100vh",
-    backgroundColor: "#ffffff",
-    boxShadow: "-4px 0 20px rgba(0, 0, 0, 0.08)",
+    backgroundColor: "var(--color-card-bg)",
+    boxShadow: "var(--shadow-card)",
     zIndex: 1000,
     display: "flex",
     flexDirection: "column",
@@ -358,12 +364,12 @@ const styles = {
     fontSize: "1.1rem",
     fontWeight: "700",
     letterSpacing: "0.05em",
-    color: theme.colors.primary,
+    color: "var(--color-text-dark)",
   },
   clearAllBtn: {
     background: "transparent",
     border: "none",
-    color: "#6b7280",
+    color: "var(--color-text-muted)",
     fontSize: "0.85rem",
     textDecoration: "underline",
     cursor: "pointer",
@@ -371,8 +377,8 @@ const styles = {
     fontWeight: "500",
   },
   closeBtn: {
-    background: "#000000",
-    color: "#ffffff",
+    background: "var(--color-primary)",
+    color: "var(--button-primary-color)",
     border: "none",
     borderRadius: "50%",
     width: "32px",
@@ -460,6 +466,7 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     outline: "none",
+    color: "var(--color-text-dark)",
   },
   checkmark: {
     color: theme.colors.accent,
