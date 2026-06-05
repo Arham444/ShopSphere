@@ -265,7 +265,7 @@ function Filters() {
                               fontWeight: isActive ? "600" : "400",
                               color: isActive
                                 ? theme.colors.primary
-                                : "#4b5563",
+                                : "var(--color-text-muted)",
                             }}
                           >
                             <span>{option.label}</span>
@@ -446,7 +446,7 @@ const styles = {
     padding: "0.5rem 0.75rem",
   },
   separator: {
-    color: "#9ca3af",
+    color: "var(--color-text-muted)",
     fontSize: "1rem",
   },
   sortList: {

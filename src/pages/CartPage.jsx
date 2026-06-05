@@ -85,6 +85,7 @@ const styles = {
     flexDirection: "column",
     gap: "0.75rem",
     boxShadow: theme.shadows.card,
+    backgroundColor: "var(--color-card-bg)",
   },
   summaryRow: { display: "flex", justifyContent: "space-between" },
   checkoutBtn: {
@@ -98,7 +99,7 @@ const styles = {
   continueLink: {
     display: "block",
     textAlign: "center",
-    color: "#888",
+    color: "var(--color-text-muted)",
     fontSize: "0.9rem",
     textDecoration: "none",
   },

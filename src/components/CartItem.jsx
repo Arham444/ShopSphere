@@ -68,7 +68,7 @@ const styles = {
   row: {
     display: "flex",
     alignItems: "center",
-    borderBottom: "1px solid #eee",
+    borderBottom: "1px solid var(--color-border)",
     padding: "10px 0",
     justifyContent: "space-between",
   },
@@ -88,12 +88,12 @@ const styles = {
   },
   price: {
     margin: 0,
-    color: "#666",
+    color: "var(--color-text-muted)",
   },
   controls: {
     display: "flex",
     alignItems: "center",
-    backgroundColor: "#f3f4f6",
+    backgroundColor: "var(--button-qty-container-bg)",
     borderRadius: "20px",
     padding: "3px",
     gap: "6px",
@@ -109,7 +109,7 @@ const styles = {
     textAlign: "center",
     fontSize: "0.95rem",
     fontWeight: "600",
-    color: "#111827",
+    color: "var(--color-text-dark)",
     padding: "0 4px",
   },
   subtotal: {

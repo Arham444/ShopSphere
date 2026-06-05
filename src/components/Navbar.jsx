@@ -156,10 +156,10 @@ const styles = {
   userBadge: {
     fontSize: "0.85rem",
     fontWeight: "600",
-    backgroundColor: "var(--color-secondary)",
+    backgroundColor: "rgba(255, 255, 255, 0.15)",
     padding: "0.25rem 0.6rem",
     borderRadius: "4px",
-    color: "var(--color-primary)",
+    color: "var(--navbar-text)",
   },
   logoutBtn: {
     background: "transparent",

@@ -99,7 +99,7 @@
     --shadow-card:
       rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
 
-    --navbar-bg: #16171d;
+    --navbar-bg: #1e1f26;
     --navbar-text: #ffffff;
   }
 
@@ -216,7 +216,7 @@ html[data-theme="dark"] {
   --shadow-card:
     rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
 
-  --navbar-bg: #16171d;
+  --navbar-bg: #1e1f26;
   --navbar-text: #f3f4f6;
 }
 

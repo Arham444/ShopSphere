@@ -128,6 +128,7 @@ const styles = {
     border: `1px solid ${theme.colors.border}`,
     borderRadius: "8px",
     padding: "1.5rem",
+    backgroundColor: "var(--color-card-bg)",
   },
   itemList: { display: "flex", flexDirection: "column", gap: "1rem" },
   item: { display: "flex", alignItems: "center", gap: "1rem" },
@@ -139,7 +140,7 @@ const styles = {
   },
   itemInfo: { flex: 1 },
   itemName: { margin: 0, fontWeight: "600", fontSize: "0.95rem" },
-  itemMeta: { margin: 0, color: "#888", fontSize: "0.85rem" },
+  itemMeta: { margin: 0, color: "var(--color-text-muted)", fontSize: "0.85rem" },
   itemSubtotal: { fontWeight: "bold", margin: 0 },
 
   summary: {
@@ -150,6 +151,7 @@ const styles = {
     flexDirection: "column",
     gap: "0.75rem",
     boxShadow: theme.shadows.card,
+    backgroundColor: "var(--color-card-bg)",
   },
   summaryRow: {
     display: "flex",
@@ -171,7 +173,7 @@ const styles = {
   backLink: {
     display: "block",
     textAlign: "center",
-    color: "#888",
+    color: "var(--color-text-muted)",
     fontSize: "0.9rem",
     textDecoration: "none",
     marginTop: "0.25rem",
@@ -197,9 +199,10 @@ const styles = {
     padding: "3rem",
     maxWidth: "400px",
     boxShadow: theme.shadows.card,
+    backgroundColor: "var(--color-card-bg)",
   },
   confirmIcon: { fontSize: "3rem", color: theme.colors.success, margin: "0 0 1rem 0" },
-  confirmText: { color: "#666", marginBottom: "1.5rem" },
+  confirmText: { color: "var(--color-text-muted)", marginBottom: "1.5rem" },
   continueBtn: {
     ...theme.buttons.primary,
     padding: "0.75rem 2rem",

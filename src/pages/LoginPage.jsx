@@ -103,7 +103,7 @@ const styles = {
     fontFamily: "system-ui, sans-serif",
   },
   card: {
-    background: "#ffffff",
+    background: "var(--color-card-bg)",
     border: `1px solid ${theme.colors.border}`,
     borderRadius: "12px",
     padding: "2.5rem",
@@ -123,7 +123,7 @@ const styles = {
   },
   subtitle: {
     fontSize: "0.95rem",
-    color: "#6b7280",
+    color: "var(--color-text-muted)",
     margin: "0 0 1.5rem 0",
     textAlign: "center",
   },
@@ -154,7 +154,7 @@ const styles = {
   label: {
     fontSize: "0.85rem",
     fontWeight: "600",
-    color: "#374151",
+    color: "var(--color-text-dark)",
   },
   input: {
     ...theme.inputs.text,
@@ -213,7 +213,7 @@ const styles = {
   backLink: {
     background: "transparent",
     border: "none",
-    color: "#6b7280",
+    color: "var(--color-text-muted)",
     fontSize: "0.9rem",
     textDecoration: "underline",
     cursor: "pointer",

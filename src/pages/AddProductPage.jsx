@@ -249,7 +249,7 @@ const styles = {
     borderRadius: "12px",
     padding: "2.5rem",
     boxShadow: theme.shadows.card,
-    background: "#ffffff",
+    background: "var(--color-card-bg)",
   },
   group: {
     display: "flex",
@@ -259,7 +259,7 @@ const styles = {
   label: {
     fontSize: "0.9rem",
     fontWeight: "600",
-    color: "#374151",
+    color: "var(--color-text-dark)",
   },
   input: {
     ...theme.inputs.text,
@@ -315,7 +315,7 @@ const styles = {
     fontFamily: "system-ui, sans-serif",
   },
   deniedCard: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "var(--color-card-bg)",
     border: `1px solid ${theme.colors.border}`,
     borderRadius: "12px",
     padding: "3rem 2rem",
@@ -333,7 +333,7 @@ const styles = {
   },
   deniedMessage: {
     fontSize: "0.95rem",
-    color: "#6b7280",
+    color: "var(--color-text-muted)",
     margin: "0 0 1.5rem 0",
     lineHeight: "1.5",
   },

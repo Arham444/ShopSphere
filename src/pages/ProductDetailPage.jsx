@@ -65,13 +65,13 @@ function ProductDetailPage() {
               onClick={toggleWishlist}
               style={{
                 ...styles.wishlistBtn,
-                borderColor: isInWishlist ? theme.colors.error : "#ccc",
-                backgroundColor: isInWishlist ? "#ffe4e6" : "white",
+                borderColor: isInWishlist ? theme.colors.error : "var(--color-border)",
+                backgroundColor: isInWishlist ? "rgba(239, 68, 68, 0.15)" : "var(--color-card-bg)",
               }}
             >
               <FaHeart
                 style={{
-                  color: isInWishlist ? theme.colors.error : "#6b7280",
+                  color: isInWishlist ? theme.colors.error : "var(--color-text-muted)",
                   fontSize: "1.2rem",
                   cursor: "pointer",
                 }}
@@ -90,7 +90,7 @@ const styles = {
   backLink: {
     display: "inline-block",
     marginBottom: "1.5rem",
-    color: "#4b5563",
+    color: "var(--color-text-muted)",
     textDecoration: "none",
     fontWeight: "500",
     transition: "color 0.2s",
@@ -99,7 +99,7 @@ const styles = {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gap: "3rem",
-    backgroundColor: "#fff",
+    backgroundColor: "var(--color-card-bg)",
     borderRadius: "12px",
     overflow: "hidden",
   },
@@ -107,7 +107,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#f9fafb",
+    backgroundColor: "var(--color-background-light)",
     borderRadius: "12px",
     padding: "1.5rem",
     border: `1px solid ${theme.colors.border}`,
@@ -163,7 +163,7 @@ const styles = {
   },
   description: {
     fontSize: "1rem",
-    color: "#4b5563",
+    color: "var(--color-text-dark)",
     lineHeight: "1.6",
     margin: "0 0 2rem 0",
   },
