@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { IoFilter } from "react-icons/io5";
+import { IoFilter, IoClose, IoChevronDown, IoChevronUp } from "react-icons/io5";
 import { theme } from "../theme";
 import {
   setSearchCategory,
@@ -26,21 +26,64 @@ function Filters() {
   const categories = useSelector(selectCategories);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [localCategory, setLocalCategory] = useState(selectedCategory);
   const [minPrice, setMinPrice] = useState(priceRange[0]);
-  const [maxPrice, setMaxPrice] = useState(priceRange[1]);
+  const [maxPrice, setMaxPrice] = useState(
+    priceRange[1] === Infinity ? "" : priceRange[1],
+  );
   const [localRating, setLocalRating] = useState(minRating);
+  const [localSortBy, setLocalSortBy] = useState(sortBy);
 
-  const handleApplyPrice = (e) => {
-    e.preventDefault();
-    const minVal = minPrice === "" ? 0 : Number(minPrice);
-    const maxVal = maxPrice === "" ? Infinity : Number(maxPrice);
-    dispatch(setPriceRange([minVal, maxVal]));
+  const [expandedSections, setExpandedSections] = useState({
+    categories: false,
+    price: false,
+    rating: false,
+    sort: false,
+  });
+
+  const toggleSection = (openSection) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [openSection]: !prev[openSection],
+    }));
   };
 
-  const handleApplyRating = (e) => {
-    e.preventDefault();
+  const handleOpen = () => {
+    setLocalCategory(selectedCategory);
+    setMinPrice(priceRange[0]);
+    setMaxPrice(priceRange[1] === Infinity ? "" : priceRange[1]);
+    setLocalRating(minRating);
+    setLocalSortBy(sortBy);
+    setIsOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+
+  const handleApply = () => {
+    const minVal = minPrice === "" ? 0 : Number(minPrice);
+    const maxVal = maxPrice === "" ? Infinity : Number(maxPrice);
     const ratingVal = localRating === "" ? 0 : Number(localRating);
+
+    dispatch(setSearchCategory(localCategory));
+    dispatch(setPriceRange([minVal, maxVal]));
     dispatch(setMinRating(ratingVal));
+    dispatch(setSortBy(localSortBy));
+
+    setIsOpen(false);
+  };
+
+  const handleClearAll = () => {
+    setLocalCategory("All");
+    setMinPrice(0);
+    setMaxPrice(500);
+    setLocalRating(0);
+    setLocalSortBy("newest");
+  };
+
+  const handleSortBy = (value) => {
+    setLocalSortBy(value);
   };
 
   const hasActiveFilters =
@@ -51,108 +94,194 @@ function Filters() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.headerRow}>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          style={{
-            ...styles.toggleButton,
-            backgroundColor: isOpen ? "#1a1a1a" : "#ffffff",
-            color: isOpen ? "#ffffff" : "#1a1a1a",
-          }}
-        >
-          <IoFilter size={18} />
-          <span>{isOpen ? "Hide Filters" : "Show Filters"}</span>
-          {hasActiveFilters && <span style={styles.filterDot} />}
-        </button>
-
-        <div style={styles.sortWrapper}>
-          <label style={styles.sortLabel}>Sort By</label>
-          <select
-            value={sortBy}
-            onChange={(e) => dispatch(setSortBy(e.target.value))}
-            style={styles.select}
-          >
-            <option value="newest">Newest</option>
-            <option value="price-ascending">Price: Low to High</option>
-            <option value="price-descending">Price: High to Low</option>
-            <option value="name">Name</option>
-          </select>
-        </div>
-      </div>
+      <button onClick={handleOpen} style={styles.filterTag}>
+        <IoFilter size={18} />
+        <span style={styles.filterTagText}>Filter and sort</span>
+        {hasActiveFilters && <span style={styles.filterDot} />}
+      </button>
 
       {isOpen && (
-        <div style={styles.panel}>
-          <div style={styles.categoriesRow}>
-            <span style={styles.sectionTitle}>Categories</span>
-            <div style={styles.pillContainer}>
-              {categories.map((category) => {
-                const isActive = selectedCategory === category;
-                return (
-                  <button
-                    key={category}
-                    onClick={() => dispatch(setSearchCategory(category))}
-                    style={{
-                      ...styles.pill,
-                      backgroundColor: isActive ? "#1a1a1a" : "#f3f4f6",
-                      color: isActive ? "#ffffff" : "#4b5563",
-                      borderColor: isActive ? "#1a1a1a" : "#e5e7eb",
-                      fontWeight: isActive ? "600" : "500",
-                    }}
-                  >
-                    {category}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div style={styles.controlsRow}>
-            <div style={styles.controlGroup}>
-              <label style={styles.controlLabel}>Price Range</label>
-              <form onSubmit={handleApplyPrice} style={styles.inputRow}>
-                <input
-                  type="number"
-                  placeholder="Min $ (e.g. 10)"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
-                  style={styles.numberInput}
-                  min="0"
-                />
-                <span style={styles.separator}>-</span>
-                <input
-                  type="number"
-                  placeholder="Max $ (e.g. 250)"
-                  value={maxPrice === Infinity ? "" : maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                  style={styles.numberInput}
-                  min="0"
-                />
-                <button type="submit" style={styles.okButton}>
-                  OK
-                </button>
-              </form>
+        <>
+          <div style={styles.backdrop} onClick={handleCancel} />
+          <div style={styles.sidebar}>
+            <div style={styles.sidebarHeader}>
+              <h2 style={styles.sidebarTitle}>FILTER AND SORT</h2>
+              <button onClick={handleClearAll} style={styles.clearAllBtn}>
+                Clear All
+              </button>
+              <button onClick={handleCancel} style={styles.closeBtn}>
+                <IoClose size={18} />
+              </button>
             </div>
 
-            <div style={styles.controlGroup}>
-              <label style={styles.controlLabel}>Min. Rating</label>
-              <form onSubmit={handleApplyRating} style={styles.inputRow}>
-                <input
-                  type="number"
-                  placeholder="e.g. 4.0"
-                  value={localRating}
-                  onChange={(e) => setLocalRating(e.target.value)}
-                  style={styles.numberInput}
-                  min="0"
-                  max="5"
-                  step="0.1"
-                />
-                <button type="submit" style={styles.okButton}>
-                  OK
+            <div style={styles.sidebarContent}>
+              <div style={styles.accordionSection}>
+                <button
+                  onClick={() => toggleSection("categories")}
+                  style={styles.accordionHeader}
+                >
+                  <span>Categories</span>
+                  {expandedSections.categories ? (
+                    <IoChevronUp size={16} />
+                  ) : (
+                    <IoChevronDown size={16} />
+                  )}
                 </button>
-              </form>
+                {expandedSections.categories && (
+                  <div style={styles.accordionBody}>
+                    <div style={styles.pillContainer}>
+                      {categories.map((category) => {
+                        const isActive = localCategory === category;
+                        return (
+                          <button
+                            key={category}
+                            onClick={() =>
+                              setLocalCategory(category)
+                            }
+                            style={{
+                              ...styles.pill,
+                              backgroundColor: isActive ? "#1a1a1a" : "#f3f4f6",
+                              color: isActive ? "#ffffff" : "#4b5563",
+                              borderColor: isActive ? "#1a1a1a" : "#e5e7eb",
+                              fontWeight: isActive ? "600" : "500",
+                            }}
+                          >
+                            {category}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div style={styles.accordionSection}>
+                <button
+                  onClick={() => toggleSection("price")}
+                  style={styles.accordionHeader}
+                >
+                  <span>Price Range</span>
+                  {expandedSections.price ? (
+                    <IoChevronUp size={16} />
+                  ) : (
+                    <IoChevronDown size={16} />
+                  )}
+                </button>
+                {expandedSections.price && (
+                  <div style={styles.accordionBody}>
+                    <div style={styles.inputRow}>
+                      <input
+                        type="number"
+                        placeholder="Min $"
+                        value={minPrice}
+                        onChange={(e) => setMinPrice(e.target.value)}
+                        style={styles.numberInput}
+                        min="0"
+                      />
+                      <span style={styles.separator}>-</span>
+                      <input
+                        type="number"
+                        placeholder="Max $"
+                        value={maxPrice === Infinity ? "" : maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
+                        style={styles.numberInput}
+                        min="0"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div style={styles.accordionSection}>
+                <button
+                  onClick={() => toggleSection("rating")}
+                  style={styles.accordionHeader}
+                >
+                  <span>Min. Rating</span>
+                  {expandedSections.rating ? (
+                    <IoChevronUp size={16} />
+                  ) : (
+                    <IoChevronDown size={16} />
+                  )}
+                </button>
+                {expandedSections.rating && (
+                  <div style={styles.accordionBody}>
+                    <div style={styles.inputRow}>
+                      <input
+                        type="number"
+                        placeholder="e.g. 4.0"
+                        value={localRating}
+                        onChange={(e) => setLocalRating(e.target.value)}
+                        style={styles.numberInput}
+                        min="0"
+                        max="5"
+                        step="0.1"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div style={styles.accordionSection}>
+                <button
+                  onClick={() => toggleSection("sort")}
+                  style={styles.accordionHeader}
+                >
+                  <span>Sort By</span>
+                  {expandedSections.sort ? (
+                    <IoChevronUp size={16} />
+                  ) : (
+                    <IoChevronDown size={16} />
+                  )}
+                </button>
+                {expandedSections.sort && (
+                  <div style={styles.accordionBody}>
+                    <div style={styles.sortList}>
+                      {[
+                        { value: "newest", label: "Newest" },
+                        {
+                          value: "price-ascending",
+                          label: "Price: Low to High",
+                        },
+                        {
+                          value: "price-descending",
+                          label: "Price: High to Low",
+                        },
+                        { value: "name", label: "Name" },
+                      ].map((option) => {
+                        const isActive = localSortBy === option.value;
+                        return (
+                          <button
+                            key={option.value}
+                            onClick={() => handleSortBy(option.value)}
+                            style={{
+                              ...styles.sortOption,
+                              fontWeight: isActive ? "600" : "400",
+                              color: isActive
+                                ? theme.colors.primary
+                                : "#4b5563",
+                            }}
+                          >
+                            <span>{option.label}</span>
+                            {isActive && (
+                              <span style={styles.checkmark}>✓</span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div style={styles.sidebarFooter}>
+              <button onClick={handleApply} style={styles.showItemsBtn}>
+                SHOW PRODUCTS
+              </button>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
@@ -160,67 +289,131 @@ function Filters() {
 
 const styles = {
   container: {
-    background: "#ffffff",
-    border: `1px solid ${theme.colors.border}`,
-    borderRadius: "12px",
-    padding: "1.25rem 1.5rem",
-    marginBottom: "2rem",
-    boxShadow: theme.shadows.card,
     display: "flex",
-    flexDirection: "column",
-    gap: "1.25rem",
-    boxSizing: "border-box",
+    justifyContent: "flex-start",
+    marginBottom: "1.5rem",
+    fontFamily: "system-ui, sans-serif",
   },
-  headerRow: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-  },
-  toggleButton: {
-    display: "flex",
+  filterTag: {
+    display: "inline-flex",
     alignItems: "center",
     gap: "0.5rem",
-    ...theme.buttons.secondary,
-    padding: "0.6rem 1.2rem",
-    fontSize: "0.9rem",
+    background: "transparent",
+    border: "none",
+    cursor: "pointer",
+    padding: "0.5rem 0",
+    fontSize: "0.95rem",
+    fontWeight: "500",
+    color: theme.colors.primary,
+    outline: "none",
+    position: "relative",
+    marginLeft: "auto",
+  },
+  filterTagText: {
+    textDecoration: "underline",
+    textUnderlineOffset: "4px",
   },
   filterDot: {
     width: "8px",
     height: "8px",
     borderRadius: "50%",
-    backgroundColor: theme.colors.error,
-    display: "inline-block",
-    marginLeft: "0.25rem",
+    backgroundColor: theme.colors.accent,
+    position: "absolute",
+    top: "4px",
+    right: "-12px",
   },
-  sortWrapper: {
+  backdrop: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    zIndex: 999,
+  },
+  sidebar: {
+    position: "fixed",
+    top: 0,
+    right: 0,
+    width: "400px",
+    height: "100vh",
+    backgroundColor: "#ffffff",
+    boxShadow: "-4px 0 20px rgba(0, 0, 0, 0.08)",
+    zIndex: 1000,
+    display: "flex",
+    flexDirection: "column",
+    boxSizing: "border-box",
+    animation: "slideIn 0.3s ease-out",
+  },
+  sidebarHeader: {
+    padding: "1.5rem",
+    borderBottom: `1px solid ${theme.colors.border}`,
     display: "flex",
     alignItems: "center",
-    gap: "0.75rem",
+    gap: "1.25rem",
+    position: "relative",
   },
-  sortLabel: {
+  sidebarTitle: {
+    margin: 0,
+    fontSize: "1.1rem",
+    fontWeight: "700",
+    letterSpacing: "0.05em",
+    color: theme.colors.primary,
+  },
+  clearAllBtn: {
+    background: "transparent",
+    border: "none",
+    color: "#6b7280",
     fontSize: "0.85rem",
-    fontWeight: "600",
-    color: "#4b5563",
+    textDecoration: "underline",
+    cursor: "pointer",
+    padding: 0,
+    fontWeight: "500",
   },
-  panel: {
+  closeBtn: {
+    background: "#000000",
+    color: "#ffffff",
+    border: "none",
+    borderRadius: "50%",
+    width: "32px",
+    height: "32px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    position: "absolute",
+    right: "1.5rem",
+    top: "1.25rem",
+    outline: "none",
+  },
+  sidebarContent: {
+    flex: 1,
+    overflowY: "auto",
+    padding: "1.5rem",
     display: "flex",
     flexDirection: "column",
     gap: "1.5rem",
-    borderTop: "1px solid #f3f4f6",
-    paddingTop: "1.25rem",
   },
-  categoriesRow: {
+  accordionSection: {
+    borderBottom: `1px solid ${theme.colors.border}`,
+    paddingBottom: "1.25rem",
+  },
+  accordionHeader: {
+    width: "100%",
+    background: "transparent",
+    border: "none",
     display: "flex",
-    flexDirection: "column",
-    gap: "0.75rem",
+    justifyContent: "space-between",
+    alignItems: "center",
+    fontSize: "1rem",
+    fontWeight: "600",
+    color: theme.colors.primary,
+    padding: "0.5rem 0",
+    cursor: "pointer",
+    outline: "none",
   },
-  sectionTitle: {
-    fontSize: "0.8rem",
-    fontWeight: "700",
-    color: "#9ca3af",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
+  accordionBody: {
+    paddingTop: "0.75rem",
   },
   pillContainer: {
     display: "flex",
@@ -228,31 +421,13 @@ const styles = {
     flexWrap: "wrap",
   },
   pill: {
-    padding: "0.5rem 1.2rem",
+    padding: "0.4rem 1rem",
     fontSize: "0.85rem",
     borderRadius: "9999px",
     border: "1px solid",
     cursor: "pointer",
     transition: "all 0.2s ease-in-out",
     outline: "none",
-  },
-  controlsRow: {
-    display: "flex",
-    gap: "2rem",
-    flexWrap: "wrap",
-    alignItems: "flex-end",
-  },
-  controlGroup: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5rem",
-    minWidth: "240px",
-    flex: "1 1 auto",
-  },
-  controlLabel: {
-    fontSize: "0.85rem",
-    fontWeight: "600",
-    color: "#374151",
   },
   inputRow: {
     display: "flex",
@@ -261,22 +436,47 @@ const styles = {
   },
   numberInput: {
     ...theme.inputs.text,
-    width: "140px",
+    width: "100%",
     padding: "0.5rem 0.75rem",
   },
   separator: {
     color: "#9ca3af",
     fontSize: "1rem",
   },
-  okButton: {
-    ...theme.buttons.primary,
-    padding: "0.5rem 1rem",
-    fontSize: "0.85rem",
+  sortList: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
   },
-  select: {
-    ...theme.inputs.text,
-    padding: "0.6rem 1.2rem",
+  sortOption: {
+    width: "100%",
+    background: "transparent",
+    border: "none",
+    textAlign: "left",
+    fontSize: "0.95rem",
+    padding: "0.5rem 0",
     cursor: "pointer",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    outline: "none",
+  },
+  checkmark: {
+    color: theme.colors.accent,
+    fontWeight: "bold",
+    fontSize: "1.1rem",
+  },
+  sidebarFooter: {
+    padding: "1.5rem",
+    borderTop: `1px solid ${theme.colors.border}`,
+  },
+  showItemsBtn: {
+    ...theme.buttons.primary,
+    width: "100%",
+    padding: "1rem",
+    fontSize: "0.95rem",
+    fontWeight: "600",
+    letterSpacing: "0.05em",
   },
 };
 

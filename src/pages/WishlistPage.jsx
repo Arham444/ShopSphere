@@ -110,31 +110,38 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "0.5rem",
+    alignItems: "center",
+    textAlign: "center",
   },
   category: {
     fontSize: "0.75rem",
     color: "#888",
     margin: 0,
+    width: "100%",
   },
   name: {
     fontWeight: "bold",
     textDecoration: "none",
     color: theme.colors.primary,
+    width: "100%",
   },
   price: {
     fontWeight: "600",
     color: theme.colors.textDark,
     margin: 0,
+    width: "100%",
   },
   rating: {
     margin: 0,
     color: "#f59e0b",
     fontSize: "0.85rem",
+    width: "100%",
   },
   actions: {
     display: "flex",
     gap: "0.5rem",
     marginTop: "auto",
+    width: "100%",
   },
   MoveBtn: {
     ...theme.buttons.primary,

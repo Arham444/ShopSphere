@@ -9,7 +9,7 @@ function ProductListingPage() {
 
   return (
     <div style={styles.page}>
-      <h1 style={styles.title}>All Products</h1>
+      <h1 style={styles.title}>Our Products</h1>
       <div style={styles.searchWrapper}>
         <SearchBar />
       </div>
@@ -38,6 +38,8 @@ const styles = {
     fontWeight: "700",
     color: "#111827",
     marginBottom: "0 0 1.5rem 0",
+    display: "flex",
+    justifyContent: "center",
   },
   searchWrapper: {
     marginBottom: "1rem",
