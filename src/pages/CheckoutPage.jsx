@@ -115,7 +115,7 @@ function CheckoutPage() {
 }
 
 const styles = {
-  page: { padding: "1.5rem 3rem" },
+  page: { ...theme.layouts.page },
   layout: {
     display: "grid",
     gridTemplateColumns: "1fr 320px",
@@ -177,7 +177,7 @@ const styles = {
     marginTop: "0.25rem",
   },
 
-  empty: { textAlign: "center", padding: "4rem" },
+  empty: { ...theme.empty },
   link: {
     color: theme.colors.primary,
     display: "inline-block",

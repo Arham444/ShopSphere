@@ -119,4 +119,25 @@ export const theme = {
       boxSizing: "border-box",
     },
   },
+  layouts: {
+    page: {
+      padding: "2rem 3rem",
+      fontFamily: "system-ui, sans-serif",
+    },
+    card: {
+      border: "1px solid #e5e7eb",
+      padding: "1rem",
+      borderRadius: "8px",
+      overflow: "hidden",
+      display: "flex",
+      flexDirection: "column",
+      boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+      backgroundColor: "#ffffff",
+    },
+  },
+  empty: {
+    textAlign: "center",
+    padding: "4rem",
+    color: "#111827",
+  },
 };

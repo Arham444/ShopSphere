@@ -85,8 +85,7 @@ function ProductDetailPage() {
 }
 const styles = {
   container: {
-    padding: "1.5rem 3rem",
-    fontFamily: "system-ui, sans-serif",
+    ...theme.layouts.page,
   },
   backLink: {
     display: "inline-block",

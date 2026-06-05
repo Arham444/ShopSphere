@@ -30,8 +30,7 @@ function ProductListingPage() {
 
 const styles = {
   page: {
-    padding: "2rem 3rem",
-    fontFamily: "system-ui, sans-serif",
+    ...theme.layouts.page,
   },
 
   title: {

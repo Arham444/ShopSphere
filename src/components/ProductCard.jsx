@@ -81,13 +81,7 @@ ProductCard.propTypes = {
 
 const styles = {
   card: {
-    border: `1px solid ${theme.colors.border}`,
-    padding: "1rem",
-    borderRadius: "8px",
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "column",
-    boxShadow: theme.shadows.card,
+    ...theme.layouts.card,
   },
   image: {
     width: "100%",

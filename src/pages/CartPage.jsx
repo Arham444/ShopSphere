@@ -65,7 +65,7 @@ function CartPage() {
 }
 
 const styles = {
-  page: { padding: "1.5rem 3rem" },
+  page: { ...theme.layouts.page },
   layout: {
     display: "grid",
     gridTemplateColumns: "1fr 300px",
@@ -102,7 +102,7 @@ const styles = {
     fontSize: "0.9rem",
     textDecoration: "none",
   },
-  empty: { textAlign: "center", padding: "4rem" },
+  empty: { ...theme.empty },
   link: { color: theme.colors.primary },
 };
 export default CartPage;
