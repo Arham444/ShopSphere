@@ -6,6 +6,7 @@ import CartPage from "../pages/CartPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import WishlistPage from "../pages/WishlistPage";
 import AddProductPage from "../pages/AddProductPage";
+import LoginPage from "../pages/LoginPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
 const router = createBrowserRouter([
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "checkout", element: <CheckoutPage /> },
       { path: "wishlist", element: <WishlistPage /> },
       { path: "AddProduct", element: <AddProductPage /> },
+      { path: "login", element: <LoginPage /> },
       { path: "404", element: <NotFoundPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],

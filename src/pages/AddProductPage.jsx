@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../features/products/productSlice";
+import { selectIsAdmin } from "../features/auth/authSelectors";
 import { theme } from "../theme";
 
 const Categories = [
@@ -36,9 +37,24 @@ const initialFormState = {
 function AddProductPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isAdmin = useSelector(selectIsAdmin);
   const [form, setForm] = useState(initialFormState);
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
+
+  if (!isAdmin) {
+    return (
+      <div style={styles.deniedContainer}>
+        <div style={styles.deniedCard}>
+          <span style={styles.deniedIcon}>🔒</span>
+          <p style={styles.deniedMessage}>Only Admin can create products.</p>
+          <button onClick={() => navigate("/login")} style={styles.deniedBtn}>
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -290,6 +306,42 @@ const styles = {
     padding: "0.85rem",
     fontSize: "1rem",
     marginTop: "0.5rem",
+  },
+  deniedContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "60vh",
+    fontFamily: "system-ui, sans-serif",
+  },
+  deniedCard: {
+    backgroundColor: "#ffffff",
+    border: `1px solid ${theme.colors.border}`,
+    borderRadius: "12px",
+    padding: "3rem 2rem",
+    width: "400px",
+    boxShadow: theme.shadows.card,
+    textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    boxSizing: "border-box",
+  },
+  deniedIcon: {
+    fontSize: "3rem",
+    marginBottom: "1rem",
+  },
+  deniedMessage: {
+    fontSize: "0.95rem",
+    color: "#6b7280",
+    margin: "0 0 1.5rem 0",
+    lineHeight: "1.5",
+  },
+  deniedBtn: {
+    ...theme.buttons.primary,
+    padding: "0.6rem 2rem",
+    fontSize: "0.9rem",
+    fontWeight: "600",
   },
 };
 
