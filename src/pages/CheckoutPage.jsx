@@ -140,7 +140,11 @@ const styles = {
   },
   itemInfo: { flex: 1 },
   itemName: { margin: 0, fontWeight: "600", fontSize: "0.95rem" },
-  itemMeta: { margin: 0, color: "var(--color-text-muted)", fontSize: "0.85rem" },
+  itemMeta: {
+    margin: 0,
+    color: "var(--color-text-muted)",
+    fontSize: "0.85rem",
+  },
   itemSubtotal: { fontWeight: "bold", margin: 0 },
 
   summary: {
@@ -201,7 +205,11 @@ const styles = {
     boxShadow: theme.shadows.card,
     backgroundColor: "var(--color-card-bg)",
   },
-  confirmIcon: { fontSize: "3rem", color: theme.colors.success, margin: "0 0 1rem 0" },
+  confirmIcon: {
+    fontSize: "3rem",
+    color: theme.colors.success,
+    margin: "0 0 1rem 0",
+  },
   confirmText: { color: "var(--color-text-muted)", marginBottom: "1.5rem" },
   continueBtn: {
     ...theme.buttons.primary,

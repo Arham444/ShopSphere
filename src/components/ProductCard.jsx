@@ -51,12 +51,16 @@ function ProductCard({ product }) {
             onClick={toggleWishlist}
             style={{
               ...styles.wishBtn,
-              borderColor: isInWishlist ? theme.colors.error : "var(--color-border)",
+              borderColor: isInWishlist
+                ? theme.colors.error
+                : "var(--color-border)",
             }}
           >
             <FaHeart
               style={{
-                color: isInWishlist ? theme.colors.error : "var(--color-text-muted)",
+                color: isInWishlist
+                  ? theme.colors.error
+                  : "var(--color-text-muted)",
                 cursor: "pointer",
               }}
             />

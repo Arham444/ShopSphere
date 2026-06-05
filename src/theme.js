@@ -10,6 +10,9 @@ export const theme = {
     outOfStock: "var(--color-out-of-stock)",
     warning: "var(--color-warning)",
     success: "var(--color-success)",
+    errorLight: "var(--danger-bg)",
+    overlayBg: "rgba(0, 0, 0, 0.4)",
+    navbarHighlight: "rgba(255, 255, 255, 0.15)",
   },
   shadows: {
     card: "var(--shadow-card)",

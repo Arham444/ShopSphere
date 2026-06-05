@@ -135,9 +135,7 @@ function Filters() {
                         return (
                           <button
                             key={category}
-                            onClick={() =>
-                              setLocalCategory(category)
-                            }
+                            onClick={() => setLocalCategory(category)}
                             style={{
                               ...styles.pill,
                               backgroundColor: isActive
@@ -334,7 +332,7 @@ const styles = {
     left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    backgroundColor: theme.colors.overlayBg,
     zIndex: 999,
   },
   sidebar: {

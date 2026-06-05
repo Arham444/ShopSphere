@@ -59,7 +59,7 @@ const products = [
     category: "Books",
     price: 34.99,
     rating: 4.8,
-    stock: 30,
+    stock: 7,
     createdAt: "2024-01-05",
     image:
       "https://res.cloudinary.com/dnwohqbqt/image/upload/v1780332110/71nj3JM-igL._AC_UF1000_1000_QL80__r0wsxu.jpg",
@@ -72,7 +72,7 @@ const products = [
     category: "Books",
     price: 39.99,
     rating: 4.7,
-    stock: 25,
+    stock: 3,
     createdAt: "2024-01-20",
     image:
       "https://res.cloudinary.com/dnwohqbqt/image/upload/v1780332160/61985453_ilndcz.jpg",
@@ -126,7 +126,7 @@ const products = [
     category: "Clothing",
     price: 49.99,
     rating: 4.3,
-    stock: 35,
+    stock: 12,
     createdAt: "2024-03-10",
     image:
       "https://res.cloudinary.com/dnwohqbqt/image/upload/v1780332777/Nike_20Training_20Dri_20Fit_20Legend_20T_20Shirt_20Black_dt4bbl.jpg",
@@ -151,7 +151,7 @@ const products = [
     category: "Clothing",
     price: 89.99,
     rating: 4.6,
-    stock: 14,
+    stock: 10,
     createdAt: "2024-04-01",
     image:
       "https://res.cloudinary.com/demo/image/upload/v1/samples/ecommerce/shoes.png",

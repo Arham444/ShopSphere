@@ -58,20 +58,26 @@ function ProductDetailPage() {
               {isOutOfStock
                 ? "Out of Stock"
                 : cartQuantity >= product.stock
-                ? "Limit Reached"
-                : "Add to cart"}
+                  ? "Limit Reached"
+                  : "Add to cart"}
             </button>
             <button
               onClick={toggleWishlist}
               style={{
                 ...styles.wishlistBtn,
-                borderColor: isInWishlist ? theme.colors.error : "var(--color-border)",
-                backgroundColor: isInWishlist ? "rgba(239, 68, 68, 0.15)" : "var(--color-card-bg)",
+                borderColor: isInWishlist
+                  ? theme.colors.error
+                  : "var(--color-border)",
+                backgroundColor: isInWishlist
+                  ? theme.colors.errorLight
+                  : "var(--color-card-bg)",
               }}
             >
               <FaHeart
                 style={{
-                  color: isInWishlist ? theme.colors.error : "var(--color-text-muted)",
+                  color: isInWishlist
+                    ? theme.colors.error
+                    : "var(--color-text-muted)",
                   fontSize: "1.2rem",
                   cursor: "pointer",
                 }}
