@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 import { selectCartItems } from "../features/cart/cartSelectors";
+import PropTypes from "prop-types";
 import { theme } from "../theme";
 
 function StockStatus({ product, style }) {
@@ -15,8 +15,8 @@ function StockStatus({ product, style }) {
         color: isOutOfStock
           ? theme.colors.outOfStock
           : cartQuantity >= product.stock
-          ? theme.colors.warning
-          : theme.colors.success,
+            ? theme.colors.warning
+            : theme.colors.success,
         fontWeight: "600",
         fontSize: "0.85rem",
         margin: 0,
@@ -26,8 +26,8 @@ function StockStatus({ product, style }) {
       {isOutOfStock
         ? "Out of Stock"
         : cartQuantity >= product.stock
-        ? `Limit Reached (${product.stock} in Cart)`
-        : `In Stock (${product.stock - cartQuantity} left)`}
+          ? `Limit Reached (${product.stock} in Cart)`
+          : `In Stock (${product.stock - cartQuantity} left)`}
     </span>
   );
 }
