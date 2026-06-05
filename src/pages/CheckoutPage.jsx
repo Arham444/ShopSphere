@@ -91,7 +91,7 @@ function CheckoutPage() {
           </div>
           <div style={styles.summaryRow}>
             <span>Shipping</span>
-            <span style={{ color: "green" }}>Free</span>
+            <span style={{ color: theme.colors.success }}>Free</span>
           </div>
           <div style={styles.summaryRow}>
             <span>Tax (8%)</span>
@@ -198,7 +198,7 @@ const styles = {
     maxWidth: "400px",
     boxShadow: theme.shadows.card,
   },
-  confirmIcon: { fontSize: "3rem", color: "green", margin: "0 0 1rem 0" },
+  confirmIcon: { fontSize: "3rem", color: theme.colors.success, margin: "0 0 1rem 0" },
   confirmText: { color: "#666", marginBottom: "1.5rem" },
   continueBtn: {
     ...theme.buttons.primary,

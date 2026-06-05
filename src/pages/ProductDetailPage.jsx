@@ -52,10 +52,7 @@ function ProductDetailPage() {
               disabled={isLimitReached}
               style={{
                 ...styles.cartBtn,
-                backgroundColor: isLimitReached ? "#e5e7eb" : "#1a1a1a",
-                color: isLimitReached ? "#9ca3af" : "white",
-                opacity: isLimitReached ? 0.6 : 1,
-                cursor: isLimitReached ? "not-allowed" : "pointer",
+                ...(isLimitReached ? theme.buttons.disabled : {}),
               }}
             >
               {isOutOfStock
@@ -68,13 +65,13 @@ function ProductDetailPage() {
               onClick={toggleWishlist}
               style={{
                 ...styles.wishlistBtn,
-                borderColor: isInWishlist ? "#ef4444" : "#ccc",
+                borderColor: isInWishlist ? theme.colors.error : "#ccc",
                 backgroundColor: isInWishlist ? "#ffe4e6" : "white",
               }}
             >
               <FaHeart
                 style={{
-                  color: isInWishlist ? "#ef4444" : "#6b7280",
+                  color: isInWishlist ? theme.colors.error : "#6b7280",
                   fontSize: "1.2rem",
                   cursor: "pointer",
                 }}
@@ -131,7 +128,7 @@ const styles = {
   category: {
     fontSize: "0.875rem",
     textTransform: "uppercase",
-    color: "#9ca3af",
+    color: theme.colors.textMuted,
     fontWeight: "600",
     letterSpacing: "0.05em",
     marginBottom: "0.5rem",
@@ -151,7 +148,7 @@ const styles = {
     fontSize: "0.95rem",
   },
   rating: {
-    color: "#f59e0b",
+    color: theme.colors.warning,
     fontWeight: "600",
   },
   stock: {

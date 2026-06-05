@@ -32,7 +32,7 @@ function LoginPage() {
   };
 
   const handleQuickLogin = () => {
-    dispatch(login({ username: "user1", role: "guest" }));
+    dispatch(login({ role: "guest" }));
     navigate("/");
   };
 
@@ -81,11 +81,8 @@ function LoginPage() {
         </div>
 
         <div style={styles.shortcutRow}>
-          <button
-            onClick={() => handleQuickLogin("guest")}
-            style={styles.userShortcutBtn}
-          >
-            User Mode
+          <button onClick={handleQuickLogin} style={styles.userShortcutBtn}>
+            Guest Mode
           </button>
         </div>
 

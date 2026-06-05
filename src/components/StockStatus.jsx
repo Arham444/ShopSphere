@@ -15,8 +15,8 @@ function StockStatus({ product, style }) {
         color: isOutOfStock
           ? theme.colors.outOfStock
           : cartQuantity >= product.stock
-          ? "#f59e0b"
-          : "#10b981",
+          ? theme.colors.warning
+          : theme.colors.success,
         fontWeight: "600",
         fontSize: "0.85rem",
         margin: 0,

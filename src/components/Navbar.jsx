@@ -48,12 +48,12 @@ function Navbar() {
           </Link>
         )}
 
-        {currentUser ? (
+        {currentUser && currentUser.role !== "guest" ? (
           <div style={styles.userContainer}>
             <span style={styles.userBadge}>
               {currentUser.role === "admin"
                 ? "Admin"
-                : `👤 ${currentUser.username}`}
+                : `User ${currentUser.username}`}
             </span>
             <button onClick={() => dispatch(logout())} style={styles.logoutBtn}>
               <IoLogOutOutline size={16} />

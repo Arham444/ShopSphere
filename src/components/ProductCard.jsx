@@ -38,9 +38,7 @@ function ProductCard({ product }) {
             disabled={isLimitReached}
             style={{
               ...styles.cartBtn,
-              backgroundColor: isLimitReached ? "#e5e7eb" : "#1a1a1a",
-              color: isLimitReached ? "#9ca3af" : "white",
-              cursor: isLimitReached ? "not-allowed" : "pointer",
+              ...(isLimitReached ? theme.buttons.disabled : {}),
             }}
           >
             {isOutOfStock
@@ -53,12 +51,12 @@ function ProductCard({ product }) {
             onClick={toggleWishlist}
             style={{
               ...styles.wishBtn,
-              borderColor: isInWishlist ? "#ef4444" : "#ccc",
+              borderColor: isInWishlist ? theme.colors.error : "#ccc",
             }}
           >
             <FaHeart
               style={{
-                color: isInWishlist ? "#ef4444" : "#6b7280",
+                color: isInWishlist ? theme.colors.error : "#6b7280",
                 cursor: "pointer",
               }}
             />
@@ -107,7 +105,7 @@ const styles = {
   },
   category: {
     fontSize: "0.75rem",
-    color: "#888",
+    color: theme.colors.textMuted,
     margin: "0",
     width: "100%",
   },
@@ -131,7 +129,7 @@ const styles = {
   },
   rating: {
     margin: 0,
-    color: "#f59e0b",
+    color: theme.colors.warning,
     fontSize: "0.85rem",
     width: "100%",
   },
@@ -142,13 +140,11 @@ const styles = {
     width: "100%",
   },
   cartBtn: {
-    ...theme.buttons.primary,
+    ...theme.buttons.smallPrimary,
     flex: 1,
-    padding: "0.5rem",
   },
   wishBtn: {
-    ...theme.buttons.secondary,
-    padding: "0.5rem",
+    ...theme.buttons.smallSecondary,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

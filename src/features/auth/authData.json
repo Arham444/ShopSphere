@@ -7,8 +7,8 @@
     },
     {
       "username": "user1",
-      "password": "password123",
-      "role": "guest"
+      "password": "password12345",
+      "role": "user"
     }
   ]
 }

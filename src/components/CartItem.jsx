@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../features/cart/cartSlice";
 import PropTypes from "prop-types";
+import { theme } from "../theme";
 
 function CartItem({ item }) {
   const Dispatch = useDispatch();
@@ -21,7 +22,7 @@ function CartItem({ item }) {
             )
           }
           disabled={item.quantity <= 1}
-          style={styles.qtyBtn}
+          style={item.quantity <= 1 ? styles.qtyBtnDisabled : styles.qtyBtn}
         >
           -
         </button>
@@ -33,7 +34,9 @@ function CartItem({ item }) {
             )
           }
           disabled={item.quantity >= item.stock}
-          style={styles.qtyBtn}
+          style={
+            item.quantity >= item.stock ? styles.qtyBtnDisabled : styles.qtyBtn
+          }
         >
           +
         </button>
@@ -90,18 +93,24 @@ const styles = {
   controls: {
     display: "flex",
     alignItems: "center",
-    gap: "5px",
+    backgroundColor: "#f3f4f6",
+    borderRadius: "20px",
+    padding: "3px",
+    gap: "6px",
   },
   qtyBtn: {
-    padding: "2px 5px",
-    cursor: "pointer",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
+    ...theme.buttons.qty,
+  },
+  qtyBtnDisabled: {
+    ...theme.buttons.qtyDisabled,
   },
   qty: {
-    padding: "2px 5px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
+    minWidth: "24px",
+    textAlign: "center",
+    fontSize: "0.95rem",
+    fontWeight: "600",
+    color: "#111827",
+    padding: "0 4px",
   },
   subtotal: {
     fontWeight: "bold",
@@ -109,12 +118,8 @@ const styles = {
     textAlign: "right",
   },
   removeBtn: {
-    padding: "3px 6px",
-    cursor: "pointer",
-    border: "1px solid #ff4d4d",
-    borderRadius: "4px",
-    color: "#ff4d4d",
-    marginLeft: "10px",
+    ...theme.buttons.smallPrimary,
+    marginLeft: "1.5rem",
   },
 };
 

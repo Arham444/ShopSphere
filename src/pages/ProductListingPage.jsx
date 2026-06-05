@@ -3,6 +3,7 @@ import { selectFilteredProducts } from "../features/products/productSelectors";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 import Filters from "../components/Filters";
+import { theme } from "../theme";
 
 function ProductListingPage() {
   const products = useSelector(selectFilteredProducts);
@@ -36,7 +37,7 @@ const styles = {
   title: {
     fontSize: "2rem",
     fontWeight: "700",
-    color: "#111827",
+    color: theme.colors.textDark,
     marginBottom: "0 0 1.5rem 0",
     display: "flex",
     justifyContent: "center",
@@ -54,7 +55,7 @@ const styles = {
     fontSize: "1.5rem",
     padding: "3rem",
     fontWeight: "bold",
-    color: "#111827",
+    color: theme.colors.textDark,
   },
 };
 export default ProductListingPage;

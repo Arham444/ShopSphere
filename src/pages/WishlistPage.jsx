@@ -83,7 +83,7 @@ function WishlistPage() {
 
 const styles = {
   page: { padding: "1.5rem 3rem" },
-  empty: {},
+  empty: { ...theme.empty, justifyContent: "center" },
   link: {},
   grid: {
     display: "grid",
@@ -144,14 +144,12 @@ const styles = {
     width: "100%",
   },
   MoveBtn: {
-    ...theme.buttons.primary,
+    ...theme.buttons.smallPrimary,
     flex: 1,
-    padding: "0.5rem",
   },
   removeBtn: {
-    ...theme.buttons.secondary,
+    ...theme.buttons.smallSecondary,
     flex: 1,
-    padding: "0.5rem",
   },
 };
 export default WishlistPage;

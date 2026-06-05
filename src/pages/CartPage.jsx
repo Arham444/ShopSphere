@@ -39,7 +39,7 @@ function CartPage() {
           <p>Total: ${total}</p>
           <div style={styles.summaryRow}>
             <span>Shipping</span>
-            <span style={{ color: "green" }}>Free</span>
+            <span style={{ color: theme.colors.success }}>Free</span>
           </div>
           <hr />
           <div
