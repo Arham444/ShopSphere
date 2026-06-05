@@ -45,32 +45,6 @@
   @media (max-width: 1024px) {
     font-size: 16px;
   }
-
-  /* Centralized Theme colors (Light default) */
-  --color-primary: #1a1a1a;
-  --color-accent: #8b5cf6;
-  --color-border: #e5e7eb;
-  --color-background-light: #f3f4f6;
-  --color-text-dark: #111827;
-  --color-text-muted: #9ca3af;
-  --color-error: #ef4444;
-  --color-out-of-stock: #6b7280;
-  --color-warning: #f59e0b;
-  --color-success: #10b981;
-  --color-card-bg: #ffffff;
-
-  --button-primary-bg: #1a1a1a;
-  --button-primary-color: #ffffff;
-  --button-secondary-bg: #ffffff;
-  --button-secondary-color: #1a1a1a;
-  --button-secondary-border: #1a1a1a;
-  --button-disabled-bg: #e5e7eb;
-  --button-disabled-color: #9ca3af;
-  --button-qty-bg: #ffffff;
-  --button-qty-color: #1a1a1a;
-  --button-qty-container-bg: #f3f4f6;
-
-  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -122,7 +96,11 @@
     --button-qty-color: #f3f4f6;
     --button-qty-container-bg: #16171d;
 
-    --shadow-card: rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
+    --shadow-card:
+      rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
+
+    --navbar-bg: #16171d;
+    --navbar-text: #ffffff;
   }
 
   #social .button-icon {
@@ -130,7 +108,7 @@
   }
 }
 
-html[data-theme='light'] {
+html[data-theme="light"] {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
@@ -177,14 +155,18 @@ html[data-theme='light'] {
   --button-qty-color: #1a1a1a;
   --button-qty-container-bg: #f3f4f6;
 
-  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-card:
+    0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+
+  --navbar-bg: #1a1a1a;
+  --navbar-text: #ffffff;
 }
 
-html[data-theme='light'] #social .button-icon {
+html[data-theme="light"] #social .button-icon {
   filter: none;
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --text: #9ca3af;
   --text-h: #f3f4f6;
   --bg: #0f1015;
@@ -231,10 +213,14 @@ html[data-theme='dark'] {
   --button-qty-color: #f3f4f6;
   --button-qty-container-bg: #16171d;
 
-  --shadow-card: rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
+  --shadow-card:
+    rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
+
+  --navbar-bg: #16171d;
+  --navbar-text: #f3f4f6;
 }
 
-html[data-theme='dark'] #social .button-icon {
+html[data-theme="dark"] #social .button-icon {
   filter: invert(1) brightness(2);
 }
 
