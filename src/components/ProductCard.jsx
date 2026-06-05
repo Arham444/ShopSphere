@@ -5,6 +5,7 @@ import { useWishlist } from "../features/wishlist/useWishlist";
 import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { selectCartItems } from "../features/cart/cartSelectors";
+import { theme } from "../theme";
 
 import StockStatus from "./StockStatus";
 
@@ -82,12 +83,13 @@ ProductCard.propTypes = {
 
 const styles = {
   card: {
-    border: "1px solid #ddd",
+    border: `1px solid ${theme.colors.border}`,
     padding: "1rem",
     borderRadius: "8px",
     overflow: "hidden",
     display: "flex",
     flexDirection: "column",
+    boxShadow: theme.shadows.card,
   },
   image: {
     width: "100%",
@@ -109,7 +111,7 @@ const styles = {
   name: {
     fontWeight: "bold",
     textDecoration: "none",
-    color: "#1a1a1a",
+    color: theme.colors.primary,
     display: "-webkit-box",
     WebkitLineClamp: 2,
     WebkitBoxOrient: "vertical",
@@ -119,7 +121,7 @@ const styles = {
   },
   price: {
     fontWeight: "600",
-    color: "#e44d26",
+    color: theme.colors.textDark,
     margin: "0",
   },
   rating: {
@@ -133,17 +135,13 @@ const styles = {
     marginTop: "auto",
   },
   cartBtn: {
+    ...theme.buttons.primary,
     flex: 1,
     padding: "0.5rem",
-    border: "none",
-    borderRadius: "4px",
   },
   wishBtn: {
+    ...theme.buttons.secondary,
     padding: "0.5rem",
-    backgroundColor: "white",
-    border: "1px solid",
-    borderRadius: "4px",
-    cursor: "pointer",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

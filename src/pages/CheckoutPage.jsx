@@ -9,6 +9,7 @@ import {
 import { TiTick } from "react-icons/ti";
 import { clearCart } from "../features/cart/cartSlice";
 import { checkoutProducts } from "../features/products/productSlice";
+import { theme } from "../theme";
 const TAX_RATE = 0.08;
 
 function CheckoutPage() {
@@ -50,7 +51,11 @@ function CheckoutPage() {
   const taxAmount = total * TAX_RATE;
   const grandTotal = total + taxAmount;
   const handlePlaceOrder = () => {
-    dispatch(checkoutProducts(items.map(item => ({ id: item.id, quantity: item.quantity }))));
+    dispatch(
+      checkoutProducts(
+        items.map((item) => ({ id: item.id, quantity: item.quantity })),
+      ),
+    );
     dispatch(clearCart());
     setOrderPlaced(true);
   };
@@ -120,7 +125,7 @@ const styles = {
   sectionTitle: { fontSize: "1.1rem", fontWeight: "600", marginBottom: "1rem" },
 
   itemSection: {
-    border: "1px solid #eee",
+    border: `1px solid ${theme.colors.border}`,
     borderRadius: "8px",
     padding: "1.5rem",
   },
@@ -138,29 +143,29 @@ const styles = {
   itemSubtotal: { fontWeight: "bold", margin: 0 },
 
   summary: {
-    border: "1px solid #eee",
+    border: `1px solid ${theme.colors.border}`,
     borderRadius: "8px",
     padding: "1.5rem",
     display: "flex",
     flexDirection: "column",
     gap: "0.75rem",
+    boxShadow: theme.shadows.card,
   },
   summaryRow: {
     display: "flex",
     justifyContent: "space-between",
     fontSize: "0.95rem",
   },
-  divider: { border: "none", borderTop: "1px solid #eee", margin: "0.25rem 0" },
+  divider: {
+    border: "none",
+    borderTop: `1px solid ${theme.colors.border}`,
+    margin: "0.25rem 0",
+  },
   grandTotal: { fontWeight: "bold", fontSize: "1.1rem" },
   OrderBtn: {
+    ...theme.buttons.primary,
     marginTop: "0.5rem",
     padding: "0.85rem",
-    background: "#1a1a1a",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    fontWeight: "600",
     fontSize: "1rem",
   },
   backLink: {
@@ -173,7 +178,11 @@ const styles = {
   },
 
   empty: { textAlign: "center", padding: "4rem" },
-  link: { color: "#1a1a1a", display: "inline-block", marginTop: "1rem" },
+  link: {
+    color: theme.colors.primary,
+    display: "inline-block",
+    marginTop: "1rem",
+  },
 
   confirmation: {
     display: "flex",
@@ -183,20 +192,17 @@ const styles = {
   },
   confirmBox: {
     textAlign: "center",
-    border: "1px solid #eee",
+    border: `1px solid ${theme.colors.border}`,
     borderRadius: "12px",
     padding: "3rem",
     maxWidth: "400px",
+    boxShadow: theme.shadows.card,
   },
   confirmIcon: { fontSize: "3rem", color: "green", margin: "0 0 1rem 0" },
   confirmText: { color: "#666", marginBottom: "1.5rem" },
   continueBtn: {
+    ...theme.buttons.primary,
     padding: "0.75rem 2rem",
-    background: "#1a1a1a",
-    color: "white",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
     fontSize: "1rem",
   },
 };

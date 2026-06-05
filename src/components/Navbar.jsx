@@ -5,6 +5,7 @@ import { selectWishlistItemsCount } from "../features/wishlist/wishlistSelectors
 import { FaHeart } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { IoMdAddCircle } from "react-icons/io";
+import { theme } from "../theme";
 
 function Navbar() {
   const wishlistCount = useSelector(selectWishlistItemsCount);
@@ -42,7 +43,7 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "1rem 2rem",
-    background: "#1a1a1a",
+    background: theme.colors.primary,
     color: "white",
   },
   logo: {
@@ -64,11 +65,19 @@ const styles = {
     gap: "0.4rem",
   },
   badge: {
-    background: "red",
+    background: theme.colors.accent,
     color: "white",
-    borderRadius: "50%",
-    padding: "2px 7px",
-    fontSize: "0.75rem",
+    borderRadius: "999px",
+    padding: "2px 6px",
+    fontSize: "0.7rem",
+    minWidth: "18px",
+    height: "18px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "bold",
+    marginLeft: "4px",
+    lineHeight: "1",
   },
 };
 

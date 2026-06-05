@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { selectCartItems } from "../features/cart/cartSelectors";
+import { theme } from "../theme";
 
 function StockStatus({ product, style }) {
   const cartItems = useSelector(selectCartItems);
@@ -12,7 +13,7 @@ function StockStatus({ product, style }) {
     <span
       style={{
         color: isOutOfStock
-          ? "#ef4444"
+          ? theme.colors.outOfStock
           : cartQuantity >= product.stock
           ? "#f59e0b"
           : "#10b981",

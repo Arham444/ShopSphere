@@ -1,0 +1,50 @@
+export const theme = {
+  colors: {
+    primary: "#1a1a1a",
+    accent: "#8b5cf6",
+    border: "#e5e7eb",
+    backgroundLight: "#f3f4f6",
+    textDark: "#111827",
+    textMuted: "#9ca3af",
+    error: "#ef4444",
+    outOfStock: "#6b7280",
+  },
+  shadows: {
+    card: "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+  },
+  buttons: {
+    primary: {
+      backgroundColor: "#1a1a1a",
+      color: "#ffffff",
+      border: "none",
+      borderRadius: "6px",
+      cursor: "pointer",
+      fontWeight: "600",
+      transition: "background-color 0.2s",
+      outline: "none",
+    },
+    secondary: {
+      backgroundColor: "#ffffff",
+      color: "#1a1a1a",
+      border: "1px solid #1a1a1a",
+      borderRadius: "6px",
+      cursor: "pointer",
+      fontWeight: "600",
+      transition: "all 0.2s",
+      outline: "none",
+    },
+  },
+  inputs: {
+    text: {
+      padding: "0.6rem 1rem",
+      borderRadius: "8px",
+      border: "1px solid #d1d5db",
+      backgroundColor: "#ffffff",
+      fontSize: "0.9rem",
+      color: "#1f2937",
+      outline: "none",
+      transition: "border-color 0.2s",
+      boxSizing: "border-box",
+    },
+  },
+};

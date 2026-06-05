@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { IoFilter } from "react-icons/io5";
+import { theme } from "../theme";
 import {
   setSearchCategory,
   setPriceRange,
@@ -160,12 +161,11 @@ function Filters() {
 const styles = {
   container: {
     background: "#ffffff",
-    border: "1px solid #e5e7eb",
+    border: `1px solid ${theme.colors.border}`,
     borderRadius: "12px",
     padding: "1.25rem 1.5rem",
     marginBottom: "2rem",
-    boxShadow:
-      "0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
+    boxShadow: theme.shadows.card,
     display: "flex",
     flexDirection: "column",
     gap: "1.25rem",
@@ -181,20 +181,15 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "0.5rem",
+    ...theme.buttons.secondary,
     padding: "0.6rem 1.2rem",
-    borderRadius: "8px",
-    border: "1px solid #1a1a1a",
     fontSize: "0.9rem",
-    fontWeight: "600",
-    cursor: "pointer",
-    transition: "all 0.2s ease-in-out",
-    outline: "none",
   },
   filterDot: {
     width: "8px",
     height: "8px",
     borderRadius: "50%",
-    backgroundColor: "#ef4444",
+    backgroundColor: theme.colors.error,
     display: "inline-block",
     marginLeft: "0.25rem",
   },
@@ -265,41 +260,24 @@ const styles = {
     gap: "0.5rem",
   },
   numberInput: {
+    ...theme.inputs.text,
     width: "140px",
     padding: "0.5rem 0.75rem",
-    borderRadius: "6px",
-    border: "1px solid #d1d5db",
-    fontSize: "0.9rem",
-    outline: "none",
-    boxSizing: "border-box",
-    transition: "border-color 0.2s",
   },
   separator: {
     color: "#9ca3af",
     fontSize: "1rem",
   },
   okButton: {
+    ...theme.buttons.primary,
     padding: "0.5rem 1rem",
-    backgroundColor: "#1a1a1a",
-    color: "#ffffff",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
     fontSize: "0.85rem",
-    fontWeight: "600",
-    transition: "background 0.2s",
-    outline: "none",
   },
   select: {
+    ...theme.inputs.text,
     padding: "0.6rem 1.2rem",
-    borderRadius: "8px",
-    border: "1px solid #d1d5db",
-    backgroundColor: "#ffffff",
-    fontSize: "0.9rem",
-    color: "#1f2937",
     cursor: "pointer",
-    outline: "none",
-    transition: "border-color 0.2s",
   },
 };
+
 export default Filters;

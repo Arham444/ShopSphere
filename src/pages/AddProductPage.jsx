@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../features/products/productSlice";
+import { theme } from "../theme";
 
 const Categories = [
   "Electronics",
@@ -218,7 +219,7 @@ const styles = {
   title: {
     fontSize: "1.8rem",
     fontWeight: "700",
-    color: "#111111",
+    color: theme.colors.primary,
     marginBottom: "1.5rem",
     textAlign: "center",
   },
@@ -228,10 +229,10 @@ const styles = {
     gap: "1.5rem",
     maxWidth: "600px",
     margin: "0 auto",
-    border: "1px solid #eee",
+    border: `1px solid ${theme.colors.border}`,
     borderRadius: "12px",
     padding: "2.5rem",
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+    boxShadow: theme.shadows.card,
     background: "#ffffff",
   },
   group: {
@@ -245,18 +246,14 @@ const styles = {
     color: "#374151",
   },
   input: {
+    ...theme.inputs.text,
     padding: "0.75rem 1rem",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
     fontSize: "1rem",
     width: "100%",
-    boxSizing: "border-box",
-    outline: "none",
-    transition: "border-color 0.2s",
   },
   error: {
     background: "#fef2f2",
-    border: "1px solid #fca5a5",
+    border: `1px solid ${theme.colors.error}`,
     color: "#dc2626",
     padding: "0.75rem 1rem",
     borderRadius: "8px",
@@ -264,15 +261,10 @@ const styles = {
     marginBottom: "1rem",
   },
   uploadBtn: {
+    ...theme.buttons.secondary,
     padding: "0.75rem 1.5rem",
-    background: "white",
-    border: "2px solid #1a1a1a",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "600",
     fontSize: "0.95rem",
     alignSelf: "flex-start",
-    transition: "all 0.2s",
   },
   previewWrapper: {
     marginTop: "0.75rem",
@@ -285,7 +277,7 @@ const styles = {
     height: "100px",
     objectFit: "cover",
     borderRadius: "8px",
-    border: "1px solid #eee",
+    border: `1px solid ${theme.colors.border}`,
   },
   previewNote: {
     fontSize: "0.85rem",
@@ -294,16 +286,11 @@ const styles = {
     margin: 0,
   },
   submitBtn: {
+    ...theme.buttons.primary,
     padding: "0.85rem",
-    background: "#1a1a1a",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
     fontSize: "1rem",
-    fontWeight: "600",
-    cursor: "pointer",
     marginTop: "0.5rem",
-    transition: "background 0.2s",
   },
 };
+
 export default AddProductPage;

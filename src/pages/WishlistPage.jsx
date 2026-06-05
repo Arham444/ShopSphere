@@ -5,6 +5,7 @@ import { removeFromWishlist } from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
 import { selectAllProducts } from "../features/products/productSelectors";
 import StockStatus from "../components/StockStatus";
+import { theme } from "../theme";
 
 function WishlistPage() {
   const items = useSelector(selectWishlistItems);
@@ -91,12 +92,13 @@ const styles = {
     marginTop: "1rem",
   },
   card: {
-    border: "1px solid #ddd",
+    border: `1px solid ${theme.colors.border}`,
     padding: "1rem",
     borderRadius: "8px",
     overflow: "hidden",
     display: "flex",
     flexDirection: "column",
+    boxShadow: theme.shadows.card,
   },
   image: {
     width: "100%",
@@ -117,11 +119,11 @@ const styles = {
   name: {
     fontWeight: "bold",
     textDecoration: "none",
-    color: "#1a1a1a",
+    color: theme.colors.primary,
   },
   price: {
     fontWeight: "600",
-    color: "#e44d26",
+    color: theme.colors.textDark,
     margin: 0,
   },
   rating: {
@@ -135,22 +137,14 @@ const styles = {
     marginTop: "auto",
   },
   MoveBtn: {
+    ...theme.buttons.primary,
     flex: 1,
     padding: "0.5rem",
-    backgroundColor: "#1a1a1a",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
   },
   removeBtn: {
+    ...theme.buttons.secondary,
     flex: 1,
     padding: "0.5rem",
-    backgroundColor: "#f59e0b",
-    color: "white",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
   },
 };
 export default WishlistPage;

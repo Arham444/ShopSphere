@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../features/products/productSlice";
 import { selectSearchQuery } from "../features/products/productSelectors";
 import { useEffect, useState } from "react";
+import { theme } from "../theme";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -28,12 +29,8 @@ function SearchBar() {
 
 const styles = {
   input: {
+    ...theme.inputs.text,
     width: "100%",
-    padding: "0.6rem 1rem",
-    fontSize: "1rem",
-    border: "2px solid #c4c4c4",
-    borderRadius: "6px",
-    boxSizing: "border-box",
   },
 };
 export default SearchBar;

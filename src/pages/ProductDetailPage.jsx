@@ -5,6 +5,7 @@ import { addToCart } from "../features/cart/cartSlice";
 import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { selectCartItems } from "../features/cart/cartSelectors";
+import { theme } from "../theme";
 
 import StockStatus from "../components/StockStatus";
 
@@ -113,6 +114,7 @@ const styles = {
     backgroundColor: "#f9fafb",
     borderRadius: "12px",
     padding: "1.5rem",
+    border: `1px solid ${theme.colors.border}`,
   },
   image: {
     maxWidth: "100%",
@@ -136,7 +138,7 @@ const styles = {
   },
   title: {
     fontSize: "2.25rem",
-    color: "#111827",
+    color: theme.colors.primary,
     fontWeight: "700",
     lineHeight: "1.2",
     margin: "0 0 1rem 0",
@@ -161,7 +163,7 @@ const styles = {
   price: {
     fontSize: "2rem",
     fontWeight: "700",
-    color: "#e44d26",
+    color: theme.colors.textDark,
   },
   description: {
     fontSize: "1rem",
@@ -174,25 +176,16 @@ const styles = {
     gap: "1rem",
   },
   cartBtn: {
+    ...theme.buttons.primary,
     flex: 1,
     padding: "1rem",
-    backgroundColor: "#1a1a1a",
-    color: "white",
-    fontSize: "1rem",
-    fontWeight: "600",
-    border: "none",
-    borderRadius: "8px",
-    transition: "background-color 0.2s",
   },
   wishlistBtn: {
+    ...theme.buttons.secondary,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     padding: "1rem",
-    border: "1px solid",
-    borderRadius: "8px",
-    cursor: "pointer",
-    transition: "all 0.2s",
     width: "55px",
   },
 };

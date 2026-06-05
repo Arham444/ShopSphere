@@ -6,6 +6,7 @@ import {
   selectCartItemCount,
   selectCartTotal,
 } from "../features/cart/cartSelectors.js";
+import { theme } from "../theme";
 
 function CartPage() {
   const items = useSelector(selectCartWithSubtotals);
@@ -72,26 +73,25 @@ const styles = {
     alignItems: "start",
   },
   itemList: {
-    border: "1px solid #eee",
+    border: `1px solid ${theme.colors.border}`,
     borderRadius: "8px",
     overflow: "hidden",
   },
   summary: {
-    border: "1px solid #eee",
+    border: `1px solid ${theme.colors.border}`,
     borderRadius: "8px",
     padding: "1.5rem",
     display: "flex",
     flexDirection: "column",
     gap: "0.75rem",
+    boxShadow: theme.shadows.card,
   },
   summaryRow: { display: "flex", justifyContent: "space-between" },
   checkoutBtn: {
+    ...theme.buttons.primary,
     display: "block",
     textAlign: "center",
-    background: "#1a1a1a",
-    color: "white",
     padding: "0.75rem",
-    borderRadius: "6px",
     textDecoration: "none",
     marginTop: "0.5rem",
   },
@@ -103,6 +103,6 @@ const styles = {
     textDecoration: "none",
   },
   empty: { textAlign: "center", padding: "4rem" },
-  link: { color: "#1a1a1a" },
+  link: { color: theme.colors.primary },
 };
 export default CartPage;
