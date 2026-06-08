@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
-  console.log("isLoginPage:", isLoginPage, "pathname:", location.pathname);
 
   return (
     <>

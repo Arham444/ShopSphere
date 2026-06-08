@@ -66,6 +66,9 @@ function Navbar() {
             <IoMoonOutline size={20} />
           )}
         </button>
+        <NavLink to="/" className={getLinkClass}>
+          <p>Home</p>
+        </NavLink>
         {currentUser && currentUser.role !== "guest" && (
           <>
             <NavLink to="/wishlist" className={getLinkClass}>
