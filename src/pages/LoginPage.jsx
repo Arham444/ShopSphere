@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
 import authData from "../features/auth/authData.json";
+import { loadState } from "../utils/localStorage";
 import styles from "./LoginPage.module.css";
 
 function LoginPage() {
@@ -22,8 +23,16 @@ function LoginPage() {
     );
 
     if (matchedUser) {
+      const userKey = matchedUser.username;
+      const userCart = loadState(`cartItems_${userKey}`, []);
+      const userWishlist = loadState(`wishlistItems_${userKey}`, []);
+
       dispatch(
-        login({ username: matchedUser.username, role: matchedUser.role }),
+        login({
+          user: { username: matchedUser.username, role: matchedUser.role },
+          cartItems: userCart,
+          wishListItems: userWishlist,
+        }),
       );
       navigate("/");
     } else {
@@ -32,7 +41,13 @@ function LoginPage() {
   };
 
   const handleQuickLogin = () => {
-    dispatch(login({ role: "guest" }));
+    dispatch(
+      login({
+        user: { role: "guest" },
+        cartItems: [],
+        wishListItems: [],
+      }),
+    );
     navigate("/");
   };
 

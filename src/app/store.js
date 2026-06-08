@@ -5,11 +5,24 @@ import wishListReducer from "../features/wishlist/wishlistSlice.js";
 import authReducer from "../features/auth/authSlice.js";
 import { loadState, saveState } from "../utils/localStorage";
 
+const user = loadState("userSession", null);
+const userKey = user?.username;
+
 //Loading state from storage using loadState helper function.
 const preloadedState = {
-  cart: { cartItems: loadState("cartItems", []) },
-  wishlist: { wishListItems: loadState("wishlistItems", []) },
-  auth: { currentUser: loadState("userSession", null) },
+  cart: {
+    cartItems:
+      userKey && user?.role !== "guest"
+        ? loadState(`cartItems_${userKey}`, [])
+        : [],
+  },
+  wishlist: {
+    wishListItems:
+      userKey && user?.role !== "guest"
+        ? loadState(`wishlistItems_${userKey}`, [])
+        : [],
+  },
+  auth: { currentUser: user },
 };
 
 export const store = configureStore({
@@ -25,9 +38,15 @@ export const store = configureStore({
 //subscribe to store save state to localStorage using saveState helper function.
 store.subscribe(() => {
   const state = store.getState();
-  saveState("cartItems", state.cart.cartItems);
-  saveState("wishlistItems", state.wishlist.wishListItems);
-  saveState("userSession", state.auth.currentUser);
+  const currentUser = state.auth.currentUser;
+  const currentUserKey = currentUser?.username;
+
+  if (currentUserKey && currentUser?.role !== "guest") {
+    saveState(`cartItems_${currentUserKey}`, state.cart.cartItems);
+    saveState(`wishlistItems_${currentUserKey}`, state.wishlist.wishListItems);
+  }
+
+  saveState("userSession", currentUser);
 });
 
 export default store;

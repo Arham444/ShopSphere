@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { login, logout } from "../auth/authSlice.js";
+
 const initialState = {
   wishListItems: [],
 };
@@ -19,6 +21,17 @@ const wishListSlice = createSlice({
         (item) => item.id !== action.payload,
       );
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login, (state, action) => {
+        if (action.payload && action.payload.wishListItems) {
+          state.wishListItems = action.payload.wishListItems;
+        }
+      })
+      .addCase(logout, (state) => {
+        state.wishListItems = [];
+      });
   },
 });
 export const { addToWishlist, removeFromWishlist } = wishListSlice.actions;
