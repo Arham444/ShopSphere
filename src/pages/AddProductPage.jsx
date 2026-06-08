@@ -5,6 +5,7 @@ import { addProduct } from "../features/products/productSlice";
 import { selectIsAdmin } from "../features/auth/authSelectors";
 import AccessDenied from "../components/AccessDenied";
 import styles from "./AddProductPage.module.css";
+import { CiLock } from "react-icons/ci";
 
 const Categories = [
   "Electronics",
@@ -44,7 +45,12 @@ function AddProductPage() {
   const [error, setError] = useState("");
 
   if (!isAdmin) {
-    return <AccessDenied message="Only Admin can create products." icon="🔒" />;
+    return (
+      <AccessDenied
+        message="Only Admin can create products."
+        icon={<CiLock />}
+      />
+    );
   }
 
   const handleChange = (e) => {
