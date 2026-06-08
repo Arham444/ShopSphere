@@ -46,7 +46,9 @@
   font-size: 1rem;
   color: var(--color-text-dark);
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   box-sizing: border-box;
   width: 100%;
 }
@@ -113,7 +115,10 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.1s ease;
   outline: none;
   padding: 0.85rem;
   font-size: 1rem;

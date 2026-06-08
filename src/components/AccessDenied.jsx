@@ -34,7 +34,7 @@ function AccessDenied({
 
 AccessDenied.propTypes = {
   message: PropTypes.node,
-  icon: PropTypes.string,
+  icon: PropTypes.node,
   actionText: PropTypes.string,
   onAction: PropTypes.func,
 };

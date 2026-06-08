@@ -1,39 +1,86 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 75vh;
-  font-family: system-ui, sans-serif;
-  box-sizing: border-box;
-  padding: 1rem;
-}
-
-.card {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 2.5rem;
-  width: 420px;
-  box-shadow: var(--shadow-card);
-  box-sizing: border-box;
+.pageWrapper {
   display: flex;
   flex-direction: column;
+  min-height: calc(100vh - 75px);
+  background-color: var(--color-background);
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
   align-items: center;
+  justify-content: center;
+  margin: 3rem 0;
+  padding: 0;
+}
+
+/* Side-connected Centered Card (Stretches fully from side-to-side) */
+.splitCard {
+  display: flex;
+  width: 100%;
+  height: 600px;
+  background-color: var(--color-card-bg);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+/* Left Side: Illustration Panel */
+.illustrationSection {
+  flex: 1.2;
+  background-color: #ebf4f6;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.illustrationImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Right Side: Form Panel */
+.formSection {
+  flex: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  box-sizing: border-box;
+  background-color: var(--color-card-bg);
+}
+
+.formContent {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formHeader {
+  text-align: left;
+  margin-bottom: 1.75rem;
+  width: 100%;
 }
 
 .title {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.85rem;
+  font-weight: 600;
   color: var(--color-text-dark);
-  margin: 0 0 0.5rem 0;
-  text-align: center;
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .subtitle {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--color-text-muted);
-  margin: 0 0 1.5rem 0;
-  text-align: center;
+  margin: 0;
 }
 
 .errorAlert {
@@ -41,65 +88,70 @@
   background-color: var(--danger-bg);
   color: var(--color-error);
   border: 1px solid var(--color-error);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 0.75rem;
   font-size: 0.85rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   box-sizing: border-box;
   text-align: center;
+  font-weight: 500;
 }
 
 .form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .inputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
   width: 100%;
-}
-
-.label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-dark);
 }
 
 .input {
-  padding: 0.7rem 0.9rem;
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-card-bg);
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  background-color: transparent;
+  padding: 0.65rem 0;
   font-size: 0.95rem;
   color: var(--color-text-dark);
   outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 0;
   box-sizing: border-box;
-  width: 100%;
+  transition: border-bottom-color 0.2s ease;
 }
 
 .input:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px var(--accent-bg);
+  border-bottom-color: var(--color-accent);
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.75rem;
+  width: 100%;
 }
 
 .submitBtn {
   background-color: var(--button-primary-bg);
   color: var(--button-primary-color);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.1s ease;
   outline: none;
-  padding: 0.75rem;
-  font-size: 0.95rem;
-  margin-top: 0.5rem;
   width: 100%;
+  padding: 0.8rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .submitBtn:hover {
@@ -126,31 +178,30 @@
 }
 
 .dividerText {
-  font-size: 0.75rem;
-  color: #9ca3af;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
   font-weight: 600;
   letter-spacing: 0.05em;
 }
 
 .shortcutRow {
   display: flex;
-  gap: 1rem;
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .userShortcutBtn {
   background-color: var(--button-secondary-bg);
   color: var(--button-secondary-color);
   border: 1px solid var(--button-secondary-border);
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   transition: all 0.2s ease;
   outline: none;
-  flex: 1;
-  padding: 0.6rem;
-  font-size: 0.85rem;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.9rem;
 }
 
 .userShortcutBtn:hover {
@@ -161,20 +212,51 @@
   background: transparent;
   border: none;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-decoration: underline;
   cursor: pointer;
   margin-top: 1rem;
   transition: color 0.2s ease;
+  align-self: center;
 }
 
 .backLink:hover {
   color: var(--color-accent);
 }
 
+/* Footer Section */
+.footer {
+  height: 60px;
+  background-color: var(--navbar-bg);
+  width: 100%;
+  flex-shrink: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Responsive States */
+@media (max-width: 768px) {
+  .container {
+    margin: 1.5rem 0;
+  }
+
+  .splitCard {
+    flex-direction: column;
+    height: auto;
+    border-radius: 0;
+  }
+
+  .illustrationSection {
+    display: none;
+  }
+
+  .formSection {
+    flex: 1;
+    padding: 2.5rem 2rem;
+  }
+}
+
 @media (max-width: 480px) {
-  .card {
-    width: 100%;
-    padding: 1.5rem;
+  .formSection {
+    padding: 2rem 1.25rem;
   }
 }
