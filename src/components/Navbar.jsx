@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItemCount } from "../features/cart/cartSelectors";
 import { selectWishlistItemsCount } from "../features/wishlist/wishlistSelectors";
@@ -21,6 +21,8 @@ import styles from "./Navbar.module.css";
 
 function Navbar() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const page = location.pathname;
   const wishlistCount = useSelector(selectWishlistItemsCount);
   const cartCount = useSelector(selectCartItemCount);
   const currentUser = useSelector(selectCurrentUser);
@@ -89,7 +91,7 @@ function Navbar() {
           </NavLink>
         )}
 
-        {currentUser ? (
+        {currentUser && page != "/login" ? (
           <div className={styles.userContainer}>
             <span className={styles.userBadge}>
               {isAdmin === true

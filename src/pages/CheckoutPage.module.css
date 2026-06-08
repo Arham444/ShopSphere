@@ -52,7 +52,7 @@
 
 .itemName {
   margin: 0;
-  fontWeight: 600;
+  font-weight: 600;
   font-size: 0.95rem;
   color: var(--color-text-dark);
 }
@@ -105,7 +105,9 @@
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
   outline: none;
   margin-top: 0.5rem;
   padding: 0.85rem;
