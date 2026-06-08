@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../features/products/productSlice";
 import { selectIsAdmin } from "../features/auth/authSelectors";
-import { theme } from "../theme";
+import styles from "./AddProductPage.module.css";
 
 const Categories = [
   "Electronics",
@@ -44,11 +44,11 @@ function AddProductPage() {
 
   if (!isAdmin) {
     return (
-      <div style={styles.deniedContainer}>
-        <div style={styles.deniedCard}>
-          <span style={styles.deniedIcon}>🔒</span>
-          <p style={styles.deniedMessage}>Only Admin can create products.</p>
-          <button onClick={() => navigate("/login")} style={styles.deniedBtn}>
+      <div className={styles.deniedContainer}>
+        <div className={styles.deniedCard}>
+          <span className={styles.deniedIcon}>🔒</span>
+          <p className={styles.deniedMessage}>Only Admin can create products.</p>
+          <button onClick={() => navigate("/login")} className={styles.deniedBtn}>
             Go to Login
           </button>
         </div>
@@ -115,30 +115,30 @@ function AddProductPage() {
   };
 
   return (
-    <div style={styles.page}>
-      <h1 style={styles.title}>Add New Product</h1>
-      {error && <p style={styles.error}>{error}</p>}
+    <div className={styles.page}>
+      <h1 className={styles.title}>Add New Product</h1>
+      {error && <p className={styles.error}>{error}</p>}
 
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.group}>
-          <label style={styles.label}>Product Name *</label>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.group}>
+          <label className={styles.label}>Product Name *</label>
           <input
             name="name"
             value={form.name}
             onChange={handleChange}
             placeholder="e.g. Mechanical Keyboard"
-            style={styles.input}
+            className={styles.input}
             required
           />
         </div>
 
-        <div style={styles.group}>
-          <label style={styles.label}>Category *</label>
+        <div className={styles.group}>
+          <label className={styles.label}>Category *</label>
           <select
             name="category"
             value={form.category}
             onChange={handleChange}
-            style={styles.input}
+            className={styles.input}
             required
           >
             {Categories.map((category) => (
@@ -149,200 +149,83 @@ function AddProductPage() {
           </select>
         </div>
 
-        <div style={styles.group}>
-          <label style={styles.label}>Price ($) *</label>
+        <div className={styles.group}>
+          <label className={styles.label}>Price ($) *</label>
           <input
             name="price"
             value={form.price}
             onChange={handleChange}
             placeholder="e.g. 89.99"
-            style={styles.input}
+            className={styles.input}
             required
           />
         </div>
 
-        <div style={styles.group}>
-          <label style={styles.label}>Rating (0–5) *</label>
+        <div className={styles.group}>
+          <label className={styles.label}>Rating (0–5) *</label>
           <input
             name="rating"
             value={form.rating}
             onChange={handleChange}
             placeholder="e.g. 4.5"
-            style={styles.input}
+            className={styles.input}
             required
           />
         </div>
 
-        <div style={styles.group}>
-          <label style={styles.label}>Stock *</label>
+        <div className={styles.group}>
+          <label className={styles.label}>Stock *</label>
           <input
             name="stock"
             value={form.stock}
             onChange={handleChange}
             placeholder="e.g. 15"
-            style={styles.input}
+            className={styles.input}
             required
           />
         </div>
 
-        <div style={styles.group}>
-          <label style={styles.label}>Description *</label>
+        <div className={styles.group}>
+          <label className={styles.label}>Description *</label>
           <textarea
             name="description"
             value={form.description}
             onChange={handleChange}
             placeholder="Enter product details..."
-            style={{ ...styles.input, resize: "vertical" }}
+            className={styles.input}
+            style={{ resize: "vertical" }}
             rows={4}
             required
           />
         </div>
 
-        <div style={styles.group}>
-          <label style={styles.label}>Product Image *</label>
+        <div className={styles.group}>
+          <label className={styles.label}>Product Image *</label>
           <button
             type="button"
             onClick={handleImageUpload}
-            style={styles.uploadBtn}
+            className={styles.uploadBtn}
           >
             {imageUrl ? "Change Image" : "Upload Image"}
           </button>
           {imageUrl && (
-            <div style={styles.previewWrapper}>
+            <div className={styles.previewWrapper}>
               <img
                 src={imageUrl}
                 alt="Uploaded preview"
-                style={styles.preview}
+                className={styles.preview}
               />
-              <p style={styles.previewNote}>Image uploaded successfully</p>
+              <p className={styles.previewNote}>Image uploaded successfully</p>
             </div>
           )}
         </div>
 
-        <button type="submit" style={styles.submitBtn}>
+        <button type="submit" className={styles.submitBtn}>
           Add Product
         </button>
       </form>
     </div>
   );
 }
-
-const styles = {
-  page: {
-    padding: "2.5rem 3rem",
-    fontFamily: "system-ui, sans-serif",
-  },
-  title: {
-    fontSize: "1.8rem",
-    fontWeight: "700",
-    color: theme.colors.primary,
-    marginBottom: "1.5rem",
-    textAlign: "center",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "1.5rem",
-    maxWidth: "600px",
-    margin: "0 auto",
-    border: `1px solid ${theme.colors.border}`,
-    borderRadius: "12px",
-    padding: "2.5rem",
-    boxShadow: theme.shadows.card,
-    background: "var(--color-card-bg)",
-  },
-  group: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5rem",
-  },
-  label: {
-    fontSize: "0.9rem",
-    fontWeight: "600",
-    color: "var(--color-text-dark)",
-  },
-  input: {
-    ...theme.inputs.text,
-    padding: "0.75rem 1rem",
-    fontSize: "1rem",
-    width: "100%",
-  },
-  error: {
-    background: "#fef2f2",
-    border: `1px solid ${theme.colors.error}`,
-    color: "#dc2626",
-    padding: "0.75rem 1rem",
-    borderRadius: "8px",
-    fontSize: "0.9rem",
-    marginBottom: "1rem",
-  },
-  uploadBtn: {
-    ...theme.buttons.secondary,
-    padding: "0.75rem 1.5rem",
-    fontSize: "0.95rem",
-    alignSelf: "flex-start",
-  },
-  previewWrapper: {
-    marginTop: "0.75rem",
-    display: "flex",
-    alignItems: "center",
-    gap: "1rem",
-  },
-  preview: {
-    width: "100px",
-    height: "100px",
-    objectFit: "cover",
-    borderRadius: "8px",
-    border: `1px solid ${theme.colors.border}`,
-  },
-  previewNote: {
-    fontSize: "0.85rem",
-    color: "green",
-    fontWeight: "500",
-    margin: 0,
-  },
-  submitBtn: {
-    ...theme.buttons.primary,
-    padding: "0.85rem",
-    fontSize: "1rem",
-    marginTop: "0.5rem",
-  },
-  deniedContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "60vh",
-    fontFamily: "system-ui, sans-serif",
-  },
-  deniedCard: {
-    backgroundColor: "var(--color-card-bg)",
-    border: `1px solid ${theme.colors.border}`,
-    borderRadius: "12px",
-    padding: "3rem 2rem",
-    width: "400px",
-    boxShadow: theme.shadows.card,
-    textAlign: "center",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    boxSizing: "border-box",
-  },
-  deniedIcon: {
-    fontSize: "3rem",
-    marginBottom: "1rem",
-  },
-  deniedMessage: {
-    fontSize: "0.95rem",
-    color: "var(--color-text-muted)",
-    margin: "0 0 1.5rem 0",
-    lineHeight: "1.5",
-  },
-  deniedBtn: {
-    ...theme.buttons.primary,
-    padding: "0.6rem 2rem",
-    fontSize: "0.9rem",
-    fontWeight: "600",
-  },
-};
 
 export default AddProductPage;

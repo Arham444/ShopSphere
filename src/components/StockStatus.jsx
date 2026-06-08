@@ -1,27 +1,24 @@
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../features/cart/cartSelectors";
 import PropTypes from "prop-types";
-import { theme } from "../theme";
+import styles from "./StockStatus.module.css";
 
-function StockStatus({ product, style }) {
+function StockStatus({ product, style, className }) {
   const cartItems = useSelector(selectCartItems);
   const cartItem = cartItems.find((item) => item.id === product.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
   const isOutOfStock = product.stock <= 0;
 
+  const statusClass = isOutOfStock
+    ? styles.outOfStock
+    : cartQuantity >= product.stock
+      ? styles.limitReached
+      : styles.inStock;
+
   return (
     <span
-      style={{
-        color: isOutOfStock
-          ? theme.colors.outOfStock
-          : cartQuantity >= product.stock
-            ? theme.colors.warning
-            : theme.colors.success,
-        fontWeight: "600",
-        fontSize: "0.85rem",
-        margin: 0,
-        ...style,
-      }}
+      className={`${styles.status} ${statusClass} ${className || ""}`}
+      style={style}
     >
       {isOutOfStock
         ? "Out of Stock"
@@ -38,6 +35,7 @@ StockStatus.propTypes = {
     stock: PropTypes.number.isRequired,
   }).isRequired,
   style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default StockStatus;

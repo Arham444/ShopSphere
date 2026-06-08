@@ -5,7 +5,7 @@ import { removeFromWishlist } from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
 import { selectAllProducts } from "../features/products/productSelectors";
 import StockStatus from "../components/StockStatus";
-import { theme } from "../theme";
+import styles from "./WishlistPage.module.css";
 
 function WishlistPage() {
   const items = useSelector(selectWishlistItems);
@@ -14,61 +14,54 @@ function WishlistPage() {
 
   if (items.length === 0) {
     return (
-      <div style={styles.empty}>
+      <div className={styles.empty}>
         <h2>Your WishList is Empty! Why not Add something?</h2>
-        <Link to="/" style={styles.link}>
+        <Link to="/" className={styles.link}>
           Browse Products
         </Link>
       </div>
     );
   }
   return (
-    <div style={styles.page}>
+    <div className={styles.page}>
       <h1>Your WishList has ({items.length} items)</h1>
-      <div
-        style={{
-          ...styles.grid,
-          ...(items.length > 2
-            ? { gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }
-            : { gridTemplateColumns: "repeat(auto-fill, minmax(400px, 1fr))" }),
-        }}
-      >
+      <div className={items.length > 2 ? styles.grid : styles.gridFew}>
         {items.map((item) => {
           const savedProduct =
             allProducts.find((p) => p.id === item.id) || item;
           const isOutOfStock = savedProduct.stock <= 0;
           return (
-            <div key={item.id} style={styles.card}>
+            <div key={item.id} className={styles.card}>
               <Link to={`/product/${item.id}`}>
-                <img src={item.image} alt={item.name} style={styles.image} />
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className={styles.image}
+                />
               </Link>
-              <div style={styles.body}>
-                <p style={styles.category}>{item.category}</p>
-                <Link to={`/product/${item.id}`} style={styles.name}>
+              <div className={styles.body}>
+                <p className={styles.category}>{item.category}</p>
+                <Link to={`/product/${item.id}`} className={styles.name}>
                   {item.name}
                 </Link>
-                <p style={styles.price}>${item.price}</p>
-                <p style={styles.rating}>⭐{item.rating}</p>
+                <p className={styles.price}>${item.price}</p>
+                <p className={styles.rating}>⭐{item.rating}</p>
                 <StockStatus product={savedProduct} />
               </div>
-              <div style={styles.actions}>
+              <div className={styles.actions}>
                 <button
                   onClick={() => {
                     dispatch(addToCart(item));
                     dispatch(removeFromWishlist(item.id));
                   }}
                   disabled={isOutOfStock}
-                  style={{
-                    ...styles.MoveBtn,
-                    opacity: isOutOfStock ? 0.6 : 1,
-                    cursor: isOutOfStock ? "not-allowed" : "pointer",
-                  }}
+                  className={styles.MoveBtn}
                 >
                   {isOutOfStock ? "Out of Stock" : "Move To Cart!"}
                 </button>
                 <button
                   onClick={() => dispatch(removeFromWishlist(item.id))}
-                  style={styles.removeBtn}
+                  className={styles.removeBtn}
                 >
                   Remove
                 </button>
@@ -81,69 +74,4 @@ function WishlistPage() {
   );
 }
 
-const styles = {
-  page: { ...theme.layouts.page },
-  empty: { ...theme.empty, justifyContent: "center" },
-  link: {},
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-    gap: "1rem",
-    marginTop: "1rem",
-  },
-  card: {
-    ...theme.layouts.card,
-  },
-  image: {
-    width: "100%",
-    height: "200px",
-    objectFit: "cover",
-  },
-  body: {
-    padding: "1rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5rem",
-    alignItems: "center",
-    textAlign: "center",
-  },
-  category: {
-    fontSize: "0.75rem",
-    color: "#888",
-    margin: 0,
-    width: "100%",
-  },
-  name: {
-    fontWeight: "bold",
-    textDecoration: "none",
-    color: theme.colors.primary,
-    width: "100%",
-  },
-  price: {
-    fontWeight: "600",
-    color: theme.colors.textDark,
-    margin: 0,
-    width: "100%",
-  },
-  rating: {
-    margin: 0,
-    color: "#f59e0b",
-    fontSize: "0.85rem",
-    width: "100%",
-  },
-  actions: {
-    display: "flex",
-    gap: "0.5rem",
-    marginTop: "auto",
-    width: "100%",
-  },
-  MoveBtn: {
-    ...theme.buttons.smallPrimary,
-    flex: 1,
-  },
-  removeBtn: {
-    ...theme.buttons.smallSecondary,
-    flex: 1,
-  },
-};
 export default WishlistPage;

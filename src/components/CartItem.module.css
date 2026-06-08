@@ -1,0 +1,148 @@
+.row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 0;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.details {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.name {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+  color: var(--color-text-dark);
+}
+
+.price {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  background-color: var(--button-qty-container-bg);
+  border-radius: 20px;
+  padding: 3px;
+  gap: 6px;
+}
+
+.qtyBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--button-qty-bg);
+  color: var(--button-qty-color);
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.qtyBtn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.qtyBtn:disabled {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  color: var(--button-disabled-color);
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: not-allowed;
+  outline: none;
+  opacity: 0.5;
+}
+
+.qty {
+  min-width: 24px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  padding: 0 4px;
+}
+
+.subtotal {
+  font-weight: bold;
+  min-width: 80px;
+  text-align: right;
+  color: var(--color-text-dark);
+}
+
+.removeBtn {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  outline: none;
+  margin-left: 1.5rem;
+}
+
+.removeBtn:hover {
+  background-color: var(--color-error);
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem 0;
+  }
+  .details {
+    min-width: 120px;
+  }
+  .controls {
+    order: 3;
+  }
+  .subtotal {
+    order: 4;
+    flex: 1;
+    text-align: right;
+  }
+  .removeBtn {
+    order: 5;
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+}

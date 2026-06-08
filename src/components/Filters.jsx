@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { IoFilter, IoClose, IoChevronDown, IoChevronUp } from "react-icons/io5";
-import { theme } from "../theme";
 import {
   setSearchCategory,
   setPriceRange,
@@ -16,6 +15,7 @@ import {
   selectSortBy,
   selectCategories,
 } from "../features/products/productSelectors";
+import styles from "./Filters.module.css";
 
 function Filters() {
   const dispatch = useDispatch();
@@ -93,32 +93,32 @@ function Filters() {
     minRating !== 0;
 
   return (
-    <div style={styles.container}>
-      <button onClick={handleOpen} style={styles.filterTag}>
+    <div className={styles.container}>
+      <button onClick={handleOpen} className={styles.filterTag}>
         <IoFilter size={18} />
-        <span style={styles.filterTagText}>Filter and sort</span>
-        {hasActiveFilters && <span style={styles.filterDot} />}
+        <span className={styles.filterTagText}>Filter and sort</span>
+        {hasActiveFilters && <span className={styles.filterDot} />}
       </button>
 
       {isOpen && (
         <>
-          <div style={styles.backdrop} onClick={handleCancel} />
-          <div style={styles.sidebar}>
-            <div style={styles.sidebarHeader}>
-              <h2 style={styles.sidebarTitle}>FILTER AND SORT</h2>
-              <button onClick={handleClearAll} style={styles.clearAllBtn}>
+          <div className={styles.backdrop} onClick={handleCancel} />
+          <div className={styles.sidebar}>
+            <div className={styles.sidebarHeader}>
+              <h2 className={styles.sidebarTitle}>FILTER AND SORT</h2>
+              <button onClick={handleClearAll} className={styles.clearAllBtn}>
                 Clear All
               </button>
-              <button onClick={handleCancel} style={styles.closeBtn}>
+              <button onClick={handleCancel} className={styles.closeBtn}>
                 <IoClose size={18} />
               </button>
             </div>
 
-            <div style={styles.sidebarContent}>
-              <div style={styles.accordionSection}>
+            <div className={styles.sidebarContent}>
+              <div className={styles.accordionSection}>
                 <button
                   onClick={() => toggleSection("categories")}
-                  style={styles.accordionHeader}
+                  className={styles.accordionHeader}
                 >
                   <span>Categories</span>
                   {expandedSections.categories ? (
@@ -128,27 +128,15 @@ function Filters() {
                   )}
                 </button>
                 {expandedSections.categories && (
-                  <div style={styles.accordionBody}>
-                    <div style={styles.pillContainer}>
+                  <div className={styles.accordionBody}>
+                    <div className={styles.pillContainer}>
                       {categories.map((category) => {
                         const isActive = localCategory === category;
                         return (
                           <button
                             key={category}
                             onClick={() => setLocalCategory(category)}
-                            style={{
-                              ...styles.pill,
-                              backgroundColor: isActive
-                                ? "var(--button-primary-bg)"
-                                : "var(--color-background-light)",
-                              color: isActive
-                                ? "var(--button-primary-color)"
-                                : "var(--color-text-dark)",
-                              borderColor: isActive
-                                ? "var(--button-primary-bg)"
-                                : "var(--color-border)",
-                              fontWeight: isActive ? "600" : "500",
-                            }}
+                            className={`${styles.pill} ${isActive ? styles.activePill : ""}`}
                           >
                             {category}
                           </button>
@@ -159,10 +147,10 @@ function Filters() {
                 )}
               </div>
 
-              <div style={styles.accordionSection}>
+              <div className={styles.accordionSection}>
                 <button
                   onClick={() => toggleSection("price")}
-                  style={styles.accordionHeader}
+                  className={styles.accordionHeader}
                 >
                   <span>Price Range</span>
                   {expandedSections.price ? (
@@ -172,23 +160,23 @@ function Filters() {
                   )}
                 </button>
                 {expandedSections.price && (
-                  <div style={styles.accordionBody}>
-                    <div style={styles.inputRow}>
+                  <div className={styles.accordionBody}>
+                    <div className={styles.inputRow}>
                       <input
                         type="number"
                         placeholder="Min $"
                         value={minPrice}
                         onChange={(e) => setMinPrice(e.target.value)}
-                        style={styles.numberInput}
+                        className={styles.numberInput}
                         min="0"
                       />
-                      <span style={styles.separator}>-</span>
+                      <span className={styles.separator}>-</span>
                       <input
                         type="number"
                         placeholder="Max $"
                         value={maxPrice === Infinity ? "" : maxPrice}
                         onChange={(e) => setMaxPrice(e.target.value)}
-                        style={styles.numberInput}
+                        className={styles.numberInput}
                         min="0"
                       />
                     </div>
@@ -196,10 +184,10 @@ function Filters() {
                 )}
               </div>
 
-              <div style={styles.accordionSection}>
+              <div className={styles.accordionSection}>
                 <button
                   onClick={() => toggleSection("rating")}
-                  style={styles.accordionHeader}
+                  className={styles.accordionHeader}
                 >
                   <span>Min. Rating</span>
                   {expandedSections.rating ? (
@@ -209,14 +197,14 @@ function Filters() {
                   )}
                 </button>
                 {expandedSections.rating && (
-                  <div style={styles.accordionBody}>
-                    <div style={styles.inputRow}>
+                  <div className={styles.accordionBody}>
+                    <div className={styles.inputRow}>
                       <input
                         type="number"
                         placeholder="e.g. 4.0"
                         value={localRating}
                         onChange={(e) => setLocalRating(e.target.value)}
-                        style={styles.numberInput}
+                        className={styles.numberInput}
                         min="0"
                         max="5"
                         step="0.1"
@@ -226,10 +214,10 @@ function Filters() {
                 )}
               </div>
 
-              <div style={styles.accordionSection}>
+              <div className={styles.accordionSection}>
                 <button
                   onClick={() => toggleSection("sort")}
-                  style={styles.accordionHeader}
+                  className={styles.accordionHeader}
                 >
                   <span>Sort By</span>
                   {expandedSections.sort ? (
@@ -239,8 +227,8 @@ function Filters() {
                   )}
                 </button>
                 {expandedSections.sort && (
-                  <div style={styles.accordionBody}>
-                    <div style={styles.sortList}>
+                  <div className={styles.accordionBody}>
+                    <div className={styles.sortList}>
                       {[
                         { value: "newest", label: "Newest" },
                         {
@@ -258,17 +246,11 @@ function Filters() {
                           <button
                             key={option.value}
                             onClick={() => handleSortBy(option.value)}
-                            style={{
-                              ...styles.sortOption,
-                              fontWeight: isActive ? "600" : "400",
-                              color: isActive
-                                ? theme.colors.primary
-                                : "var(--color-text-muted)",
-                            }}
+                            className={`${styles.sortOption} ${isActive ? styles.activeSortOption : ""}`}
                           >
                             <span>{option.label}</span>
                             {isActive && (
-                              <span style={styles.checkmark}>✓</span>
+                              <span className={styles.checkmark}>✓</span>
                             )}
                           </button>
                         );
@@ -279,8 +261,8 @@ function Filters() {
               </div>
             </div>
 
-            <div style={styles.sidebarFooter}>
-              <button onClick={handleApply} style={styles.showItemsBtn}>
+            <div className={styles.sidebarFooter}>
+              <button onClick={handleApply} className={styles.showItemsBtn}>
                 SHOW PRODUCTS
               </button>
             </div>
@@ -290,199 +272,5 @@ function Filters() {
     </div>
   );
 }
-
-const styles = {
-  container: {
-    display: "flex",
-    justifyContent: "flex-start",
-    marginBottom: "1.5rem",
-    fontFamily: "system-ui, sans-serif",
-  },
-  filterTag: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "0.5rem",
-    background: "transparent",
-    border: "none",
-    cursor: "pointer",
-    padding: "0.5rem 0",
-    fontSize: "0.95rem",
-    fontWeight: "500",
-    color: theme.colors.primary,
-    outline: "none",
-    position: "relative",
-    marginLeft: "auto",
-  },
-  filterTagText: {
-    textDecoration: "underline",
-    textUnderlineOffset: "4px",
-  },
-  filterDot: {
-    width: "8px",
-    height: "8px",
-    borderRadius: "50%",
-    backgroundColor: theme.colors.accent,
-    position: "absolute",
-    top: "4px",
-    right: "-12px",
-  },
-  backdrop: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: theme.colors.overlayBg,
-    zIndex: 999,
-  },
-  sidebar: {
-    position: "fixed",
-    top: 0,
-    right: 0,
-    width: "400px",
-    height: "100vh",
-    backgroundColor: "var(--color-card-bg)",
-    boxShadow: "var(--shadow-card)",
-    zIndex: 1000,
-    display: "flex",
-    flexDirection: "column",
-    boxSizing: "border-box",
-    animation: "slideIn 0.3s ease-out",
-  },
-  sidebarHeader: {
-    padding: "1.5rem",
-    borderBottom: `1px solid ${theme.colors.border}`,
-    display: "flex",
-    alignItems: "center",
-    gap: "1.25rem",
-    position: "relative",
-  },
-  sidebarTitle: {
-    margin: 0,
-    fontSize: "1.1rem",
-    fontWeight: "700",
-    letterSpacing: "0.05em",
-    color: "var(--color-text-dark)",
-  },
-  clearAllBtn: {
-    background: "transparent",
-    border: "none",
-    color: "var(--color-text-muted)",
-    fontSize: "0.85rem",
-    textDecoration: "underline",
-    cursor: "pointer",
-    padding: 0,
-    fontWeight: "500",
-  },
-  closeBtn: {
-    background: "var(--color-primary)",
-    color: "var(--button-primary-color)",
-    border: "none",
-    borderRadius: "50%",
-    width: "32px",
-    height: "32px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    cursor: "pointer",
-    position: "absolute",
-    right: "1.5rem",
-    top: "1.25rem",
-    outline: "none",
-  },
-  sidebarContent: {
-    flex: 1,
-    overflowY: "auto",
-    padding: "1.5rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "1.5rem",
-  },
-  accordionSection: {
-    borderBottom: `1px solid ${theme.colors.border}`,
-    paddingBottom: "1.25rem",
-  },
-  accordionHeader: {
-    width: "100%",
-    background: "transparent",
-    border: "none",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    fontSize: "1rem",
-    fontWeight: "600",
-    color: theme.colors.primary,
-    padding: "0.5rem 0",
-    cursor: "pointer",
-    outline: "none",
-  },
-  accordionBody: {
-    paddingTop: "0.75rem",
-  },
-  pillContainer: {
-    display: "flex",
-    gap: "0.5rem",
-    flexWrap: "wrap",
-  },
-  pill: {
-    padding: "0.4rem 1rem",
-    fontSize: "0.85rem",
-    borderRadius: "9999px",
-    border: "1px solid",
-    cursor: "pointer",
-    transition: "all 0.2s ease-in-out",
-    outline: "none",
-  },
-  inputRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "0.5rem",
-  },
-  numberInput: {
-    ...theme.inputs.text,
-    width: "100%",
-    padding: "0.5rem 0.75rem",
-  },
-  separator: {
-    color: "var(--color-text-muted)",
-    fontSize: "1rem",
-  },
-  sortList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5rem",
-  },
-  sortOption: {
-    width: "100%",
-    background: "transparent",
-    border: "none",
-    textAlign: "left",
-    fontSize: "0.95rem",
-    padding: "0.5rem 0",
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    outline: "none",
-    color: "var(--color-text-dark)",
-  },
-  checkmark: {
-    color: theme.colors.accent,
-    fontWeight: "bold",
-    fontSize: "1.1rem",
-  },
-  sidebarFooter: {
-    padding: "1.5rem",
-    borderTop: `1px solid ${theme.colors.border}`,
-  },
-  showItemsBtn: {
-    ...theme.buttons.primary,
-    width: "100%",
-    padding: "1rem",
-    fontSize: "0.95rem",
-    fontWeight: "600",
-    letterSpacing: "0.05em",
-  },
-};
 
 export default Filters;

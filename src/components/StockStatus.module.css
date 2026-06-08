@@ -1,0 +1,17 @@
+.status {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.outOfStock {
+  color: var(--color-out-of-stock);
+}
+
+.limitReached {
+  color: var(--color-warning);
+}
+
+.inStock {
+  color: var(--color-success);
+}

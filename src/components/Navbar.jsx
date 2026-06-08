@@ -17,7 +17,7 @@ import {
   IoMoonOutline,
 } from "react-icons/io5";
 import { IoMdAddCircle } from "react-icons/io";
-import { theme } from "../theme";
+import styles from "./Navbar.module.css";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -45,15 +45,14 @@ function Navbar() {
   };
 
   return (
-    <nav style={styles.nav}>
-      <Link to="/" style={styles.logo}>
+    <nav className={styles.nav}>
+      <Link to="/" className={styles.logo}>
         ShopSphere
       </Link>
-      <div style={styles.links}>
+      <div className={styles.links}>
         <button
           onClick={toggleTheme}
-          style={styles.themeToggle}
-          className="theme-toggle-btn"
+          className={`${styles.themeToggle} theme-toggle-btn`}
           aria-label="Toggle Theme"
         >
           {themeName === "dark" ? (
@@ -62,39 +61,42 @@ function Navbar() {
             <IoMoonOutline size={20} />
           )}
         </button>
-        <Link to="/wishlist" style={styles.link}>
+        <Link to="/wishlist" className={styles.link}>
           <FaHeart />
           <span>Wishlist</span>
           {wishlistCount > 0 && (
-            <span style={styles.badge}>{wishlistCount}</span>
+            <span className={styles.badge}>{wishlistCount}</span>
           )}
         </Link>
-        <Link to="/cart" style={styles.link}>
+        <Link to="/cart" className={styles.link}>
           <IoCartOutline />
           <span>Cart</span>
-          {cartCount > 0 && <span style={styles.badge}>{cartCount}</span>}
+          {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
         </Link>
         {isAdmin && (
-          <Link to="/AddProduct" style={styles.link}>
+          <Link to="/AddProduct" className={styles.link}>
             <IoMdAddCircle />
             <span>Add Product</span>
           </Link>
         )}
 
         {currentUser && currentUser.role !== "guest" ? (
-          <div style={styles.userContainer}>
-            <span style={styles.userBadge}>
+          <div className={styles.userContainer}>
+            <span className={styles.userBadge}>
               {currentUser.role === "admin"
                 ? "Admin"
                 : `User ${currentUser.username}`}
             </span>
-            <button onClick={() => dispatch(logout())} style={styles.logoutBtn}>
+            <button
+              onClick={() => dispatch(logout())}
+              className={styles.logoutBtn}
+            >
               <IoLogOutOutline size={16} />
               <span>Logout</span>
             </button>
           </div>
         ) : (
-          <Link to="/login" style={styles.loginBtn}>
+          <Link to="/login" className={styles.loginBtn}>
             <IoLogInOutline size={16} />
             <span>Login</span>
           </Link>
@@ -103,104 +105,5 @@ function Navbar() {
     </nav>
   );
 }
-
-const styles = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "1rem 2rem",
-    background: "var(--navbar-bg)",
-    color: "var(--navbar-text)",
-  },
-  logo: {
-    color: "var(--navbar-text)",
-    textDecoration: "none",
-    fontSize: "1.5rem",
-    fontWeight: "bold",
-  },
-  links: {
-    display: "flex",
-    gap: "1.5rem",
-    alignItems: "center",
-  },
-  link: {
-    color: "var(--navbar-text)",
-    textDecoration: "none",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.4rem",
-  },
-  badge: {
-    background: theme.colors.accent,
-    color: "white",
-    borderRadius: "50%",
-    padding: "0",
-    fontSize: "0.75rem",
-    width: "20px",
-    height: "20px",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: "bold",
-    marginLeft: "4px",
-    boxSizing: "border-box",
-  },
-  userContainer: {
-    display: "flex",
-    alignItems: "center",
-    gap: "0.75rem",
-    borderLeft: `1px solid ${theme.colors.navbarHighlight}`,
-    paddingLeft: "0.75rem",
-  },
-  userBadge: {
-    fontSize: "0.85rem",
-    fontWeight: "600",
-    backgroundColor: theme.colors.navbarHighlight,
-    padding: "0.25rem 0.6rem",
-    borderRadius: "4px",
-    color: "var(--navbar-text)",
-  },
-  logoutBtn: {
-    background: "transparent",
-    border: "none",
-    color: "var(--navbar-text)",
-    opacity: 0.8,
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.25rem",
-    fontSize: "0.85rem",
-    fontWeight: "500",
-    outline: "none",
-    transition: "all 0.2s",
-  },
-  loginBtn: {
-    color: "var(--navbar-text)",
-    textDecoration: "none",
-    display: "flex",
-    alignItems: "center",
-    gap: "0.25rem",
-    fontSize: "0.85rem",
-    fontWeight: "500",
-    border: "1px solid var(--navbar-text)",
-    padding: "0.3rem 0.75rem",
-    borderRadius: "6px",
-    transition: "all 0.2s",
-  },
-  themeToggle: {
-    background: "transparent",
-    border: "none",
-    color: "var(--navbar-text)",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "0.4rem",
-    borderRadius: "50%",
-    transition: "all 0.2s ease",
-    outline: "none",
-  },
-};
 
 export default Navbar;

@@ -1,0 +1,184 @@
+.page {
+  padding: 2rem 3rem;
+  font-family: system-ui, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--color-text-dark);
+}
+
+.link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.gridFew {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.category {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin: 0;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.name {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--color-primary);
+  width: 100%;
+  transition: color 0.2s ease;
+}
+
+.name:hover {
+  color: var(--color-accent);
+}
+
+.price {
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0;
+  width: 100%;
+}
+
+.rating {
+  margin: 0;
+  color: var(--color-warning);
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  width: 100%;
+  padding: 0 1rem 1rem 1rem;
+  box-sizing: border-box;
+}
+
+.MoveBtn {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+  outline: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+.MoveBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.MoveBtn:disabled {
+  background-color: var(--button-disabled-bg);
+  color: var(--button-disabled-color);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.removeBtn {
+  background-color: var(--button-secondary-bg);
+  color: var(--button-secondary-color);
+  border: 1px solid var(--button-secondary-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+.removeBtn:hover {
+  background-color: var(--color-error);
+  color: white;
+  border-color: var(--color-error);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 1.5rem;
+  }
+  .grid, .gridFew {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 1rem;
+  }
+  .grid, .gridFew {
+    grid-template-columns: 1fr;
+  }
+  .empty {
+    padding: 2rem;
+  }
+}

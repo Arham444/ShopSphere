@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../features/products/productSlice";
 import { selectSearchQuery } from "../features/products/productSelectors";
 import { useEffect, useState } from "react";
-import { theme } from "../theme";
+import styles from "./SearchBar.module.css";
 
 function SearchBar() {
   const dispatch = useDispatch();
@@ -22,15 +22,9 @@ function SearchBar() {
       placeholder="Search Products..."
       value={localQuery}
       onChange={(e) => setLocalQuery(e.target.value)}
-      style={styles.input}
+      className={styles.input}
     />
   );
 }
 
-const styles = {
-  input: {
-    ...theme.inputs.text,
-    width: "100%",
-  },
-};
 export default SearchBar;

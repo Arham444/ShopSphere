@@ -6,7 +6,7 @@ import {
   selectCartItemCount,
   selectCartTotal,
 } from "../features/cart/cartSelectors.js";
-import { theme } from "../theme";
+import styles from "./CartPage.module.css";
 
 function CartPage() {
   const items = useSelector(selectCartWithSubtotals);
@@ -14,9 +14,9 @@ function CartPage() {
   const total = useSelector(selectCartTotal);
   if (items.length === 0) {
     return (
-      <div style={styles.empty}>
+      <div className={styles.empty}>
         <h2>Your Cart is Empty</h2>
-        <Link to="/" style={styles.link}>
+        <Link to="/" className={styles.link}>
           Continue Shopping
         </Link>
       </div>
@@ -24,27 +24,27 @@ function CartPage() {
   }
 
   return (
-    <div style={styles.page}>
+    <div className={styles.page}>
       <h1> Your Cart with ({itemCount}) items</h1>
-      <div style={styles.layout}>
-        <div style={styles.items}>
+      <div className={styles.layout}>
+        <div className={styles.items}>
           {items.map((item) => (
             <CartItem key={item.id} item={item} />
           ))}
         </div>
 
-        <div style={styles.summary}>
+        <div className={styles.summary}>
           <h3>Order Summary</h3>
           <p>Items: {itemCount}</p>
           <p>Total: ${total}</p>
-          <div style={styles.summaryRow}>
+          <div className={styles.summaryRow}>
             <span>Shipping</span>
-            <span style={{ color: theme.colors.success }}>Free</span>
+            <span style={{ color: "var(--color-success)" }}>Free</span>
           </div>
           <hr />
           <div
+            className={styles.summaryRow}
             style={{
-              ...styles.summaryRow,
               fontWeight: "bold",
               fontSize: "1.1rem",
             }}
@@ -52,10 +52,10 @@ function CartPage() {
             <span>Total</span>
             <span>${total}</span>
           </div>
-          <Link to="/checkout" style={styles.checkoutBtn}>
+          <Link to="/checkout" className={styles.checkoutBtn}>
             Proceed to Checkout
           </Link>
-          <Link to="/" style={styles.continueLink}>
+          <Link to="/" className={styles.continueLink}>
             Continue Shopping
           </Link>
         </div>
@@ -64,46 +64,4 @@ function CartPage() {
   );
 }
 
-const styles = {
-  page: { ...theme.layouts.page },
-  layout: {
-    display: "grid",
-    gridTemplateColumns: "1fr 300px",
-    gap: "2rem",
-    alignItems: "start",
-  },
-  itemList: {
-    border: `1px solid ${theme.colors.border}`,
-    borderRadius: "8px",
-    overflow: "hidden",
-  },
-  summary: {
-    border: `1px solid ${theme.colors.border}`,
-    borderRadius: "8px",
-    padding: "1.5rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.75rem",
-    boxShadow: theme.shadows.card,
-    backgroundColor: "var(--color-card-bg)",
-  },
-  summaryRow: { display: "flex", justifyContent: "space-between" },
-  checkoutBtn: {
-    ...theme.buttons.primary,
-    display: "block",
-    textAlign: "center",
-    padding: "0.75rem",
-    textDecoration: "none",
-    marginTop: "0.5rem",
-  },
-  continueLink: {
-    display: "block",
-    textAlign: "center",
-    color: "var(--color-text-muted)",
-    fontSize: "0.9rem",
-    textDecoration: "none",
-  },
-  empty: { ...theme.empty },
-  link: { color: theme.colors.primary },
-};
 export default CartPage;
