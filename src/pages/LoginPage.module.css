@@ -1,7 +1,7 @@
 .pageWrapper {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 75px);
+  flex: 1;
   background-color: var(--color-background);
 }
 
@@ -12,8 +12,7 @@
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  margin: 3rem 0;
-  padding: 0;
+  padding: 2rem 0;
 }
 
 /* Side-connected Centered Card (Stretches fully from side-to-side) */
@@ -236,7 +235,7 @@
 /* Responsive States */
 @media (max-width: 768px) {
   .container {
-    margin: 1.5rem 0;
+    padding: 1rem 0;
   }
 
   .splitCard {
