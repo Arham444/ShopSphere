@@ -22,7 +22,11 @@ function WishlistPage() {
   if (isGuest) {
     return (
       <AccessDenied
-        message="Guests cannot have a wishlist. Please log in to save items."
+        message={
+          <>
+            Guests cannot have a wishlist. <br /> Please log in to save items.
+          </>
+        }
         icon={<CiLock />}
       />
     );

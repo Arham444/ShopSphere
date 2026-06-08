@@ -12,6 +12,7 @@ import { clearCart } from "../features/cart/cartSlice";
 import { checkoutProducts } from "../features/products/productSlice";
 import AccessDenied from "../components/AccessDenied";
 import styles from "./CheckoutPage.module.css";
+import { CiLock } from "react-icons/ci";
 const TAX_RATE = 0.08;
 
 function CheckoutPage() {
@@ -29,8 +30,14 @@ function CheckoutPage() {
   if (isGuest) {
     return (
       <AccessDenied
-        message="Guests cannot checkout. Please log in to complete your purchase."
-        icon="🔒"
+        message={
+          <>
+            Guests cannot checkout.
+            <br />
+            Please log in to complete your purchase.
+          </>
+        }
+        icon={<CiLock />}
       />
     );
   }
