@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItemCount } from "../features/cart/cartSelectors";
 import { selectWishlistItemsCount } from "../features/wishlist/wishlistSelectors";
@@ -44,6 +44,9 @@ function Navbar() {
     setThemeName((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+  const getLinkClass = ({ isActive }) =>
+    `${styles.link} ${isActive ? styles.activeLink : ""}`;
+
   return (
     <nav className={styles.nav}>
       <Link to="/" className={styles.logo}>
@@ -61,23 +64,23 @@ function Navbar() {
             <IoMoonOutline size={20} />
           )}
         </button>
-        <Link to="/wishlist" className={styles.link}>
+        <NavLink to="/wishlist" className={getLinkClass}>
           <FaHeart />
           <span>Wishlist</span>
           {wishlistCount > 0 && (
             <span className={styles.badge}>{wishlistCount}</span>
           )}
-        </Link>
-        <Link to="/cart" className={styles.link}>
+        </NavLink>
+        <NavLink to="/cart" className={getLinkClass}>
           <IoCartOutline />
           <span>Cart</span>
           {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
-        </Link>
+        </NavLink>
         {isAdmin && (
-          <Link to="/AddProduct" className={styles.link}>
+          <NavLink to="/AddProduct" className={getLinkClass}>
             <IoMdAddCircle />
             <span>Add Product</span>
-          </Link>
+          </NavLink>
         )}
 
         {currentUser && currentUser.role !== "guest" ? (
@@ -96,10 +99,15 @@ function Navbar() {
             </button>
           </div>
         ) : (
-          <Link to="/login" className={styles.loginBtn}>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              `${styles.loginBtn} ${isActive ? styles.activeLink : ""}`
+            }
+          >
             <IoLogInOutline size={16} />
             <span>Login</span>
-          </Link>
+          </NavLink>
         )}
       </div>
     </nav>

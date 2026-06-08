@@ -38,6 +38,11 @@
   opacity: 0.8;
 }
 
+.activeLink {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+}
+
 .badge {
   background: var(--color-accent);
   color: white;

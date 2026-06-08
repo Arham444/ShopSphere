@@ -25,7 +25,7 @@ function WishlistPage() {
   return (
     <div className={styles.page}>
       <h1>Your WishList has ({items.length} items)</h1>
-      <div className={items.length > 2 ? styles.grid : styles.gridFew}>
+      <div className={items.length > 4 ? styles.grid : styles.gridFew}>
         {items.map((item) => {
           const savedProduct =
             allProducts.find((p) => p.id === item.id) || item;
