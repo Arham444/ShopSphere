@@ -6,6 +6,7 @@ import { addToCart } from "../features/cart/cartSlice";
 import { selectAllProducts } from "../features/products/productSelectors";
 import { selectCurrentUser } from "../features/auth/authSelectors";
 import StockStatus from "../components/StockStatus";
+import AccessDenied from "../components/AccessDenied";
 import styles from "./WishlistPage.module.css";
 import { CiLock } from "react-icons/ci";
 
@@ -20,19 +21,10 @@ function WishlistPage() {
 
   if (isGuest) {
     return (
-      <div className="denied-container">
-        <div className="denied-card">
-          <span className="denied-icon">
-            <CiLock />
-          </span>
-          <p className="denied-message">
-            Guests cannot have a wishlist. Please log in to save items.
-          </p>
-          <button onClick={() => navigate("/login")} className="denied-btn">
-            Go to Login
-          </button>
-        </div>
-      </div>
+      <AccessDenied
+        message="Guests cannot have a wishlist. Please log in to save items."
+        icon={<CiLock />}
+      />
     );
   }
 

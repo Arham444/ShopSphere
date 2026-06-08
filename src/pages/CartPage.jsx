@@ -7,11 +7,11 @@ import {
   selectCartTotal,
 } from "../features/cart/cartSelectors.js";
 import { selectCurrentUser } from "../features/auth/authSelectors";
+import AccessDenied from "../components/AccessDenied";
 import styles from "./CartPage.module.css";
 import { CiLock } from "react-icons/ci";
 
 function CartPage() {
-  const navigate = useNavigate();
   const items = useSelector(selectCartWithSubtotals);
   const itemCount = useSelector(selectCartItemCount);
   const total = useSelector(selectCartTotal);
@@ -21,19 +21,10 @@ function CartPage() {
 
   if (isGuest) {
     return (
-      <div className="denied-container">
-        <div className="denied-card">
-          <span className="denied-icon">
-            <CiLock />
-          </span>
-          <p className="denied-message">
-            Guests cannot have a shopping cart. Please log in to shop.
-          </p>
-          <button onClick={() => navigate("/login")} className="denied-btn">
-            Go to Login
-          </button>
-        </div>
-      </div>
+      <AccessDenied
+        message="Guests cannot have a shopping cart. Please log in to shop."
+        icon={<CiLock />}
+      />
     );
   }
   if (items.length === 0) {

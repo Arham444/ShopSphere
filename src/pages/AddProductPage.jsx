@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../features/products/productSlice";
 import { selectIsAdmin } from "../features/auth/authSelectors";
+import AccessDenied from "../components/AccessDenied";
 import styles from "./AddProductPage.module.css";
 
 const Categories = [
@@ -43,17 +44,7 @@ function AddProductPage() {
   const [error, setError] = useState("");
 
   if (!isAdmin) {
-    return (
-      <div className={styles.deniedContainer}>
-        <div className={styles.deniedCard}>
-          <span className={styles.deniedIcon}>🔒</span>
-          <p className={styles.deniedMessage}>Only Admin can create products.</p>
-          <button onClick={() => navigate("/login")} className={styles.deniedBtn}>
-            Go to Login
-          </button>
-        </div>
-      </div>
-    );
+    return <AccessDenied message="Only Admin can create products." icon="🔒" />;
   }
 
   const handleChange = (e) => {

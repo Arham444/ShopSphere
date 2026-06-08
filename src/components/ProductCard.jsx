@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import { selectCartItems } from "../features/cart/cartSelectors";
 import { selectCurrentUser } from "../features/auth/authSelectors";
 import styles from "./ProductCard.module.css";
-
 import StockStatus from "./StockStatus";
 
 function ProductCard({ product }) {
