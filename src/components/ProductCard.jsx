@@ -1,23 +1,44 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { selectCartItems } from "../features/cart/cartSelectors";
+import { selectCurrentUser } from "../features/auth/authSelectors";
 import styles from "./ProductCard.module.css";
 
 import StockStatus from "./StockStatus";
 
 function ProductCard({ product }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const { isInWishlist, toggleWishlist } = useWishlist(product);
+  const currentUser = useSelector(selectCurrentUser);
+
+  const isGuest = !currentUser || currentUser.role === "guest";
 
   const cartItem = cartItems.find((item) => item.id === product.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
   const isOutOfStock = product.stock <= 0;
   const isLimitReached = isOutOfStock || cartQuantity >= product.stock;
+
+  const handleAddToCart = () => {
+    if (isGuest) {
+      navigate("/cart");
+    } else {
+      dispatch(addToCart(product));
+    }
+  };
+
+  const handleToggleWishlist = () => {
+    if (isGuest) {
+      navigate("/wishlist");
+    } else {
+      toggleWishlist();
+    }
+  };
 
   return (
     <div className={styles.card}>
@@ -34,7 +55,7 @@ function ProductCard({ product }) {
         <StockStatus product={product} />
         <div className={styles.actions}>
           <button
-            onClick={() => dispatch(addToCart(product))}
+            onClick={handleAddToCart}
             disabled={isLimitReached}
             className={styles.cartBtn}
           >
@@ -45,7 +66,7 @@ function ProductCard({ product }) {
                 : "Add to Cart"}
           </button>
           <button
-            onClick={toggleWishlist}
+            onClick={handleToggleWishlist}
             className={`${styles.wishBtn} ${isInWishlist ? styles.activeWish : ""}`}
           >
             <FaHeart

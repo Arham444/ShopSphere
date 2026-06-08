@@ -1,10 +1,11 @@
-import { Navigate, useParams, Link } from "react-router-dom";
+import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectProductById } from "../features/products/productSelectors";
 import { addToCart } from "../features/cart/cartSlice";
 import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { selectCartItems } from "../features/cart/cartSelectors";
+import { selectCurrentUser } from "../features/auth/authSelectors";
 import styles from "./ProductDetailPage.module.css";
 
 import StockStatus from "../components/StockStatus";
@@ -12,10 +13,14 @@ import StockStatus from "../components/StockStatus";
 function ProductDetailPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
+  const currentUser = useSelector(selectCurrentUser);
 
   const product = useSelector((state) => selectProductById(state, id));
   const { isInWishlist, toggleWishlist } = useWishlist(product);
+
+  const isGuest = !currentUser || currentUser.role === "guest";
 
   if (!product) return <Navigate to="/404" replace />;
 
@@ -23,6 +28,22 @@ function ProductDetailPage() {
   const cartQuantity = cartItem ? cartItem.quantity : 0;
   const isOutOfStock = product.stock <= 0;
   const isLimitReached = isOutOfStock || cartQuantity >= product.stock;
+
+  const handleAddToCart = () => {
+    if (isGuest) {
+      navigate("/cart");
+    } else {
+      dispatch(addToCart(product));
+    }
+  };
+
+  const handleToggleWishlist = () => {
+    if (isGuest) {
+      navigate("/wishlist");
+    } else {
+      toggleWishlist();
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -52,7 +73,7 @@ function ProductDetailPage() {
           </p>
           <div className={styles.actionRow}>
             <button
-              onClick={() => dispatch(addToCart(product))}
+              onClick={handleAddToCart}
               disabled={isLimitReached}
               className={styles.cartBtn}
             >
@@ -63,7 +84,7 @@ function ProductDetailPage() {
                   : "Add to cart"}
             </button>
             <button
-              onClick={toggleWishlist}
+              onClick={handleToggleWishlist}
               className={`${styles.wishlistBtn} ${isInWishlist ? styles.activeWishlistBtn : ""}`}
             >
               <FaHeart

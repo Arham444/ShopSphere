@@ -68,12 +68,15 @@
 }
 
 .userBadge {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  background-color: rgba(255, 255, 255, 0.15);
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  color: var(--navbar-text);
+  background-color: var(--accent-bg);
+  color: var(--color-accent);
+  border: 1px solid var(--accent-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.025em;
+  text-transform: capitalize;
 }
 
 .logoutBtn {

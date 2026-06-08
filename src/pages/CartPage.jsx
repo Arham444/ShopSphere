@@ -1,17 +1,41 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartItem from "../components/CartItem.jsx";
 import {
   selectCartWithSubtotals,
   selectCartItemCount,
   selectCartTotal,
 } from "../features/cart/cartSelectors.js";
+import { selectCurrentUser } from "../features/auth/authSelectors";
 import styles from "./CartPage.module.css";
+import { CiLock } from "react-icons/ci";
 
 function CartPage() {
+  const navigate = useNavigate();
   const items = useSelector(selectCartWithSubtotals);
   const itemCount = useSelector(selectCartItemCount);
   const total = useSelector(selectCartTotal);
+  const currentUser = useSelector(selectCurrentUser);
+
+  const isGuest = !currentUser || currentUser.role === "guest";
+
+  if (isGuest) {
+    return (
+      <div className="denied-container">
+        <div className="denied-card">
+          <span className="denied-icon">
+            <CiLock />
+          </span>
+          <p className="denied-message">
+            Guests cannot have a shopping cart. Please log in to shop.
+          </p>
+          <button onClick={() => navigate("/login")} className="denied-btn">
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
   if (items.length === 0) {
     return (
       <div className={styles.empty}>

@@ -1,16 +1,40 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { selectWishlistItems } from "../features/wishlist/wishlistSelectors";
 import { removeFromWishlist } from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
 import { selectAllProducts } from "../features/products/productSelectors";
+import { selectCurrentUser } from "../features/auth/authSelectors";
 import StockStatus from "../components/StockStatus";
 import styles from "./WishlistPage.module.css";
+import { CiLock } from "react-icons/ci";
 
 function WishlistPage() {
+  const navigate = useNavigate();
   const items = useSelector(selectWishlistItems);
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
+  const currentUser = useSelector(selectCurrentUser);
+
+  const isGuest = !currentUser || currentUser.role === "guest";
+
+  if (isGuest) {
+    return (
+      <div className="denied-container">
+        <div className="denied-card">
+          <span className="denied-icon">
+            <CiLock />
+          </span>
+          <p className="denied-message">
+            Guests cannot have a wishlist. Please log in to save items.
+          </p>
+          <button onClick={() => navigate("/login")} className="denied-btn">
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (

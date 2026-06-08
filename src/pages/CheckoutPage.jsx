@@ -6,20 +6,43 @@ import {
   selectCartWithSubtotals,
   selectCartTotal,
 } from "../features/cart/cartSelectors";
+import { selectCurrentUser } from "../features/auth/authSelectors";
 import { TiTick } from "react-icons/ti";
 import { clearCart } from "../features/cart/cartSlice";
 import { checkoutProducts } from "../features/products/productSlice";
 import styles from "./CheckoutPage.module.css";
+import { CiLock } from "react-icons/ci";
 const TAX_RATE = 0.08;
 
 function CheckoutPage() {
   const items = useSelector(selectCartWithSubtotals);
   const total = useSelector(selectCartTotal);
   const itemCount = useSelector(selectCartItemCount);
+  const currentUser = useSelector(selectCurrentUser);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [orderPlaced, setOrderPlaced] = useState(false);
+
+  const isGuest = !currentUser || currentUser.role === "guest";
+
+  if (isGuest) {
+    return (
+      <div className="denied-container">
+        <div className="denied-card">
+          <span className="denied-icon">
+            <CiLock />
+          </span>
+          <p className="denied-message">
+            Guests cannot checkout. Please log in to complete your purchase.
+          </p>
+          <button onClick={() => navigate("/login")} className="denied-btn">
+            Go to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (items.length === 0 && !orderPlaced)
     return (

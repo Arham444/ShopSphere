@@ -64,18 +64,24 @@ function Navbar() {
             <IoMoonOutline size={20} />
           )}
         </button>
-        <NavLink to="/wishlist" className={getLinkClass}>
-          <FaHeart />
-          <span>Wishlist</span>
-          {wishlistCount > 0 && (
-            <span className={styles.badge}>{wishlistCount}</span>
-          )}
-        </NavLink>
-        <NavLink to="/cart" className={getLinkClass}>
-          <IoCartOutline />
-          <span>Cart</span>
-          {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
-        </NavLink>
+        {currentUser && currentUser.role !== "guest" && (
+          <>
+            <NavLink to="/wishlist" className={getLinkClass}>
+              <FaHeart />
+              <span>Wishlist</span>
+              {wishlistCount > 0 && (
+                <span className={styles.badge}>{wishlistCount}</span>
+              )}
+            </NavLink>
+            <NavLink to="/cart" className={getLinkClass}>
+              <IoCartOutline />
+              <span>Cart</span>
+              {cartCount > 0 && (
+                <span className={styles.badge}>{cartCount}</span>
+              )}
+            </NavLink>
+          </>
+        )}
         {isAdmin && (
           <NavLink to="/AddProduct" className={getLinkClass}>
             <IoMdAddCircle />
@@ -83,12 +89,14 @@ function Navbar() {
           </NavLink>
         )}
 
-        {currentUser && currentUser.role !== "guest" ? (
+        {currentUser ? (
           <div className={styles.userContainer}>
             <span className={styles.userBadge}>
-              {currentUser.role === "admin"
+              {isAdmin === true
                 ? "Admin"
-                : `User ${currentUser.username}`}
+                : currentUser.role === "guest"
+                  ? "Guest"
+                  : `${currentUser.username}`}
             </span>
             <button
               onClick={() => dispatch(logout())}
