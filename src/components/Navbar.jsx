@@ -57,7 +57,7 @@ function Navbar() {
       <div className={styles.links}>
         <button
           onClick={toggleTheme}
-          className={`${styles.themeToggle} theme-toggle-btn`}
+          className={styles.themeToggle}
           aria-label="Toggle Theme"
         >
           {themeName === "dark" ? (

@@ -51,10 +51,10 @@
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
-    --bg: #0f1015;
-    --card-bg: #16171d;
-    --border: #232530;
-    --code-bg: #1f2028;
+    --bg: #1a1b23;
+    --card-bg: #242631;
+    --border: #2e303d;
+    --code-bg: #2d2f3b;
     --accent: #c084fc;
     --accent-bg: rgba(192, 132, 252, 0.15);
     --accent-border: rgba(192, 132, 252, 0.5);
@@ -75,36 +75,32 @@
     /* Theme colors overrides (Dark default) */
     --color-primary: #f3f4f6;
     --color-accent: #c084fc;
-    --color-border: #232530;
-    --color-background-light: #1f2028;
+    --color-border: #2e303d;
+    --color-background-light: #2d2f3b;
     --color-text-dark: #f3f4f6;
     --color-text-muted: #9ca3af;
     --color-error: #f87171;
     --color-out-of-stock: #4b5563;
     --color-warning: #fbbf24;
     --color-success: #34d399;
-    --color-card-bg: #16171d;
+    --color-card-bg: #242631;
 
     --button-primary-bg: #ffffff;
     --button-primary-color: #1a1a1a;
-    --button-secondary-bg: #16171d;
+    --button-secondary-bg: #242631;
     --button-secondary-color: #f3f4f6;
     --button-secondary-border: #4b5563;
     --button-disabled-bg: #2d2f3b;
     --button-disabled-color: #4b5563;
-    --button-qty-bg: #1f2028;
+    --button-qty-bg: #2d2f3b;
     --button-qty-color: #f3f4f6;
-    --button-qty-container-bg: #16171d;
+    --button-qty-container-bg: #242631;
 
     --shadow-card:
       rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
 
-    --navbar-bg: #1e1f26;
+    --navbar-bg: #0c0d12;
     --navbar-text: #ffffff;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
   }
 }
 
@@ -162,17 +158,14 @@ html[data-theme="light"] {
   --navbar-text: #ffffff;
 }
 
-html[data-theme="light"] #social .button-icon {
-  filter: none;
-}
 
 html[data-theme="dark"] {
   --text: #9ca3af;
   --text-h: #f3f4f6;
-  --bg: #0f1015;
-  --card-bg: #16171d;
-  --border: #232530;
-  --code-bg: #1f2028;
+  --bg: #1a1b23;
+  --card-bg: #242631;
+  --border: #2e303d;
+  --code-bg: #2d2f3b;
   --accent: #c084fc;
   --accent-bg: rgba(192, 132, 252, 0.15);
   --accent-border: rgba(192, 132, 252, 0.5);
@@ -192,36 +185,32 @@ html[data-theme="dark"] {
 
   --color-primary: #f3f4f6;
   --color-accent: #c084fc;
-  --color-border: #232530;
-  --color-background-light: #1f2028;
+  --color-border: #2e303d;
+  --color-background-light: #2d2f3b;
   --color-text-dark: #f3f4f6;
   --color-text-muted: #9ca3af;
   --color-error: #f87171;
   --color-out-of-stock: #4b5563;
   --color-warning: #fbbf24;
   --color-success: #34d399;
-  --color-card-bg: #16171d;
+  --color-card-bg: #242631;
 
   --button-primary-bg: #ffffff;
   --button-primary-color: #1a1a1a;
-  --button-secondary-bg: #16171d;
+  --button-secondary-bg: #242631;
   --button-secondary-color: #f3f4f6;
   --button-secondary-border: #4b5563;
   --button-disabled-bg: #2d2f3b;
   --button-disabled-color: #4b5563;
-  --button-qty-bg: #1f2028;
+  --button-qty-bg: #2d2f3b;
   --button-qty-color: #f3f4f6;
-  --button-qty-container-bg: #16171d;
+  --button-qty-container-bg: #242631;
 
   --shadow-card:
     rgba(0, 0, 0, 0.3) 0 10px 15px -3px, rgba(0, 0, 0, 0.15) 0 4px 6px -2px;
 
-  --navbar-bg: #1e1f26;
+  --navbar-bg: #0c0d12;
   --navbar-text: #f3f4f6;
-}
-
-html[data-theme="dark"] #social .button-icon {
-  filter: invert(1) brightness(2);
 }
 
 body {
@@ -279,14 +268,10 @@ code,
   color: var(--text-h);
 }
 
+
 code {
   font-size: 15px;
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
-}
-
-.theme-toggle-btn:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  transform: scale(1.08);
 }
