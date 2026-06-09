@@ -9,7 +9,9 @@
   box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--color-border);
   margin-bottom: 1.5rem;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .row:hover {
@@ -28,22 +30,16 @@
   width: 54px;
   height: 54px;
   flex-shrink: 0;
-  background-color: #f5f5f5;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-}
-
-html[data-theme="dark"] .imageContainer {
-  background-color: #1f2028;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
 }
 
 .image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .name {
@@ -101,7 +97,9 @@ html[data-theme="dark"] .quantitySelector {
   justify-content: center;
   color: var(--color-text-dark);
   opacity: 0.6;
-  transition: opacity 0.15s ease, color 0.15s ease;
+  transition:
+    opacity 0.15s ease,
+    color 0.15s ease;
 }
 
 .arrowBtn:hover:not(:disabled) {
@@ -153,7 +151,7 @@ html[data-theme="dark"] .quantitySelector {
     padding: 1.25rem;
     justify-items: center;
   }
-  
+
   .productCol {
     flex-direction: column;
     align-items: center;
@@ -162,14 +160,17 @@ html[data-theme="dark"] .quantitySelector {
     gap: 0.75rem;
   }
 
-  .priceCol, .quantityCol, .subtotalCol, .actionCol {
+  .priceCol,
+  .quantityCol,
+  .subtotalCol,
+  .actionCol {
     justify-self: center;
   }
 
   .subtotalCol {
     font-weight: 600;
   }
-  
+
   .removeBtn {
     width: 100%;
   }
