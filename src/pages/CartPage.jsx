@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem.jsx";
 import {
   selectCartWithSubtotals,
@@ -27,6 +27,7 @@ function CartPage() {
       />
     );
   }
+
   if (items.length === 0) {
     return (
       <div className={styles.empty}>
@@ -40,39 +41,78 @@ function CartPage() {
 
   return (
     <div className={styles.page}>
-      <h1> Your Cart with ({itemCount}) items</h1>
+      {/* Breadcrumbs */}
+      <div className={styles.breadcrumbs}>
+        <Link to="/" className={styles.breadcrumbLink}>
+          Home
+        </Link>
+        <span className={styles.breadcrumbSeparator}>/</span>
+        <span className={styles.breadcrumbActive}>Cart</span>
+      </div>
+
+      {/* Cart Items Table Layout */}
       <div className={styles.layout}>
-        <div className={styles.items}>
-          {items.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
+        <div className={styles.tableContainer}>
+          {/* Header Row */}
+          <div className={styles.headerRow}>
+            <span className={styles.headerCol}>Product</span>
+            <span className={styles.headerCol}>Price</span>
+            <span className={styles.headerCol}>Quantity</span>
+            <span
+              className={styles.headerCol}
+              style={{ textAlign: "right", justifySelf: "end" }}
+            >
+              Subtotal
+            </span>
+            <span className={styles.headerCol}></span>
+          </div>
+
+          {/* Item Rows */}
+          <div className={styles.itemsList}>
+            {items.map((item) => (
+              <CartItem key={item.id} item={item} />
+            ))}
+          </div>
+
+          {/* Action Buttons Row */}
+          <div className={styles.actionsRow}>
+            <Link to="/" className={styles.returnBtn}>
+              Return To Shop
+            </Link>
+          </div>
         </div>
 
-        <div className={styles.summary}>
-          <h3>Order Summary</h3>
-          <p>Items: {itemCount}</p>
-          <p>Total: ${total}</p>
-          <div className={styles.summaryRow}>
-            <span>Shipping</span>
-            <span style={{ color: "var(--color-success)" }}>Free</span>
+        {/* Bottom Section: Cart Total Card */}
+        <div className={styles.bottomSection}>
+          <div className={styles.cartTotalCard}>
+            <h3 className={styles.cartTotalTitle}>Cart Total</h3>
+
+            <div className={styles.totalRow}>
+              <span>Subtotal:</span>
+              <span>${total}</span>
+            </div>
+            <hr className={styles.divider} />
+
+            <div className={styles.totalRow}>
+              <span>Shipping:</span>
+              <span>Free</span>
+            </div>
+            <hr className={styles.divider} />
+
+            <div
+              className={styles.totalRow}
+              style={{ fontWeight: "600", fontSize: "1.05rem" }}
+            >
+              <span>Total:</span>
+              <span>${total}</span>
+            </div>
+
+            <div className={styles.checkoutWrapper}>
+              <Link to="/checkout" className={styles.checkoutBtn}>
+                Procees to checkout
+              </Link>
+            </div>
           </div>
-          <hr />
-          <div
-            className={styles.summaryRow}
-            style={{
-              fontWeight: "bold",
-              fontSize: "1.1rem",
-            }}
-          >
-            <span>Total</span>
-            <span>${total}</span>
-          </div>
-          <Link to="/checkout" className={styles.checkoutBtn}>
-            Proceed to Checkout
-          </Link>
-          <Link to="/" className={styles.continueLink}>
-            Continue Shopping
-          </Link>
         </div>
       </div>
     </div>

@@ -4,48 +4,96 @@ import PropTypes from "prop-types";
 import styles from "./CartItem.module.css";
 
 function CartItem({ item }) {
-  const Dispatch = useDispatch();
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.row}>
-      <img src={item.image} alt={item.name} className={styles.image} />
-      <div className={styles.details}>
-        <p className={styles.name}>{item.name}</p>
-        <p className={styles.price}>
-          $ {item.price} {item.quantity > 1 ? "each" : ""}
-        </p>
+      {/* Product Column: Image + Name */}
+      <div className={styles.productCol}>
+        <div className={styles.imageContainer}>
+          <img src={item.image} alt={item.name} className={styles.image} />
+        </div>
+        <span className={styles.name}>{item.name}</span>
       </div>
-      <div className={styles.controls}>
+
+      {/* Price Column */}
+      <div className={styles.priceCol}>
+        ${item.price}
+      </div>
+
+      {/* Quantity Column */}
+      <div className={styles.quantityCol}>
+        <div className={styles.quantitySelector}>
+          <span className={styles.quantityValue}>
+            {String(item.quantity).padStart(2, "0")}
+          </span>
+          <div className={styles.quantityArrows}>
+            <button
+              type="button"
+              className={styles.arrowBtn}
+              onClick={() =>
+                dispatch(
+                  updateQuantity({ id: item.id, quantity: item.quantity + 1 }),
+                )
+              }
+              disabled={item.quantity >= item.stock}
+              aria-label="Increase quantity"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="10"
+                height="10"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="18 15 12 9 6 15"></polyline>
+              </svg>
+            </button>
+            <button
+              type="button"
+              className={styles.arrowBtn}
+              onClick={() =>
+                dispatch(
+                  updateQuantity({ id: item.id, quantity: item.quantity - 1 }),
+                )
+              }
+              disabled={item.quantity <= 1}
+              aria-label="Decrease quantity"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="10"
+                height="10"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Subtotal Column */}
+      <div className={styles.subtotalCol}>
+        ${item.subtotal}
+      </div>
+
+      {/* Remove Action Column */}
+      <div className={styles.actionCol}>
         <button
-          onClick={() =>
-            Dispatch(
-              updateQuantity({ id: item.id, quantity: item.quantity - 1 }),
-            )
-          }
-          disabled={item.quantity <= 1}
-          className={styles.qtyBtn}
+          onClick={() => dispatch(removeFromCart(item.id))}
+          className={styles.removeBtn}
         >
-          -
-        </button>
-        <span className={styles.qty}>{item.quantity}</span>
-        <button
-          onClick={() =>
-            Dispatch(
-              updateQuantity({ id: item.id, quantity: item.quantity + 1 }),
-            )
-          }
-          disabled={item.quantity >= item.stock}
-          className={styles.qtyBtn}
-        >
-          +
+          Remove
         </button>
       </div>
-      <p className={styles.subtotal}>${item.subtotal}</p>
-      <button
-        onClick={() => Dispatch(removeFromCart(item.id))}
-        className={styles.removeBtn}
-      >
-        Remove
-      </button>
     </div>
   );
 }

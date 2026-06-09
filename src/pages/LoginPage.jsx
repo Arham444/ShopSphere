@@ -78,7 +78,7 @@ function LoginPage() {
                 <div className={styles.inputGroup}>
                   <input
                     type="text"
-                    placeholder="Email or Username"
+                    placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className={styles.input}
