@@ -126,9 +126,6 @@ function LoginPage() {
           </div>
         </div>
       </div>
-
-      {/* Black Footer at the bottom */}
-      <footer className={styles.footer}></footer>
     </div>
   );
 }

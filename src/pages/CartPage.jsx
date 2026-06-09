@@ -82,36 +82,34 @@ function CartPage() {
           </div>
         </div>
 
-        {/* Bottom Section: Cart Total Card */}
-        <div className={styles.bottomSection}>
-          <div className={styles.cartTotalCard}>
-            <h3 className={styles.cartTotalTitle}>Cart Total</h3>
+        {/* Cart Total Card (side-by-side) */}
+        <div className={styles.cartTotalCard}>
+          <h3 className={styles.cartTotalTitle}>Cart Total</h3>
 
-            <div className={styles.totalRow}>
-              <span>Subtotal:</span>
-              <span>${total}</span>
-            </div>
-            <hr className={styles.divider} />
+          <div className={styles.totalRow}>
+            <span>Subtotal:</span>
+            <span>${total}</span>
+          </div>
+          <hr className={styles.divider} />
 
-            <div className={styles.totalRow}>
-              <span>Shipping:</span>
-              <span>Free</span>
-            </div>
-            <hr className={styles.divider} />
+          <div className={styles.totalRow}>
+            <span>Shipping:</span>
+            <span>Free</span>
+          </div>
+          <hr className={styles.divider} />
 
-            <div
-              className={styles.totalRow}
-              style={{ fontWeight: "600", fontSize: "1.05rem" }}
-            >
-              <span>Total:</span>
-              <span>${total}</span>
-            </div>
+          <div
+            className={styles.totalRow}
+            style={{ fontWeight: "600", fontSize: "1.05rem" }}
+          >
+            <span>Total:</span>
+            <span>${total}</span>
+          </div>
 
-            <div className={styles.checkoutWrapper}>
-              <Link to="/checkout" className={styles.checkoutBtn}>
-                Procees to checkout
-              </Link>
-            </div>
+          <div className={styles.checkoutWrapper}>
+            <Link to="/checkout" className={styles.checkoutBtn}>
+              Procees to checkout
+            </Link>
           </div>
         </div>
       </div>

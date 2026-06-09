@@ -35,9 +35,10 @@
 }
 
 .layout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 420px;
   gap: 2.5rem;
+  align-items: start;
   width: 100%;
 }
 
@@ -99,14 +100,8 @@
   color: var(--color-card-bg);
 }
 
-.bottomSection {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}
-
 .cartTotalCard {
-  width: 420px;
+  width: 100%;
   border: 1.5px solid var(--color-text-dark);
   border-radius: 4px;
   padding: 2rem 1.5rem;
@@ -157,7 +152,9 @@ html[data-theme="light"] .cartTotalCard {
   font-size: 1rem;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
   display: inline-block;
   text-align: center;
   width: 100%;
@@ -185,11 +182,17 @@ html[data-theme="light"] .cartTotalCard {
   display: block;
 }
 
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .page {
     padding: 1.5rem 1rem;
   }
-  
+
   .headerRow {
     display: none;
   }
@@ -201,10 +204,6 @@ html[data-theme="light"] .cartTotalCard {
 
   .returnBtn {
     width: 100%;
-  }
-
-  .bottomSection {
-    justify-content: center;
   }
 
   .cartTotalCard {
