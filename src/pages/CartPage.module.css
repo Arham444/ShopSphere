@@ -1,6 +1,5 @@
 .page {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   padding: 2.5rem 2rem 5rem 2rem;
   font-family: var(--sans);
   box-sizing: border-box;
@@ -37,7 +36,7 @@
 .layout {
   display: grid;
   grid-template-columns: 1fr 420px;
-  gap: 2.5rem;
+  gap: 4rem;
   align-items: start;
   width: 100%;
 }

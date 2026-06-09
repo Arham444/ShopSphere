@@ -108,7 +108,7 @@ function CartPage() {
 
           <div className={styles.checkoutWrapper}>
             <Link to="/checkout" className={styles.checkoutBtn}>
-              Procees to checkout
+              Proceed to checkout
             </Link>
           </div>
         </div>
