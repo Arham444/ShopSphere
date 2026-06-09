@@ -44,7 +44,17 @@ function WishlistPage() {
   }
   return (
     <div className={styles.page}>
-      <h1>Your WishList has ({items.length} items)</h1>
+      {/* Breadcrumbs */}
+      <div className={styles.breadcrumbs}>
+        <Link to="/" className={styles.breadcrumbLink}>
+          Home
+        </Link>
+        <span className={styles.breadcrumbSeparator}>/</span>
+        <span className={styles.breadcrumbActive}>Wishlist</span>
+      </div>
+
+      <h2 className={styles.title}>Wishlist ({items.length})</h2>
+
       <div className={items.length > 4 ? styles.grid : styles.gridFew}>
         {items.map((item) => {
           const savedProduct =
