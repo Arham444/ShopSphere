@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-.breadcrumbs {
+.paths {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -13,22 +13,22 @@
   font-size: 0.9rem;
 }
 
-.breadcrumbLink {
+.pathLink {
   color: var(--color-text-muted);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.breadcrumbLink:hover {
+.pathLink:hover {
   color: var(--color-primary);
   text-decoration: underline;
 }
 
-.breadcrumbSeparator {
+.pathSeparator {
   color: var(--color-text-muted);
 }
 
-.breadcrumbActive {
+.pathActive {
   color: var(--color-text-dark);
   font-weight: 500;
 }

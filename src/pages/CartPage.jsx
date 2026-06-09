@@ -42,12 +42,12 @@ function CartPage() {
   return (
     <div className={styles.page}>
       {/* Breadcrumbs */}
-      <div className={styles.breadcrumbs}>
-        <Link to="/" className={styles.breadcrumbLink}>
+      <div className={styles.paths}>
+        <Link to="/" className={styles.pathLink}>
           Home
         </Link>
-        <span className={styles.breadcrumbSeparator}>/</span>
-        <span className={styles.breadcrumbActive}>Cart</span>
+        <span className={styles.pathSeparator}>/</span>
+        <span className={styles.pathActive}>Cart</span>
       </div>
 
       {/* Cart Items Table Layout */}

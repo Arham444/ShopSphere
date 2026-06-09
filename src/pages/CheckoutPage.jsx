@@ -156,22 +156,20 @@ function CheckoutPage() {
   return (
     <div className={styles.page}>
       {/* Breadcrumbs */}
-      <div className={styles.breadcrumbs}>
-        <Link to="/" className={styles.breadcrumbLink}>
+      <div className={styles.paths}>
+        <Link to="/" className={styles.pathLink}>
           Home
         </Link>
-        <span className={styles.breadcrumbSeparator}>/</span>
-        <Link to="/cart" className={styles.breadcrumbLink}>
+        <span className={styles.pathSeparator}>/</span>
+        <Link to="/cart" className={styles.pathLink}>
           Cart
         </Link>
-        <span className={styles.breadcrumbSeparator}>/</span>
-        <span className={styles.breadcrumbActive}>Checkout</span>
+        <span className={styles.pathSeparator}>/</span>
+        <span className={styles.pathActive}>Checkout</span>
       </div>
 
       <div className={styles.layout}>
-        {/* Left Side: Order Items and Billing/Payment Form */}
         <div className={styles.mainContent}>
-          {/* Order Items Section */}
           <div className={styles.card}>
             <h3 className={styles.cardTitle}>Order Items ({itemCount})</h3>
             <div className={styles.itemList}>
@@ -194,7 +192,6 @@ function CheckoutPage() {
             </div>
           </div>
 
-          {/* Billing & Payment Form */}
           <form
             id="checkout-form"
             onSubmit={formik.handleSubmit}
@@ -381,7 +378,6 @@ function CheckoutPage() {
           </form>
         </div>
 
-        {/* Right Side: Price Breakdown & Place Order */}
         <div className={styles.summaryCard}>
           <h3 className={styles.summaryTitle}>Price Breakdown</h3>
 

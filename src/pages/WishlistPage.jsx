@@ -45,12 +45,12 @@ function WishlistPage() {
   return (
     <div className={styles.page}>
       {/* Breadcrumbs */}
-      <div className={styles.breadcrumbs}>
-        <Link to="/" className={styles.breadcrumbLink}>
+      <div className={styles.paths}>
+        <Link to="/" className={styles.pathLink}>
           Home
         </Link>
-        <span className={styles.breadcrumbSeparator}>/</span>
-        <span className={styles.breadcrumbActive}>Wishlist</span>
+        <span className={styles.pathSeparator}>/</span>
+        <span className={styles.pathActive}>Wishlist</span>
       </div>
 
       <h2 className={styles.title}>Wishlist ({items.length})</h2>
