@@ -1,6 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   selectCartItemCount,
   selectCartWithSubtotals,
@@ -18,6 +20,26 @@ import { FaRegCreditCard } from "react-icons/fa6";
 
 const TAX_RATE = 0.08;
 
+const validationSchema = Yup.object({
+  fullName: Yup.string().required("Full name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  address: Yup.string().required("Street address is required"),
+  city: Yup.string().required("Town/City is required"),
+  zipCode: Yup.string().required("Postal Code / ZIP is required"),
+  cardName: Yup.string().required("Cardholder name is required"),
+  cardNumber: Yup.string()
+    .required("Card number is required")
+    .matches(/^\d{4} \d{4} \d{4} \d{4}$/, "Card number must be 16 digits"),
+  cardExpiry: Yup.string()
+    .required("Expiration date is required")
+    .matches(/^(0[1-9]|1[0-2])\/[0-9]{2}$/, "Expiry must be MM/YY"),
+  cardCvv: Yup.string()
+    .required("CVC / CVV is required")
+    .matches(/^\d{3}$/, "CVV must be 3 digits"),
+});
+
 function CheckoutPage() {
   const items = useSelector(selectCartWithSubtotals);
   const total = useSelector(selectCartTotal);
@@ -28,22 +50,38 @@ function CheckoutPage() {
   const navigate = useNavigate();
   const [orderPlaced, setOrderPlaced] = useState(false);
 
-  // Form State
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    address: "",
-    city: "",
-    zipCode: "",
-    cardName: "",
-    cardNumber: "",
-    cardExpiry: "",
-    cardCvv: "",
-  });
-
-  const [errors, setErrors] = useState({});
-
   const isGuest = !currentUser || currentUser.role === "guest";
+
+  const taxAmount = total * TAX_RATE;
+  const grandTotal = total + taxAmount;
+
+  const handlePlaceOrder = () => {
+    dispatch(
+      checkoutProducts(
+        items.map((item) => ({ id: item.id, quantity: item.quantity })),
+      ),
+    );
+    dispatch(clearCart());
+    setOrderPlaced(true);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      email: "",
+      address: "",
+      city: "",
+      zipCode: "",
+      cardName: "",
+      cardNumber: "",
+      cardExpiry: "",
+      cardCvv: "",
+    },
+    validationSchema,
+    onSubmit: () => {
+      handlePlaceOrder();
+    },
+  });
 
   if (isGuest) {
     return (
@@ -91,35 +129,12 @@ function CheckoutPage() {
     );
   }
 
-  const taxAmount = total * TAX_RATE;
-  const grandTotal = total + taxAmount;
-
-  const handlePlaceOrder = () => {
-    dispatch(
-      checkoutProducts(
-        items.map((item) => ({ id: item.id, quantity: item.quantity })),
-      ),
-    );
-    dispatch(clearCart());
-    setOrderPlaced(true);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
+  // Form Input Format Listeners
   const handleCardNumberChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 16) value = value.slice(0, 16);
     const formatted = value.match(/.{1,4}/g)?.join(" ") || "";
-    setFormData((prev) => ({ ...prev, cardNumber: formatted }));
-    if (errors.cardNumber) {
-      setErrors((prev) => ({ ...prev, cardNumber: "" }));
-    }
+    formik.setFieldValue("cardNumber", formatted);
   };
 
   const handleExpiryChange = (e) => {
@@ -129,65 +144,13 @@ function CheckoutPage() {
     if (value.length > 2) {
       formatted = `${value.slice(0, 2)}/${value.slice(2)}`;
     }
-    setFormData((prev) => ({ ...prev, cardExpiry: formatted }));
-    if (errors.cardExpiry) {
-      setErrors((prev) => ({ ...prev, cardExpiry: "" }));
-    }
+    formik.setFieldValue("cardExpiry", formatted);
   };
 
   const handleCvvChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 3) value = value.slice(0, 3);
-    setFormData((prev) => ({ ...prev, cardCvv: value }));
-    if (errors.cardCvv) {
-      setErrors((prev) => ({ ...prev, cardCvv: "" }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email address";
-    }
-    if (!formData.address.trim()) newErrors.address = "Address is required";
-    if (!formData.city.trim()) newErrors.city = "City is required";
-    if (!formData.zipCode.trim())
-      newErrors.zipCode = "Zip code is required";
-
-    if (!formData.cardName.trim())
-      newErrors.cardName = "Cardholder name is required";
-
-    const cleanCard = formData.cardNumber.replace(/\s/g, "");
-    if (!cleanCard) {
-      newErrors.cardNumber = "Card number is required";
-    } else if (cleanCard.length < 16) {
-      newErrors.cardNumber = "Card number must be 16 digits";
-    }
-
-    if (!formData.cardExpiry) {
-      newErrors.cardExpiry = "Expiry date is required";
-    } else if (!/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(formData.cardExpiry)) {
-      newErrors.cardExpiry = "Expiry must be MM/YY";
-    }
-
-    if (!formData.cardCvv) {
-      newErrors.cardCvv = "CVV is required";
-    } else if (formData.cardCvv.length < 3) {
-      newErrors.cardCvv = "CVV must be 3 digits";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      handlePlaceOrder();
-    }
+    formik.setFieldValue("cardCvv", value);
   };
 
   return (
@@ -234,7 +197,7 @@ function CheckoutPage() {
           {/* Billing & Payment Form */}
           <form
             id="checkout-form"
-            onSubmit={handleSubmit}
+            onSubmit={formik.handleSubmit}
             className={styles.card}
             noValidate
           >
@@ -245,13 +208,16 @@ function CheckoutPage() {
                 <input
                   type="text"
                   name="fullName"
-                  value={formData.fullName}
-                  onChange={handleInputChange}
+                  value={formik.values.fullName}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   placeholder="John Doe"
-                  className={`${styles.input} ${errors.fullName ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.fullName && formik.errors.fullName ? styles.inputError : ""}`}
                 />
-                {errors.fullName && (
-                  <span className={styles.errorText}>{errors.fullName}</span>
+                {formik.touched.fullName && formik.errors.fullName && (
+                  <span className={styles.errorText}>
+                    {formik.errors.fullName}
+                  </span>
                 )}
               </div>
 
@@ -260,13 +226,16 @@ function CheckoutPage() {
                 <input
                   type="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   placeholder="john@example.com"
-                  className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.email && formik.errors.email ? styles.inputError : ""}`}
                 />
-                {errors.email && (
-                  <span className={styles.errorText}>{errors.email}</span>
+                {formik.touched.email && formik.errors.email && (
+                  <span className={styles.errorText}>
+                    {formik.errors.email}
+                  </span>
                 )}
               </div>
 
@@ -275,13 +244,16 @@ function CheckoutPage() {
                 <input
                   type="text"
                   name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
+                  value={formik.values.address}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   placeholder="123 Main St"
-                  className={`${styles.input} ${errors.address ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.address && formik.errors.address ? styles.inputError : ""}`}
                 />
-                {errors.address && (
-                  <span className={styles.errorText}>{errors.address}</span>
+                {formik.touched.address && formik.errors.address && (
+                  <span className={styles.errorText}>
+                    {formik.errors.address}
+                  </span>
                 )}
               </div>
 
@@ -290,13 +262,14 @@ function CheckoutPage() {
                 <input
                   type="text"
                   name="city"
-                  value={formData.city}
-                  onChange={handleInputChange}
+                  value={formik.values.city}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   placeholder="New York"
-                  className={`${styles.input} ${errors.city ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.city && formik.errors.city ? styles.inputError : ""}`}
                 />
-                {errors.city && (
-                  <span className={styles.errorText}>{errors.city}</span>
+                {formik.touched.city && formik.errors.city && (
+                  <span className={styles.errorText}>{formik.errors.city}</span>
                 )}
               </div>
 
@@ -305,13 +278,16 @@ function CheckoutPage() {
                 <input
                   type="text"
                   name="zipCode"
-                  value={formData.zipCode}
-                  onChange={handleInputChange}
+                  value={formik.values.zipCode}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   placeholder="10001"
-                  className={`${styles.input} ${errors.zipCode ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.zipCode && formik.errors.zipCode ? styles.inputError : ""}`}
                 />
-                {errors.zipCode && (
-                  <span className={styles.errorText}>{errors.zipCode}</span>
+                {formik.touched.zipCode && formik.errors.zipCode && (
+                  <span className={styles.errorText}>
+                    {formik.errors.zipCode}
+                  </span>
                 )}
               </div>
             </div>
@@ -335,13 +311,16 @@ function CheckoutPage() {
                 <input
                   type="text"
                   name="cardName"
-                  value={formData.cardName}
-                  onChange={handleInputChange}
+                  value={formik.values.cardName}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   placeholder="John Doe"
-                  className={`${styles.input} ${errors.cardName ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.cardName && formik.errors.cardName ? styles.inputError : ""}`}
                 />
-                {errors.cardName && (
-                  <span className={styles.errorText}>{errors.cardName}</span>
+                {formik.touched.cardName && formik.errors.cardName && (
+                  <span className={styles.errorText}>
+                    {formik.errors.cardName}
+                  </span>
                 )}
               </div>
 
@@ -350,13 +329,16 @@ function CheckoutPage() {
                 <input
                   type="text"
                   name="cardNumber"
-                  value={formData.cardNumber}
+                  value={formik.values.cardNumber}
                   onChange={handleCardNumberChange}
+                  onBlur={formik.handleBlur}
                   placeholder="4111 2222 3333 4444"
-                  className={`${styles.input} ${errors.cardNumber ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.cardNumber && formik.errors.cardNumber ? styles.inputError : ""}`}
                 />
-                {errors.cardNumber && (
-                  <span className={styles.errorText}>{errors.cardNumber}</span>
+                {formik.touched.cardNumber && formik.errors.cardNumber && (
+                  <span className={styles.errorText}>
+                    {formik.errors.cardNumber}
+                  </span>
                 )}
               </div>
 
@@ -365,13 +347,16 @@ function CheckoutPage() {
                 <input
                   type="text"
                   name="cardExpiry"
-                  value={formData.cardExpiry}
+                  value={formik.values.cardExpiry}
                   onChange={handleExpiryChange}
+                  onBlur={formik.handleBlur}
                   placeholder="MM/YY"
-                  className={`${styles.input} ${errors.cardExpiry ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.cardExpiry && formik.errors.cardExpiry ? styles.inputError : ""}`}
                 />
-                {errors.cardExpiry && (
-                  <span className={styles.errorText}>{errors.cardExpiry}</span>
+                {formik.touched.cardExpiry && formik.errors.cardExpiry && (
+                  <span className={styles.errorText}>
+                    {formik.errors.cardExpiry}
+                  </span>
                 )}
               </div>
 
@@ -380,13 +365,16 @@ function CheckoutPage() {
                 <input
                   type="password"
                   name="cardCvv"
-                  value={formData.cardCvv}
+                  value={formik.values.cardCvv}
                   onChange={handleCvvChange}
+                  onBlur={formik.handleBlur}
                   placeholder="123"
-                  className={`${styles.input} ${errors.cardCvv ? styles.inputError : ""}`}
+                  className={`${styles.input} ${formik.touched.cardCvv && formik.errors.cardCvv ? styles.inputError : ""}`}
                 />
-                {errors.cardCvv && (
-                  <span className={styles.errorText}>{errors.cardCvv}</span>
+                {formik.touched.cardCvv && formik.errors.cardCvv && (
+                  <span className={styles.errorText}>
+                    {formik.errors.cardCvv}
+                  </span>
                 )}
               </div>
             </div>
