@@ -82,12 +82,22 @@ Ensure you have [Node.js](https://nodejs.org/) (v16+) and `npm` installed.
 
 ### 2. Configure Environment Variables
 
-Create a `.env` file in the root directory (if not already present) with your Cloudinary details:
+Create a `.env` file in the root directory (using `.env.example` as a template) with your Cloudinary details and mock authentication credentials:
 
 ```env
+# Cloudinary Upload API config
 VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
 VITE_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+
+# Mock Authentication Credentials
+VITE_MOCK_ADMIN_USERNAME=admin
+VITE_MOCK_ADMIN_PASSWORD=password123
+VITE_MOCK_USER_USERNAME=user1
+VITE_MOCK_USER_PASSWORD=password12345
 ```
+
+> [!NOTE]
+> **Mock Authentication Disclaimer:** Since ShopSphere is a frontend-only Single Page Application (SPA), user accounts are mocked client-side for demonstration and testing purposes. In a production build, these credentials would be verified via a secure backend server API over HTTPS, and password hashing (e.g. bcrypt) would be utilized. Environment variables are used here to prevent hardcoding credential secrets directly in the source code.
 
 ### 3. Installation
 

@@ -154,7 +154,8 @@ function CheckoutPage() {
     }
     if (!formData.address.trim()) newErrors.address = "Address is required";
     if (!formData.city.trim()) newErrors.city = "City is required";
-    if (!formData.zipCode.trim()) newErrors.zipCode = "Zip code is required";
+    if (!formData.zipCode.trim())
+      newErrors.zipCode = "Zip code is required";
 
     if (!formData.cardName.trim())
       newErrors.cardName = "Cardholder name is required";
