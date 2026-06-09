@@ -8,7 +8,6 @@ function CartItem({ item }) {
 
   return (
     <div className={styles.row}>
-      {/* Product Column: Image + Name */}
       <div className={styles.productCol}>
         <div className={styles.imageContainer}>
           <img src={item.image} alt={item.name} className={styles.image} />
@@ -16,12 +15,8 @@ function CartItem({ item }) {
         <span className={styles.name}>{item.name}</span>
       </div>
 
-      {/* Price Column */}
-      <div className={styles.priceCol}>
-        ${item.price}
-      </div>
+      <div className={styles.priceCol}>${item.price}</div>
 
-      {/* Quantity Column */}
       <div className={styles.quantityCol}>
         <div className={styles.quantitySelector}>
           <span className={styles.quantityValue}>
@@ -80,12 +75,8 @@ function CartItem({ item }) {
         </div>
       </div>
 
-      {/* Subtotal Column */}
-      <div className={styles.subtotalCol}>
-        ${item.subtotal}
-      </div>
+      <div className={styles.subtotalCol}>${item.subtotal}</div>
 
-      {/* Remove Action Column */}
       <div className={styles.actionCol}>
         <button
           onClick={() => dispatch(removeFromCart(item.id))}
