@@ -1,41 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  removeFromCart,
-  updateQuantity,
-} from "../features/cart/cartSlice";
-import { IoTrashOutline, IoAdd, IoRemove } from "react-icons/io5";
+import { useCartActions } from "../features/cart/useCartActions";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { selectCartItems } from "../features/cart/cartSelectors";
-import { selectCurrentUser } from "../features/auth/authSelectors";
+import QuantityControl from "./QuantityControl";
 import StockStatus from "./StockStatus";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Button } from "./ui/button";
 
 function ProductCard({ product }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cartItems = useSelector(selectCartItems);
   const { isInWishlist, toggleWishlist } = useWishlist(product);
-  const currentUser = useSelector(selectCurrentUser);
-
-  const isGuest = !currentUser || currentUser.role === "guest";
-
-  const cartItem = cartItems.find((item) => item.id === product.id);
-  const cartQuantity = cartItem ? cartItem.quantity : 0;
-  const isOutOfStock = product.stock <= 0;
-  const isLimitReached = isOutOfStock || cartQuantity >= product.stock;
-
-  const handleAddToCart = () => {
-    if (isGuest) {
-      navigate("/cart");
-    } else {
-      dispatch(addToCart(product));
-    }
-  };
+  const {
+    cartQuantity,
+    isOutOfStock,
+    isLimitReached,
+    handleAddToCart,
+    isGuest,
+  } = useCartActions(product);
 
   const handleToggleWishlist = () => {
     if (isGuest) {
@@ -95,46 +77,7 @@ function ProductCard({ product }) {
       </CardContent>
       <CardFooter className="p-4 pt-0">
         {!isOutOfStock && cartQuantity > 0 ? (
-          <div className="flex items-center justify-between w-full h-10 border-[3px] border-[#FFC107] rounded-full px-4 text-foreground font-bold">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (cartQuantity === 1) {
-                  dispatch(removeFromCart(product.id));
-                } else {
-                  dispatch(
-                    updateQuantity({
-                      id: product.id,
-                      quantity: cartQuantity - 1,
-                    }),
-                  );
-                }
-              }}
-              className="text-foreground/80 hover:text-foreground transition-colors flex items-center justify-center cursor-pointer"
-            >
-              {cartQuantity === 1 ? (
-                <IoTrashOutline size={20} />
-              ) : (
-                <IoRemove size={20} />
-              )}
-            </button>
-            <span className="text-base text-foreground">{cartQuantity}</span>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(
-                  updateQuantity({
-                    id: product.id,
-                    quantity: cartQuantity + 1,
-                  }),
-                );
-              }}
-              disabled={cartQuantity >= product.stock}
-              className="text-foreground/80 hover:text-foreground transition-colors disabled:opacity-50 flex items-center justify-center cursor-pointer"
-            >
-              <IoAdd size={20} />
-            </button>
-          </div>
+          <QuantityControl product={product} />
         ) : (
           <Button
             className="w-full h-10 rounded-full cursor-pointer"

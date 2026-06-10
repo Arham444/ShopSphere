@@ -46,6 +46,12 @@ store.subscribe(() => {
     saveState(`wishlistItems_${currentUserKey}`, state.wishlist.wishListItems);
   }
 
+  const productStocks = state.products.items.reduce((acc, product) => {
+    acc[product.id] = product.stock;
+    return acc;
+  }, {});
+  saveState("productStocks", productStocks);
+
   saveState("userSession", currentUser);
 });
 

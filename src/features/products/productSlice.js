@@ -41,15 +41,12 @@ const productSlice = createSlice({
       saveState("addedProducts", [...currentAdded, action.payload]);
     },
     checkoutProducts(state, action) {
-      const persistedStocks = loadState("productStocks", {});
       action.payload.forEach(({ id, quantity }) => {
-        const product = state.items.find((p) => p.id == id);
+        const product = state.items.find((p) => p.id === id);
         if (product) {
           product.stock -= quantity;
-          persistedStocks[id] = product.stock;
         }
       });
-      saveState("productStocks", persistedStocks);
     },
   },
 });

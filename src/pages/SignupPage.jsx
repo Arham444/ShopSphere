@@ -9,7 +9,9 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
 import AuthLayout from "../components/AuthLayout";
-import BillingForm, { billingValidationSchema } from "../components/BillingForm";
+import BillingForm, {
+  billingValidationSchema,
+} from "../components/BillingForm";
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -107,111 +109,107 @@ function SignupPage() {
   return (
     <AuthLayout maxWidth="max-w-xl" pl="lg:pl-[5%] xl:pl-[10%]">
       <div className="flex flex-col gap-6">
-              <div className="flex flex-col items-center gap-1 text-center mb-2">
-                <h1 className="text-2xl font-bold">Create your account</h1>
-                <p className="text-sm text-muted-foreground">
-                  Join ShopSphere to start shopping
-                </p>
+        <div className="flex flex-col items-center gap-1 text-center mb-2">
+          <h1 className="text-2xl font-bold">Create your account</h1>
+          <p className="text-sm text-muted-foreground">
+            Join ShopSphere to start shopping
+          </p>
+        </div>
+
+        {formik.status && (
+          <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20 font-medium">
+            {formik.status}
+          </div>
+        )}
+
+        <form
+          onSubmit={formik.handleSubmit}
+          noValidate
+          className="flex flex-col gap-8"
+        >
+          {/* Account Details Section */}
+          <div className="flex flex-col gap-4">
+            <h3 className="text-lg font-semibold tracking-tight border-b pb-2">
+              Account Details
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="username">Username *</Label>
+                <Input
+                  type="text"
+                  placeholder="johndoe"
+                  {...getInputProps("username")}
+                />
+                {formik.touched.username && formik.errors.username && (
+                  <p className="text-xs text-destructive font-medium">
+                    {formik.errors.username}
+                  </p>
+                )}
               </div>
 
-              {formik.status && (
-                <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20 font-medium">
-                  {formik.status}
-                </div>
-              )}
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="password">Password *</Label>
+                <Input
+                  type="password"
+                  placeholder="Min. 6 characters"
+                  {...getInputProps("password")}
+                />
+                {formik.touched.password && formik.errors.password && (
+                  <p className="text-xs text-destructive font-medium">
+                    {formik.errors.password}
+                  </p>
+                )}
+              </div>
 
-              <form
-                onSubmit={formik.handleSubmit}
-                noValidate
-                className="flex flex-col gap-8"
-              >
-                {/* Account Details Section */}
-                <div className="flex flex-col gap-4">
-                  <h3 className="text-lg font-semibold tracking-tight border-b pb-2">
-                    Account Details
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="username">Username *</Label>
-                      <Input
-                        type="text"
-                        placeholder="johndoe"
-                        {...getInputProps("username")}
-                      />
-                      {formik.touched.username && formik.errors.username && (
-                        <p className="text-xs text-destructive font-medium">
-                          {formik.errors.username}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="password">Password *</Label>
-                      <Input
-                        type="password"
-                        placeholder="Min. 6 characters"
-                        {...getInputProps("password")}
-                      />
-                      {formik.touched.password && formik.errors.password && (
-                        <p className="text-xs text-destructive font-medium">
-                          {formik.errors.password}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="confirmPassword">
-                        Confirm Password *
-                      </Label>
-                      <Input
-                        type="password"
-                        placeholder="Re-enter password"
-                        {...getInputProps("confirmPassword")}
-                      />
-                      {formik.touched.confirmPassword &&
-                        formik.errors.confirmPassword && (
-                          <p className="text-xs text-destructive font-medium">
-                            {formik.errors.confirmPassword}
-                          </p>
-                        )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Billing Details Section */}
-                <div className="flex flex-col gap-4">
-                  <div className="border-b pb-2">
-                    <h3 className="text-lg font-semibold tracking-tight">
-                      Billing Details
-                    </h3>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      This will be used to pre-fill your checkout information
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="confirmPassword">Confirm Password *</Label>
+                <Input
+                  type="password"
+                  placeholder="Re-enter password"
+                  {...getInputProps("confirmPassword")}
+                />
+                {formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword && (
+                    <p className="text-xs text-destructive font-medium">
+                      {formik.errors.confirmPassword}
                     </p>
-                  </div>
+                  )}
+              </div>
+            </div>
+          </div>
 
-                  <BillingForm formik={formik} getInputProps={getInputProps} />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full h-11"
-                  disabled={formik.isSubmitting}
-                >
-                  {formik.isSubmitting
-                    ? "Creating Account..."
-                    : "Create Account"}
-                </Button>
-              </form>
-
-              <p className="text-center text-sm text-muted-foreground mt-2">
-                Already have an account?{" "}
-                <Link
-                  to="/login"
-                  className="font-semibold text-primary hover:underline"
-                >
-                  Sign in
-                </Link>
+          {/* Billing Details Section */}
+          <div className="flex flex-col gap-4">
+            <div className="border-b pb-2">
+              <h3 className="text-lg font-semibold tracking-tight">
+                Billing Details
+              </h3>
+              <p className="text-xs text-muted-foreground mt-1">
+                This will be used to pre-fill your checkout information
               </p>
+            </div>
+
+            <BillingForm formik={formik} getInputProps={getInputProps} />
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full h-11"
+            disabled={formik.isSubmitting}
+          >
+            {formik.isSubmitting ? "Creating Account..." : "Create Account"}
+          </Button>
+        </form>
+
+        <p className="text-center text-sm text-muted-foreground mt-2">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="font-semibold text-primary hover:underline"
+          >
+            Sign in
+          </Link>
+        </p>
       </div>
     </AuthLayout>
   );
