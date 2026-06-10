@@ -60,7 +60,7 @@ function CartPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-140px)]">
+    <div className="w-full px-4 md:px-8 lg:px-12 py-8 min-h-[calc(100vh-140px)]">
       <div className="mb-6">
         <Breadcrumb>
           <BreadcrumbList>

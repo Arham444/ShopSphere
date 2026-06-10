@@ -46,7 +46,7 @@ function ProductCard({ product }) {
   };
 
   return (
-    <Card className="group flex flex-col h-full overflow-hidden transition-all hover:shadow-md p-0">
+    <Card className="group flex flex-col h-full overflow-hidden transition-all shadow-sm border border-border/60 hover:shadow-md p-0 bg-card">
       <Link
         to={`/product/${product.id}`}
         className="aspect-square overflow-hidden bg-muted relative block w-full"

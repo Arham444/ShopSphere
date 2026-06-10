@@ -5,8 +5,20 @@ import { addProduct } from "../features/products/productSlice";
 import { selectIsAdmin } from "../features/auth/authSelectors";
 import AccessDenied from "../components/AccessDenied";
 import { CiLock } from "react-icons/ci";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../components/ui/breadcrumb";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "../components/ui/breadcrumb";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
@@ -116,7 +128,7 @@ function AddProductPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl min-h-[calc(100vh-140px)]">
+    <div className="w-full mx-auto px-4 md:px-8 py-8 max-w-3xl min-h-[calc(100vh-140px)]">
       <div className="mb-6">
         <Breadcrumb>
           <BreadcrumbList>
@@ -133,9 +145,11 @@ function AddProductPage() {
 
       <Card className="shadow-md">
         <CardHeader className="pb-6 border-b">
-          <CardTitle className="text-3xl font-bold tracking-tight">Add New Product</CardTitle>
+          <CardTitle className="text-3xl font-bold tracking-tight">
+            Add New Product
+          </CardTitle>
         </CardHeader>
-        
+
         <CardContent className="pt-6">
           {error && (
             <div className="p-3 mb-6 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20 font-medium">
@@ -235,7 +249,7 @@ function AddProductPage() {
                   >
                     {imageUrl ? "Change Image" : "Upload Image"}
                   </Button>
-                  
+
                   {imageUrl && (
                     <div className="flex items-center gap-4">
                       <div className="h-16 w-16 rounded-md overflow-hidden border">
@@ -245,7 +259,9 @@ function AddProductPage() {
                           className="h-full w-full object-cover"
                         />
                       </div>
-                      <p className="text-sm font-medium text-success">Image uploaded successfully</p>
+                      <p className="text-sm font-medium text-success">
+                        Image uploaded successfully
+                      </p>
                     </div>
                   )}
                 </div>

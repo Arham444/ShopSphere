@@ -8,7 +8,7 @@ function ProductListingPage() {
   const products = useSelector(selectFilteredProducts);
 
   return (
-    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[calc(100vh-140px)]">
+    <div className="w-full px-4 md:px-8 lg:px-12 py-8 flex flex-col min-h-[calc(100vh-140px)]">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Explore Our Products

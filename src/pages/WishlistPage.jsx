@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { selectWishlistItems } from "../features/wishlist/wishlistSelectors";
 import { removeFromWishlist } from "../features/wishlist/wishlistSlice";
 import { addToCart } from "../features/cart/cartSlice";
@@ -20,7 +20,6 @@ import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 
 function WishlistPage() {
-  const navigate = useNavigate();
   const items = useSelector(selectWishlistItems);
   const dispatch = useDispatch();
   const allProducts = useSelector(selectAllProducts);
@@ -57,7 +56,7 @@ function WishlistPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-140px)]">
+    <div className="w-full px-4 md:px-8 lg:px-12 py-8 min-h-[calc(100vh-140px)]">
       <div className="mb-6">
         <Breadcrumb>
           <BreadcrumbList>
@@ -88,11 +87,11 @@ function WishlistPage() {
           return (
             <Card
               key={item.id}
-              className="overflow-hidden flex flex-col hover:shadow-md transition-shadow group"
+              className="overflow-hidden flex flex-col hover:shadow-md transition-shadow group p-0"
             >
               <Link
                 to={`/product/${item.id}`}
-                className="aspect-[4/3] bg-muted relative overflow-hidden block"
+                className="aspect-square bg-muted relative overflow-hidden w-full block"
               >
                 <img
                   src={item.image}
