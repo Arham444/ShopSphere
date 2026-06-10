@@ -78,11 +78,11 @@ function ProductDetailPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-        <div className="rounded-xl overflow-hidden bg-muted border">
+        <div className="rounded-xl overflow-hidden bg-muted border flex items-center justify-center aspect-square">
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-auto object-cover aspect-square"
+            className="w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal"
           />
         </div>
         

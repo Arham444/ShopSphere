@@ -46,15 +46,15 @@ function ProductCard({ product }) {
   };
 
   return (
-    <Card className="group flex flex-col h-full overflow-hidden transition-all hover:shadow-md">
+    <Card className="group flex flex-col h-full overflow-hidden transition-all hover:shadow-md p-0">
       <Link
         to={`/product/${product.id}`}
-        className="aspect-[4/3] overflow-hidden bg-muted relative block"
+        className="aspect-square overflow-hidden bg-muted relative block w-full"
       >
         <img
           src={product.image}
           alt={product.name}
-          className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105 mix-blend-multiply dark:mix-blend-normal"
         />
         <Button
           variant="secondary"

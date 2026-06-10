@@ -60,10 +60,15 @@ function Navbar() {
     }`;
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="text-xl font-bold tracking-tight text-primary">
-          ShopSphere
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md transition-transform group-hover:scale-105">
+            <IoCartOutline className="h-5 w-5" />
+          </div>
+          <span className="text-2xl font-black uppercase tracking-tighter text-primary">
+            ShopSphere
+          </span>
         </Link>
         <div className="flex items-center gap-6">
           <Button
@@ -87,7 +92,7 @@ function Navbar() {
                 <div className="relative flex items-center mr-1.5">
                   <FaHeart className="h-4 w-4" />
                   {wishlistCount > 0 && (
-                    <span className="absolute -top-2 -right-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                    <span className="absolute -top-2 -right-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground ring-2 ring-card">
                       {wishlistCount}
                     </span>
                   )}
@@ -98,7 +103,7 @@ function Navbar() {
                 <div className="relative flex items-center">
                   <IoCartOutline className="h-5 w-5" />
                   {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                    <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground ring-2 ring-card">
                       {cartCount}
                     </span>
                   )}

@@ -61,9 +61,9 @@ function LoginPage() {
   };
 
   return (
-    <div className="grid min-h-[calc(100vh-140px)] lg:grid-cols-2">
+    <div className="grid flex-1 w-full lg:grid-cols-[1fr_1.2fr]">
       <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex flex-1 items-center justify-center">
+        <div className="flex flex-1 items-center justify-center lg:justify-start lg:pl-[10%] xl:pl-[15%]">
           <div className="w-full max-w-sm">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center gap-1 text-center mb-4">
@@ -142,12 +142,14 @@ function LoginPage() {
         </div>
       </div>
 
-      <div className="relative hidden bg-muted lg:block">
-        <img
-          src="https://res.cloudinary.com/dnwohqbqt/image/upload/v1780936259/login_illustration_usvffb.jpg"
-          alt="ShopSphere shopping illustration"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.7]"
-        />
+      <div className="relative hidden lg:block p-6 lg:p-10 xl:p-12 bg-background">
+        <div className="h-full w-full relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-border/50 bg-muted">
+          <img
+            src="https://res.cloudinary.com/dnwohqbqt/image/upload/v1780936259/login_illustration_usvffb.jpg"
+            alt="ShopSphere shopping illustration"
+            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.7]"
+          />
+        </div>
       </div>
     </div>
   );
