@@ -4,17 +4,11 @@ import { useNavigate, Link } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
 import authData from "../features/auth/authData.json";
 import { loadState } from "../utils/localStorage";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
 import { Separator } from "../components/ui/separator";
+import { IoCartOutline } from "react-icons/io5";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -67,101 +61,94 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center p-4 min-h-[calc(100vh-140px)] bg-muted/40">
-      <Card className="w-full max-w-4xl overflow-hidden shadow-lg border-0">
-        <div className="grid md:grid-cols-2">
-          {/* Left Side: Illustration Panel */}
-          <div className="hidden md:block bg-muted relative">
-            <img
-              src="https://res.cloudinary.com/dnwohqbqt/image/upload/v1780936259/login_illustration_usvffb.jpg"
-              alt="ShopSphere shopping illustration"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-          </div>
-
-          {/* Right Side: Form Panel */}
-          <CardContent className="p-8 md:p-12">
-            <CardHeader className="p-0 mb-8 space-y-2">
-              <CardTitle className="text-3xl font-bold tracking-tight text-foreground">
-                Welcome back
-              </CardTitle>
-              <CardDescription className="text-base">
-                Sign in to your ShopSphere account
-              </CardDescription>
-            </CardHeader>
-
-            {error && (
-              <div className="p-3 mb-6 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20 font-medium">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="username">Username</Label>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="Enter your username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  className="h-11"
-                />
+    <div className="grid min-h-[calc(100vh-140px)] lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-sm">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col items-center gap-1 text-center mb-4">
+                <h1 className="text-2xl font-bold">Welcome back</h1>
+                <p className="text-sm text-muted-foreground">
+                  Sign in to your ShopSphere account
+                </p>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="h-11"
-                />
+              {error && (
+                <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20 font-medium">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleLogin} className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    id="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <Button type="submit" className="w-full">
+                  Sign In
+                </Button>
+              </form>
+
+              <div className="relative my-2">
+                <div className="absolute inset-0 flex items-center">
+                  <Separator />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground font-medium">
+                    OR
+                  </span>
+                </div>
               </div>
 
               <Button
-                type="submit"
-                className="w-full h-11 text-base font-semibold mt-2"
+                variant="outline"
+                onClick={handleQuickLogin}
+                className="w-full"
               >
-                Sign In
+                Continue as Guest
               </Button>
-            </form>
 
-            <div className="relative my-8">
-              <div className="absolute inset-0 flex items-center">
-                <Separator />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground font-medium">
-                  OR
-                </span>
-              </div>
+              <p className="text-center text-sm text-muted-foreground mt-2">
+                Don&apos;t have an account?{" "}
+                <Link
+                  to="/signup"
+                  className="font-semibold text-primary hover:underline"
+                >
+                  Create account
+                </Link>
+              </p>
             </div>
-
-            <Button
-              variant="outline"
-              onClick={handleQuickLogin}
-              className="w-full h-11 text-base font-semibold"
-            >
-              Continue as Guest
-            </Button>
-
-            <p className="mt-8 text-center text-sm text-muted-foreground">
-              Don&apos;t have an account?{" "}
-              <Link
-                to="/signup"
-                className="text-primary font-semibold hover:underline"
-              >
-                Create account
-              </Link>
-            </p>
-          </CardContent>
+          </div>
         </div>
-      </Card>
+      </div>
+
+      <div className="relative hidden bg-muted lg:block">
+        <img
+          src="https://res.cloudinary.com/dnwohqbqt/image/upload/v1780936259/login_illustration_usvffb.jpg"
+          alt="ShopSphere shopping illustration"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.7]"
+        />
+      </div>
     </div>
   );
 }
