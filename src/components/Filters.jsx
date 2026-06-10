@@ -75,11 +75,11 @@ function Filters() {
   };
 
   const handleClearAll = () => {
-    setLocalCategory("All");
-    setMinPrice(0);
-    setMaxPrice(500);
-    setLocalRating(0);
-    setLocalSortBy("newest");
+    dispatch(setSearchCategory("All"));
+    dispatch(setPriceRange([0, 500]));
+    dispatch(setMinRating(0));
+    dispatch(setSortBy("newest"));
+    setIsOpen(false);
   };
 
   const handleSortBy = (value) => {
