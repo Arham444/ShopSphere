@@ -1,92 +1,82 @@
 import { useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../features/cart/cartSlice";
 import PropTypes from "prop-types";
-import styles from "./CartItem.module.css";
 import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 function CartItem({ item }) {
   const dispatch = useDispatch();
 
   return (
-    <div className={styles.row}>
-      <div className={styles.productCol}>
-        <div className={styles.imageContainer}>
-          <img src={item.image} alt={item.name} className={styles.image} />
+    <div className="flex flex-col sm:flex-row items-start sm:items-center py-6 border-b gap-4 last:border-0">
+      <div className="flex items-center gap-4 flex-1">
+        <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border bg-muted">
+          <img
+            src={item.image}
+            alt={item.name}
+            className="h-full w-full object-cover object-center"
+          />
         </div>
-        <Link to={`/product/${item.id}`} className={styles.name}>
+        <Link
+          to={`/product/${item.id}`}
+          className="font-medium text-base hover:text-primary transition-colors line-clamp-2"
+        >
           {item.name}
         </Link>
       </div>
 
-      <div className={styles.priceCol}>${item.price}</div>
-
-      <div className={styles.quantityCol}>
-        <div className={styles.quantitySelector}>
-          <span className={styles.quantityValue}>
-            {String(item.quantity).padStart(2, "0")}
-          </span>
-          <div className={styles.quantityArrows}>
-            <button
-              type="button"
-              className={styles.arrowBtn}
-              onClick={() =>
-                dispatch(
-                  updateQuantity({ id: item.id, quantity: item.quantity + 1 }),
-                )
-              }
-              disabled={item.quantity >= item.stock}
-              aria-label="Increase quantity"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="10"
-                height="10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="18 15 12 9 6 15"></polyline>
-              </svg>
-            </button>
-            <button
-              type="button"
-              className={styles.arrowBtn}
-              onClick={() =>
-                dispatch(
-                  updateQuantity({ id: item.id, quantity: item.quantity - 1 }),
-                )
-              }
-              disabled={item.quantity <= 1}
-              aria-label="Decrease quantity"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="10"
-                height="10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-          </div>
-        </div>
+      <div className="w-24 font-medium text-muted-foreground hidden sm:block">
+        ${item.price}
       </div>
 
-      <div className={styles.subtotalCol}>${item.subtotal}</div>
+      <div className="flex items-center gap-4 sm:w-48">
+        <div className="flex items-center border rounded-md h-9">
+          <button
+            type="button"
+            className="flex h-full w-8 items-center justify-center border-r hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            onClick={() =>
+              dispatch(
+                updateQuantity({ id: item.id, quantity: item.quantity - 1 }),
+              )
+            }
+            disabled={item.quantity <= 1}
+            aria-label="Decrease quantity"
+          >
+            -
+          </button>
+          <span className="w-10 text-center text-sm font-medium">
+            {String(item.quantity).padStart(2, "0")}
+          </span>
+          <button
+            type="button"
+            className="flex h-full w-8 items-center justify-center border-l hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            onClick={() =>
+              dispatch(
+                updateQuantity({ id: item.id, quantity: item.quantity + 1 }),
+              )
+            }
+            disabled={item.quantity >= item.stock}
+            aria-label="Increase quantity"
+          >
+            +
+          </button>
+        </div>
+        <div className="font-bold sm:hidden">${item.subtotal}</div>
+      </div>
 
-      <div className={styles.actionCol}>
-        <button
+      <div className="w-24 font-bold hidden sm:block text-right">
+        ${item.subtotal}
+      </div>
+
+      <div className="w-20 text-right sm:ml-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-destructive hover:text-destructive hover:bg-destructive/10 -mr-2"
           onClick={() => dispatch(removeFromCart(item.id))}
-          className={styles.removeBtn}
         >
           Remove
-        </button>
+        </Button>
       </div>
     </div>
   );
