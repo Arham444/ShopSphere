@@ -2,6 +2,7 @@ import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectProductById } from "../features/products/productSelectors";
 import { addToCart } from "../features/cart/cartSlice";
+import { setSearchCategory } from "../features/products/productSlice";
 import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { selectCartItems } from "../features/cart/cartSelectors";
@@ -45,11 +46,28 @@ function ProductDetailPage() {
     }
   };
 
+  const handleCategoryClick = () => {
+    dispatch(setSearchCategory(product.category));
+    navigate("/");
+  };
+
   return (
     <div className={styles.container}>
-      <Link to="/" className={styles.backLink}>
-        Back to All Products
-      </Link>
+      <div className={styles.paths}>
+        <Link to="/" className={styles.pathLink}>
+          Home
+        </Link>
+        <span className={styles.pathSeparator}>/</span>
+        {product.category && (
+          <>
+            <span onClick={handleCategoryClick} className={styles.pathLink}>
+              {product.category}
+            </span>
+            <span className={styles.pathSeparator}>/</span>
+          </>
+        )}
+        <span className={styles.pathActive}>{product.name}</span>
+      </div>
       <div className={styles.detailWrapper}>
         <div className={styles.imageSection}>
           <img
