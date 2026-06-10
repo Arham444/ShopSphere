@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { addProduct } from "../features/products/productSlice";
 import { selectIsAdmin } from "../features/auth/authSelectors";
 import AccessDenied from "../components/AccessDenied";
@@ -113,6 +113,14 @@ function AddProductPage() {
 
   return (
     <div className={styles.page}>
+      {/* Breadcrumbs */}
+      <div className={styles.paths}>
+        <Link to="/" className={styles.pathLink}>
+          Home
+        </Link>
+        <span className={styles.pathSeparator}>/</span>
+        <span className={styles.pathActive}>Add Product</span>
+      </div>
       <h1 className={styles.title}>Add New Product</h1>
       {error && <p className={styles.error}>{error}</p>}
 
