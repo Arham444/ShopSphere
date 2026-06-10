@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../features/cart/cartSlice";
 import PropTypes from "prop-types";
 import styles from "./CartItem.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CartItem({ item }) {
   const dispatch = useDispatch();
@@ -13,12 +13,9 @@ function CartItem({ item }) {
         <div className={styles.imageContainer}>
           <img src={item.image} alt={item.name} className={styles.image} />
         </div>
-        <span
-          className={styles.name}
-          onClick={() => useNavigate(`/product/${item.id}`)}
-        >
+        <Link to={`/product/${item.id}`} className={styles.name}>
           {item.name}
-        </span>
+        </Link>
       </div>
 
       <div className={styles.priceCol}>${item.price}</div>
