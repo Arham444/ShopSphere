@@ -17,7 +17,8 @@ import {
   IoMoonOutline,
 } from "react-icons/io5";
 import { IoMdAddCircle } from "react-icons/io";
-import styles from "./Navbar.module.css";
+import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -38,7 +39,14 @@ function Navbar() {
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", themeName);
+    const root = document.documentElement;
+    if (themeName === "dark") {
+      root.classList.add("dark");
+      root.setAttribute("data-theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      root.setAttribute("data-theme", "light");
+    }
     localStorage.setItem("theme", themeName);
   }, [themeName]);
 
@@ -47,81 +55,91 @@ function Navbar() {
   };
 
   const getLinkClass = ({ isActive }) =>
-    `${styles.link} ${isActive ? styles.activeLink : ""}`;
+    `flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-primary ${
+      isActive ? "text-primary" : "text-muted-foreground"
+    }`;
 
   return (
-    <nav className={styles.nav}>
-      <Link to="/" className={styles.logo}>
-        ShopSphere
-      </Link>
-      <div className={styles.links}>
-        <button
-          onClick={toggleTheme}
-          className={styles.themeToggle}
-          aria-label="Toggle Theme"
-        >
-          {themeName === "dark" ? (
-            <IoSunnyOutline size={20} />
-          ) : (
-            <IoMoonOutline size={20} />
-          )}
-        </button>
-        <NavLink to="/" className={getLinkClass}>
-          <p>Home</p>
-        </NavLink>
-        {currentUser && currentUser.role !== "guest" && (
-          <>
-            <NavLink to="/wishlist" className={getLinkClass}>
-              <FaHeart />
-              <span>Wishlist</span>
-              {wishlistCount > 0 && (
-                <span className={styles.badge}>{wishlistCount}</span>
-              )}
-            </NavLink>
-            <NavLink to="/cart" className={getLinkClass}>
-              <IoCartOutline />
-              <span>Cart</span>
-              {cartCount > 0 && (
-                <span className={styles.badge}>{cartCount}</span>
-              )}
-            </NavLink>
-          </>
-        )}
-        {isAdmin && (
-          <NavLink to="/AddProduct" className={getLinkClass}>
-            <IoMdAddCircle />
-            <span>Add Product</span>
-          </NavLink>
-        )}
-
-        {currentUser && page != "/login" ? (
-          <div className={styles.userContainer}>
-            <span className={styles.userBadge}>
-              {isAdmin === true
-                ? "Admin"
-                : currentUser.role === "guest"
-                  ? "Guest"
-                  : `${currentUser.username}`}
-            </span>
-            <button
-              onClick={() => dispatch(logout())}
-              className={styles.logoutBtn}
-            >
-              <IoLogOutOutline size={16} />
-              <span>Logout</span>
-            </button>
-          </div>
-        ) : (
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              `${styles.loginBtn} ${isActive ? styles.activeLink : ""}`
-            }
+    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <Link to="/" className="text-xl font-bold tracking-tight text-primary">
+          ShopSphere
+        </Link>
+        <div className="flex items-center gap-6">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label="Toggle Theme"
           >
-            <IoLogInOutline size={16} />
-            <span>Login</span>
+            {themeName === "dark" ? (
+              <IoSunnyOutline className="h-5 w-5" />
+            ) : (
+              <IoMoonOutline className="h-5 w-5" />
+            )}
+          </Button>
+          <NavLink to="/" className={getLinkClass}>
+            <span>Home</span>
           </NavLink>
-        )}
+          {currentUser && currentUser.role !== "guest" && (
+            <>
+              <NavLink to="/wishlist" className={getLinkClass}>
+                <div className="relative flex items-center mr-1.5">
+                  <FaHeart className="h-4 w-4" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-2 -right-3 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </div>
+                <span>Wishlist</span>
+              </NavLink>
+              <NavLink to="/cart" className={getLinkClass}>
+                <div className="relative flex items-center">
+                  <IoCartOutline className="h-5 w-5" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                      {cartCount}
+                    </span>
+                  )}
+                </div>
+                <span>Cart</span>
+              </NavLink>
+            </>
+          )}
+          {isAdmin && (
+            <NavLink to="/AddProduct" className={getLinkClass}>
+              <IoMdAddCircle className="h-5 w-5" />
+              <span>Add Product</span>
+            </NavLink>
+          )}
+
+          {currentUser && currentUser.role !== "guest" && page !== "/login" ? (
+            <div className="flex items-center gap-3 ml-2 border-l pl-4">
+              <Badge variant="secondary" className="font-medium text-xs">
+                {isAdmin === true ? "Admin" : `${currentUser.username}`}
+              </Badge>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => dispatch(logout())}
+                className="gap-2 h-8"
+              >
+                <IoLogOutOutline className="h-4 w-4" />
+                <span>Logout</span>
+              </Button>
+            </div>
+          ) : page !== "/login" ? (
+            <div className="ml-2 border-l pl-4">
+              <Button asChild variant="default" size="sm" className="h-8">
+                <NavLink to="/login" className="gap-2">
+                  <IoLogInOutline className="h-4 w-4" />
+                  <span>Login</span>
+                </NavLink>
+              </Button>
+            </div>
+          ) : null}
+        </div>
       </div>
     </nav>
   );

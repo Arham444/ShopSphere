@@ -1,6 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+  updateQuantity,
+} from "../features/cart/cartSlice";
+import { IoTrashOutline, IoAdd, IoRemove } from "react-icons/io5";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
@@ -89,18 +94,61 @@ function ProductCard({ product }) {
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button
-          className="w-full"
-          onClick={handleAddToCart}
-          disabled={isLimitReached}
-          variant={isOutOfStock ? "secondary" : "default"}
-        >
-          {isOutOfStock
-            ? "Out of Stock"
-            : cartQuantity >= product.stock
-              ? "Limit Reached"
-              : "Add to Cart"}
-        </Button>
+        {!isOutOfStock && cartQuantity > 0 ? (
+          <div className="flex items-center justify-between w-full h-10 border-[3px] border-[#FFC107] rounded-full px-4 text-foreground font-bold">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (cartQuantity === 1) {
+                  dispatch(removeFromCart(product.id));
+                } else {
+                  dispatch(
+                    updateQuantity({
+                      id: product.id,
+                      quantity: cartQuantity - 1,
+                    }),
+                  );
+                }
+              }}
+              className="text-foreground/80 hover:text-foreground transition-colors flex items-center justify-center cursor-pointer"
+            >
+              {cartQuantity === 1 ? (
+                <IoTrashOutline size={20} />
+              ) : (
+                <IoRemove size={20} />
+              )}
+            </button>
+            <span className="text-base text-foreground">{cartQuantity}</span>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(
+                  updateQuantity({
+                    id: product.id,
+                    quantity: cartQuantity + 1,
+                  }),
+                );
+              }}
+              disabled={cartQuantity >= product.stock}
+              className="text-foreground/80 hover:text-foreground transition-colors disabled:opacity-50 flex items-center justify-center cursor-pointer"
+            >
+              <IoAdd size={20} />
+            </button>
+          </div>
+        ) : (
+          <Button
+            className="w-full h-10 rounded-full cursor-pointer"
+            onClick={handleAddToCart}
+            disabled={isLimitReached}
+            variant={isOutOfStock ? "secondary" : "default"}
+          >
+            {isOutOfStock
+              ? "Out of Stock"
+              : cartQuantity >= product.stock
+                ? "Limit Reached"
+                : "Add to Cart"}
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

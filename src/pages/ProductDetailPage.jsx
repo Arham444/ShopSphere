@@ -1,9 +1,10 @@
 import { Navigate, useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectProductById } from "../features/products/productSelectors";
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart, removeFromCart, updateQuantity } from "../features/cart/cartSlice";
 import { setSearchCategory } from "../features/products/productSlice";
 import { FaHeart } from "react-icons/fa";
+import { IoTrashOutline, IoAdd, IoRemove } from "react-icons/io5";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { selectCartItems } from "../features/cart/cartSelectors";
 import { selectCurrentUser } from "../features/auth/authSelectors";
@@ -109,19 +110,46 @@ function ProductDetailPage() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mt-auto">
-            <Button
-              onClick={handleAddToCart}
-              disabled={isLimitReached}
-              size="lg"
-              className="flex-1 h-12 text-base font-semibold"
-              variant={isOutOfStock ? "secondary" : "default"}
-            >
-              {isOutOfStock
-                ? "Out of Stock"
-                : cartQuantity >= product.stock
-                  ? "Limit Reached"
-                  : "Add to cart"}
-            </Button>
+            {!isOutOfStock && cartQuantity > 0 ? (
+              <div className="flex-1 flex items-center justify-between h-12 border-[3px] border-[#FFC107] rounded-full px-6 text-foreground font-bold text-lg">
+                <button
+                  onClick={() => {
+                    if (cartQuantity === 1) {
+                      dispatch(removeFromCart(product.id));
+                    } else {
+                      dispatch(updateQuantity({ id: product.id, quantity: cartQuantity - 1 }));
+                    }
+                  }}
+                  className="text-foreground/80 hover:text-foreground transition-colors flex items-center justify-center"
+                >
+                  {cartQuantity === 1 ? <IoTrashOutline size={24} /> : <IoRemove size={24} />}
+                </button>
+                <span className="text-xl text-foreground">{cartQuantity}</span>
+                <button
+                  onClick={() => {
+                    dispatch(updateQuantity({ id: product.id, quantity: cartQuantity + 1 }));
+                  }}
+                  disabled={cartQuantity >= product.stock}
+                  className="text-foreground/80 hover:text-foreground transition-colors disabled:opacity-50 flex items-center justify-center"
+                >
+                  <IoAdd size={24} />
+                </button>
+              </div>
+            ) : (
+              <Button
+                onClick={handleAddToCart}
+                disabled={isLimitReached}
+                size="lg"
+                className="flex-1 h-12 text-base font-semibold rounded-full"
+                variant={isOutOfStock ? "secondary" : "default"}
+              >
+                {isOutOfStock
+                  ? "Out of Stock"
+                  : cartQuantity >= product.stock
+                    ? "Limit Reached"
+                    : "Add to cart"}
+              </Button>
+            )}
             <Button
               onClick={handleToggleWishlist}
               size="icon"
