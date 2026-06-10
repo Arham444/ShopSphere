@@ -4,18 +4,33 @@
   column-gap: 1.5rem;
   align-items: center;
   background-color: var(--color-card-bg);
-  border-radius: 4px;
-  padding: 1.25rem 2rem;
-  box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.75rem;
   border: 1px solid var(--color-border);
-  margin-bottom: 1.5rem;
-  transition:
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--color-accent);
+  border-radius: 0 2px 2px 0;
+  transition: height var(--transition-normal);
+}
+
+.row:hover::before {
+  height: 60%;
 }
 
 .row:hover {
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-card);
 }
 
 .productCol {
@@ -30,7 +45,7 @@
   width: 54px;
   height: 54px;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   border: 1px solid var(--color-border);
 }
@@ -43,14 +58,20 @@
 }
 
 .name {
-  font-weight: 400;
+  font-weight: 500;
   color: var(--color-text-dark);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.name:hover {
+  color: var(--color-accent);
 }
 
 .priceCol {
   color: var(--color-text-dark);
-  font-size: 1rem;
+  font-size: 0.95rem;
   justify-self: start;
 }
 
@@ -61,23 +82,25 @@
 .quantitySelector {
   display: flex;
   align-items: center;
-  border: 1.5px solid #a3a3a3;
-  border-radius: 6px;
-  padding: 6px 10px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
   width: 76px;
   justify-content: space-between;
   gap: 4px;
   background-color: var(--color-card-bg);
+  transition: border-color var(--transition-fast);
 }
 
-html[data-theme="dark"] .quantitySelector {
-  border-color: #4b5563;
+.quantitySelector:hover {
+  border-color: var(--color-accent);
 }
 
 .quantityValue {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--color-text-dark);
+  font-variant-numeric: tabular-nums;
 }
 
 .quantityArrows {
@@ -96,15 +119,13 @@ html[data-theme="dark"] .quantitySelector {
   align-items: center;
   justify-content: center;
   color: var(--color-text-dark);
-  opacity: 0.6;
-  transition:
-    opacity 0.15s ease,
-    color 0.15s ease;
+  opacity: 0.5;
+  transition: all var(--transition-fast);
 }
 
 .arrowBtn:hover:not(:disabled) {
   opacity: 1;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .arrowBtn:disabled {
@@ -113,10 +134,11 @@ html[data-theme="dark"] .quantitySelector {
 }
 
 .subtotalCol {
-  font-weight: 400;
+  font-weight: 600;
   color: var(--color-text-dark);
-  font-size: 1rem;
+  font-size: 0.95rem;
   justify-self: end;
+  font-variant-numeric: tabular-nums;
 }
 
 .actionCol {
@@ -124,24 +146,26 @@ html[data-theme="dark"] .quantitySelector {
 }
 
 .removeBtn {
-  background-color: var(--button-primary-bg);
-  color: var(--button-primary-color);
-  border: none;
-  border-radius: 6px;
+  background-color: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.5rem 0.85rem;
+  font-weight: 500;
+  font-size: 0.82rem;
+  font-family: inherit;
+  padding: 0.4rem 0.75rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
   outline: none;
 }
 
 .removeBtn:hover {
-  background-color: var(--color-error);
-  color: white;
+  background-color: var(--danger-bg);
+  color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 @media (max-width: 768px) {
@@ -150,6 +174,10 @@ html[data-theme="dark"] .quantitySelector {
     gap: 1rem;
     padding: 1.25rem;
     justify-items: center;
+  }
+
+  .row::before {
+    display: none;
   }
 
   .productCol {

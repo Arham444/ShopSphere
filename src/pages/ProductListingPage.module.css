@@ -1,9 +1,9 @@
 .page {
   padding: 2rem 3rem;
-  font-family: system-ui, sans-serif;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  animation: slideUp var(--transition-slow) both;
 }
 
 .title {
@@ -13,10 +13,12 @@
   margin: 0 0 1.5rem 0;
   display: flex;
   justify-content: center;
+  letter-spacing: -0.03em;
+  position: relative;
 }
 
 .searchWrapper {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .grid {
@@ -27,10 +29,11 @@
 
 .empty {
   text-align: center;
-  font-size: 1.5rem;
-  padding: 3rem;
-  font-weight: bold;
-  color: var(--color-text-dark);
+  font-size: 1.25rem;
+  padding: 4rem 2rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  animation: fadeIn var(--transition-slow);
 }
 
 @media (max-width: 768px) {
@@ -47,4 +50,3 @@
     font-size: 1.75rem;
   }
 }
-

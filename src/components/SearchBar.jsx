@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../features/products/productSlice";
 import { selectSearchQuery } from "../features/products/productSelectors";
 import { useEffect, useState } from "react";
+import { IoSearchOutline } from "react-icons/io5";
 import styles from "./SearchBar.module.css";
 
 function SearchBar() {
@@ -16,14 +17,18 @@ function SearchBar() {
 
     return () => clearTimeout(timer);
   }, [localQuery, dispatch]);
+
   return (
-    <input
-      type="text"
-      placeholder="Search Products..."
-      value={localQuery}
-      onChange={(e) => setLocalQuery(e.target.value)}
-      className={styles.input}
-    />
+    <div className={styles.wrapper}>
+      <IoSearchOutline className={styles.icon} />
+      <input
+        type="text"
+        placeholder="Search products..."
+        value={localQuery}
+        onChange={(e) => setLocalQuery(e.target.value)}
+        className={styles.input}
+      />
+    </div>
   );
 }
 

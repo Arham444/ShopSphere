@@ -2,43 +2,45 @@
   display: flex;
   justify-content: flex-start;
   margin-bottom: 1.5rem;
-  font-family: system-ui, sans-serif;
 }
 
 .filterTag {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: transparent;
-  border: none;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
   cursor: pointer;
-  padding: 0.5rem 0;
-  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
+  font-family: inherit;
   color: var(--color-primary);
   outline: none;
   position: relative;
   margin-left: auto;
-  transition: opacity 0.2s ease;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
 }
 
 .filterTag:hover {
-  opacity: 0.8;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
 .filterTagText {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  font-weight: 500;
 }
 
 .filterDot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background-color: var(--color-accent);
   position: absolute;
-  top: 4px;
-  right: -12px;
+  top: 6px;
+  right: 6px;
+  animation: pulse 2s infinite;
 }
 
 .backdrop {
@@ -47,8 +49,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 999;
+  animation: fadeIn var(--transition-fast);
 }
 
 .sidebar {
@@ -58,20 +63,22 @@
   width: 400px;
   height: 100vh;
   background-color: var(--color-card-bg);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-lg);
   z-index: 1000;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  animation: slideIn 0.3s ease-out;
+  animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes slideIn {
+@keyframes slideInRight {
   from {
     transform: translateX(100%);
+    opacity: 0.5;
   }
   to {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
@@ -86,9 +93,9 @@
 
 .sidebarTitle {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   color: var(--color-text-dark);
 }
 
@@ -96,52 +103,55 @@
   background: transparent;
   border: none;
   color: var(--color-text-muted);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  font-family: inherit;
   text-decoration: underline;
+  text-underline-offset: 3px;
   cursor: pointer;
   padding: 0;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: color var(--transition-fast);
 }
 
 .clearAllBtn:hover {
-  color: var(--color-text-dark);
+  color: var(--color-error);
 }
 
 .closeBtn {
   background: var(--color-primary);
   color: var(--button-primary-color);
   border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  border-radius: var(--radius-full);
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: absolute;
   right: 1.5rem;
-  top: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
   outline: none;
-  transition: opacity 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
 .closeBtn:hover {
-  opacity: 0.9;
+  opacity: 0.85;
+  transform: translateY(-50%) scale(1.05);
 }
 
 .sidebarContent {
   flex: 1;
   overflow-y: auto;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0;
 }
 
 .accordionSection {
   border-bottom: 1px solid var(--color-border);
-  padding-bottom: 1.25rem;
 }
 
 .accordionHeader {
@@ -151,39 +161,49 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  font-family: inherit;
   color: var(--color-primary);
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   cursor: pointer;
   outline: none;
+  transition: color var(--transition-fast);
+}
+
+.accordionHeader:hover {
+  color: var(--color-accent);
 }
 
 .accordionBody {
-  padding-top: 0.75rem;
+  padding: 0 0 1rem;
+  animation: fadeIn var(--transition-fast);
 }
 
 .pillContainer {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 }
 
 .pill {
-  padding: 0.4rem 1rem;
-  font-size: 0.85rem;
-  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-family: inherit;
+  border-radius: var(--radius-full);
   border: 1px solid var(--color-border);
   cursor: pointer;
-  background-color: var(--color-background-light);
+  background-color: transparent;
   color: var(--color-text-dark);
   font-weight: 500;
-  transition: all 0.2s ease-in-out;
+  transition: all var(--transition-fast);
   outline: none;
 }
 
 .pill:hover {
-  background-color: var(--color-border);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background-color: var(--accent-bg);
 }
 
 .activePill {
@@ -200,31 +220,34 @@
 }
 
 .numberInput {
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
   background-color: var(--color-card-bg);
   font-size: 0.9rem;
+  font-family: inherit;
   color: var(--color-text-dark);
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--transition-fast);
   box-sizing: border-box;
   width: 100%;
 }
 
 .numberInput:focus {
   border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
 }
 
 .separator {
   color: var(--color-text-muted);
   font-size: 1rem;
+  font-weight: 500;
 }
 
 .sortList {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .sortOption {
@@ -232,36 +255,37 @@
   background: transparent;
   border: none;
   text-align: left;
-  font-size: 0.95rem;
-  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  font-family: inherit;
+  padding: 0.55rem 0.75rem;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   outline: none;
   color: var(--color-text-dark);
-  transition: padding-left 0.2s ease, background-color 0.2s ease;
-  border-radius: 4px;
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-sm);
 }
 
 .sortOption:hover {
   background-color: var(--color-background-light);
-  padding-left: 0.5rem;
 }
 
 .activeSortOption {
   font-weight: 600 !important;
-  color: var(--color-primary) !important;
+  color: var(--color-accent) !important;
+  background-color: var(--accent-bg);
 }
 
 .checkmark {
   color: var(--color-accent);
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .sidebarFooter {
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   border-top: 1px solid var(--color-border);
 }
 
@@ -269,19 +293,26 @@
   background-color: var(--button-primary-bg);
   color: var(--button-primary-color);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s ease, opacity 0.2s ease;
+  font-family: inherit;
+  transition: all var(--transition-fast);
   outline: none;
   width: 100%;
-  padding: 1rem;
-  font-size: 0.95rem;
+  padding: 0.85rem;
+  font-size: 0.9rem;
   letter-spacing: 0.05em;
 }
 
 .showItemsBtn:hover {
   opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.showItemsBtn:active {
+  transform: translateY(0);
 }
 
 @media (max-width: 480px) {
