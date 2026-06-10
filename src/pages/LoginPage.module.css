@@ -236,6 +236,33 @@ html[data-theme="dark"] .illustrationSection {
   color: var(--color-accent);
 }
 
+.toggleRow {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.toggleText {
+  color: var(--color-text-muted);
+}
+
+.toggleBtn {
+  background: transparent;
+  border: none;
+  color: var(--color-accent);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 0.25rem;
+  transition: opacity var(--transition-fast);
+}
+
+.toggleBtn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
 /* Responsive States */
 @media (max-width: 768px) {
   .container {
