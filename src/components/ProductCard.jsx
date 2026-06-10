@@ -20,11 +20,8 @@ function ProductCard({ product }) {
   } = useCartActions(product);
 
   const handleToggleWishlist = () => {
-    if (isGuest) {
-      navigate("/wishlist");
-    } else {
-      toggleWishlist();
-    }
+    if (isGuest) navigate("/wishlist");
+    else toggleWishlist();
   };
 
   return (
@@ -41,7 +38,7 @@ function ProductCard({ product }) {
         <Button
           variant="secondary"
           size="icon"
-          className={`absolute top-2 right-2 h-8 w-8 rounded-full shadow-sm z-10 ${
+          className={`absolute top-2 right-2 h-8 w-8 rounded-full shadow-sm z-10 cursor-pointer ${
             isInWishlist
               ? "text-red-500 hover:text-red-600"
               : "text-muted-foreground hover:text-foreground"

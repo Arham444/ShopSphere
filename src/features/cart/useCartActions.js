@@ -20,11 +20,8 @@ export const useCartActions = (product) => {
 
   const handleAddToCart = () => {
     if (!product) return;
-    if (isGuest) {
-      navigate("/cart");
-    } else {
-      dispatch(addToCart(product));
-    }
+    if (isGuest) navigate("/cart");
+    else dispatch(addToCart(product));
   };
 
   return {

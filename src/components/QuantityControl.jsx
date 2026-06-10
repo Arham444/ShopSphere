@@ -15,16 +15,14 @@ function QuantityControl({ product }) {
       <button
         onClick={(e) => {
           e.preventDefault();
-          if (cartQuantity === 1) {
-            dispatch(removeFromCart(product.id));
-          } else {
+          if (cartQuantity === 1) dispatch(removeFromCart(product.id));
+          else
             dispatch(
               updateQuantity({
                 id: product.id,
                 quantity: cartQuantity - 1,
               }),
             );
-          }
         }}
         className="text-foreground/80 hover:text-foreground transition-colors flex items-center justify-center cursor-pointer"
       >

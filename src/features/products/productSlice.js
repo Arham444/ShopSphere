@@ -43,9 +43,7 @@ const productSlice = createSlice({
     checkoutProducts(state, action) {
       action.payload.forEach(({ id, quantity }) => {
         const product = state.items.find((p) => p.id === id);
-        if (product) {
-          product.stock -= quantity;
-        }
+        if (product) product.stock -= quantity;
       });
     },
   },

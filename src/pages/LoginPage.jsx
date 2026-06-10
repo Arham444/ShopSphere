@@ -44,9 +44,7 @@ function LoginPage() {
         }),
       );
       navigate("/");
-    } else {
-      setError("Invalid username or password.");
-    }
+    } else setError("Invalid username or password.");
   };
 
   const handleQuickLogin = () => {

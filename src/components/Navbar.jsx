@@ -121,7 +121,10 @@ function Navbar() {
 
           {currentUser && currentUser.role !== "guest" && page !== "/login" ? (
             <div className="flex items-center gap-2 sm:gap-3 ml-1 sm:ml-2 border-l pl-2 sm:pl-4 border-border/30">
-              <Badge variant="secondary" className="font-medium text-xs hidden md:inline-flex">
+              <Badge
+                variant="secondary"
+                className="font-medium text-xs hidden md:inline-flex"
+              >
                 {isAdmin === true ? "Admin" : `${currentUser.username}`}
               </Badge>
               <Button

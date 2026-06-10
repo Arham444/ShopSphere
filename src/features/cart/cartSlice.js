@@ -40,9 +40,8 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login, (state, action) => {
-        if (action.payload && action.payload.cartItems) {
-          state.cartItems = action.payload.cartItems;
-        }
+        if (action.payload && action.payload.cartItems)
+          state.items = action.payload.cartItems;
       })
       .addCase(logout, (state) => {
         state.cartItems = [];

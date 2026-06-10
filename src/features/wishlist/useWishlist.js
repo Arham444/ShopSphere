@@ -10,11 +10,8 @@ export const useWishlist = (product) => {
 
   const toggleWishlist = () => {
     if (!product) return;
-    if (isInWishlist) {
-      dispatch(removeFromWishlist(product.id));
-    } else {
-      dispatch(addToWishlist(product));
-    }
+    if (isInWishlist) dispatch(removeFromWishlist(product.id));
+    else dispatch(addToWishlist(product));
   };
   return { isInWishlist, toggleWishlist };
 };

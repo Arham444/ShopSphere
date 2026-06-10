@@ -160,9 +160,7 @@ function CheckoutPage() {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 4) value = value.slice(0, 4);
     let formatted = value;
-    if (value.length > 2) {
-      formatted = `${value.slice(0, 2)}/${value.slice(2)}`;
-    }
+    if (value.length > 2) formatted = `${value.slice(0, 2)}/${value.slice(2)}`;
     formik.setFieldValue("cardExpiry", formatted);
   };
 
@@ -359,7 +357,7 @@ function CheckoutPage() {
               <Button
                 type="submit"
                 form="checkout-form"
-                className="w-full h-12 text-base font-semibold"
+                className="w-full h-12 text-base font-semibold cursor-pointer"
                 disabled={formik.isSubmitting}
               >
                 Place Order

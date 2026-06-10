@@ -12,9 +12,7 @@ const wishListSlice = createSlice({
       const inWishList = state.wishListItems.find(
         (item) => item.id === action.payload.id,
       );
-      if (!inWishList) {
-        state.wishListItems.push(action.payload);
-      }
+      if (!inWishList) state.wishListItems.push(action.payload);
     },
     removeFromWishlist(state, action) {
       state.wishListItems = state.wishListItems.filter(
@@ -25,9 +23,8 @@ const wishListSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login, (state, action) => {
-        if (action.payload && action.payload.wishListItems) {
+        if (action.payload && action.payload.wishListItems)
           state.wishListItems = action.payload.wishListItems;
-        }
       })
       .addCase(logout, (state) => {
         state.wishListItems = [];

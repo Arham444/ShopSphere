@@ -13,11 +13,8 @@ function AccessDenied({
   const navigate = useNavigate();
 
   const handleAction = () => {
-    if (onAction) {
-      onAction();
-    } else {
-      navigate("/login");
-    }
+    if (onAction) onAction();
+    else navigate("/login");
   };
 
   return (
@@ -28,7 +25,11 @@ function AccessDenied({
             {icon}
           </div>
           <p className="text-lg font-medium text-foreground">{message}</p>
-          <Button onClick={handleAction} size="lg" className="mt-2 w-full sm:w-auto">
+          <Button
+            onClick={handleAction}
+            size="lg"
+            className="mt-2 w-full sm:w-auto"
+          >
             {actionText}
           </Button>
         </CardContent>
