@@ -3,22 +3,30 @@ import { selectFilteredProducts } from "../features/products/productSelectors";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 import Filters from "../components/Filters";
-import styles from "./ProductListingPage.module.css";
 
 function ProductListingPage() {
   const products = useSelector(selectFilteredProducts);
 
   return (
-    <div className={styles.page}>
-      <h1 className={styles.title}>Our Products</h1>
-      <div className={styles.searchWrapper}>
-        <SearchBar />
+    <div className="container mx-auto px-4 py-8 flex flex-col min-h-[calc(100vh-140px)]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          Explore Our Products
+        </h1>
+        <div className="flex items-center gap-4">
+          <SearchBar />
+          <Filters />
+        </div>
       </div>
-      <Filters />
+
       {products.length === 0 ? (
-        <p className={styles.empty}>No Products Found!</p>
+        <div className="flex-1 flex items-center justify-center">
+          <p className="text-xl font-medium text-muted-foreground">
+            No Products Found!
+          </p>
+        </div>
       ) : (
-        <div className={styles.grid}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

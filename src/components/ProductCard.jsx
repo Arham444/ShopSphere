@@ -6,8 +6,9 @@ import { FaHeart } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { selectCartItems } from "../features/cart/cartSelectors";
 import { selectCurrentUser } from "../features/auth/authSelectors";
-import styles from "./ProductCard.module.css";
 import StockStatus from "./StockStatus";
+import { Card, CardContent, CardFooter } from "./ui/card";
+import { Button } from "./ui/button";
 
 function ProductCard({ product }) {
   const dispatch = useDispatch();
@@ -40,43 +41,68 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className={styles.card}>
-      <Link to={`/product/${product.id}`} className={styles.imageWrapper}>
-        <img src={product.image} alt={product.name} className={styles.image} />
+    <Card className="group flex flex-col h-full overflow-hidden transition-all hover:shadow-md">
+      <Link
+        to={`/product/${product.id}`}
+        className="aspect-[4/3] overflow-hidden bg-muted relative block"
+      >
+        <img
+          src={product.image}
+          alt={product.name}
+          className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+        />
+        <Button
+          variant="secondary"
+          size="icon"
+          className={`absolute top-2 right-2 h-8 w-8 rounded-full shadow-sm z-10 ${
+            isInWishlist
+              ? "text-red-500 hover:text-red-600"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+          onClick={(e) => {
+            e.preventDefault();
+            handleToggleWishlist();
+          }}
+        >
+          <FaHeart className="h-4 w-4" />
+        </Button>
       </Link>
-      <div className={styles.body}>
-        <p className={styles.category}>{product.category}</p>
-        <Link to={`/product/${product.id}`} className={styles.name}>
+      <CardContent className="flex flex-col flex-1 gap-2 p-4">
+        <div className="flex justify-between items-start gap-2">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            {product.category}
+          </p>
+          <div className="flex items-center text-xs font-medium text-foreground">
+            <span className="text-yellow-500 mr-1">⭐</span>
+            {product.rating}
+          </div>
+        </div>
+        <Link
+          to={`/product/${product.id}`}
+          className="font-semibold text-base line-clamp-2 hover:text-primary transition-colors"
+        >
           {product.name}
         </Link>
-        <p className={styles.price}>${product.price}</p>
-        <p className={styles.rating}>⭐ {product.rating}</p>
-        <StockStatus product={product} />
-        <div className={styles.actions}>
-          <button
-            onClick={handleAddToCart}
-            disabled={isLimitReached}
-            className={styles.cartBtn}
-          >
-            {isOutOfStock
-              ? "Out of Stock"
-              : cartQuantity >= product.stock
-                ? "Limit Reached"
-                : "Add to Cart"}
-          </button>
-          <button
-            onClick={handleToggleWishlist}
-            className={`${styles.wishBtn} ${isInWishlist ? styles.activeWish : ""}`}
-          >
-            <FaHeart
-              style={{
-                cursor: "pointer",
-              }}
-            />
-          </button>
+        <div className="mt-auto pt-2 flex items-center justify-between">
+          <p className="font-bold text-lg text-primary">${product.price}</p>
+          <StockStatus product={product} />
         </div>
-      </div>
-    </div>
+      </CardContent>
+      <CardFooter className="p-4 pt-0">
+        <Button
+          className="w-full"
+          onClick={handleAddToCart}
+          disabled={isLimitReached}
+          variant={isOutOfStock ? "secondary" : "default"}
+        >
+          {isOutOfStock
+            ? "Out of Stock"
+            : cartQuantity >= product.stock
+              ? "Limit Reached"
+              : "Add to Cart"}
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
 

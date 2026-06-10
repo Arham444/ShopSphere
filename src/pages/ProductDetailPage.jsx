@@ -7,9 +7,9 @@ import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../features/wishlist/useWishlist";
 import { selectCartItems } from "../features/cart/cartSelectors";
 import { selectCurrentUser } from "../features/auth/authSelectors";
-import styles from "./ProductDetailPage.module.css";
-
 import StockStatus from "../components/StockStatus";
+import { Button } from "../components/ui/button";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../components/ui/breadcrumb";
 
 function ProductDetailPage() {
   const { id } = useParams();
@@ -46,72 +46,90 @@ function ProductDetailPage() {
     }
   };
 
-  const handleCategoryClick = () => {
+  const handleCategoryClick = (e) => {
+    e.preventDefault();
     dispatch(setSearchCategory(product.category));
     navigate("/");
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.paths}>
-        <Link to="/" className={styles.pathLink}>
-          Home
-        </Link>
-        <span className={styles.pathSeparator}>/</span>
-        {product.category && (
-          <>
-            <span onClick={handleCategoryClick} className={styles.pathLink}>
-              {product.category}
-            </span>
-            <span className={styles.pathSeparator}>/</span>
-          </>
-        )}
-        <span className={styles.pathActive}>{product.name}</span>
+    <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-140px)]">
+      <div className="mb-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            {product.category && (
+              <>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="#" onClick={handleCategoryClick}>{product.category}</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            )}
+            <BreadcrumbItem>
+              <BreadcrumbPage>{product.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
-      <div className={styles.detailWrapper}>
-        <div className={styles.imageSection}>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+        <div className="rounded-xl overflow-hidden bg-muted border">
           <img
             src={product.image}
             alt={product.name}
-            className={styles.image}
+            className="w-full h-auto object-cover aspect-square"
           />
         </div>
-        <div className={styles.infoSection}>
-          <span className={styles.category}>{product.category}</span>
-          <h1 className={styles.title}>{product.name}</h1>
-          <div className={styles.metaRow}>
-            <span className={styles.rating}>⭐ {product.rating}</span>
-            <StockStatus product={product} className={styles.stock} />
+        
+        <div className="flex flex-col">
+          <span className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+            {product.category}
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
+            {product.name}
+          </h1>
+          
+          <div className="flex items-center gap-4 mb-6">
+            <span className="flex items-center text-sm font-medium text-foreground">
+              <span className="text-yellow-500 mr-1 text-lg">⭐</span> {product.rating}
+            </span>
+            <StockStatus product={product} />
           </div>
-          <div className={styles.priceRow}>
-            <span className={styles.price}>${product.price}</span>
+          
+          <div className="mb-8">
+            <span className="text-3xl font-bold text-primary">${product.price}</span>
           </div>
-          <p className={styles.description}>
-            {product.description || "No description available for this product"}
+          
+          <p className="text-base text-muted-foreground leading-relaxed mb-8">
+            {product.description || "No description available for this product. Check back later for more details."}
           </p>
-          <div className={styles.actionRow}>
-            <button
+          
+          <div className="flex flex-col sm:flex-row gap-4 mt-auto">
+            <Button
               onClick={handleAddToCart}
               disabled={isLimitReached}
-              className={styles.cartBtn}
+              size="lg"
+              className="flex-1 h-12 text-base font-semibold"
+              variant={isOutOfStock ? "secondary" : "default"}
             >
               {isOutOfStock
                 ? "Out of Stock"
                 : cartQuantity >= product.stock
                   ? "Limit Reached"
                   : "Add to cart"}
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={handleToggleWishlist}
-              className={`${styles.wishlistBtn} ${isInWishlist ? styles.activeWishlistBtn : ""}`}
+              size="icon"
+              variant="outline"
+              className={`h-12 w-12 shrink-0 ${isInWishlist ? "text-red-500 border-red-500 hover:text-red-600 hover:bg-red-50" : "text-muted-foreground"}`}
             >
-              <FaHeart
-                style={{
-                  fontSize: "1.2rem",
-                  cursor: "pointer",
-                }}
-              />
-            </button>
+              <FaHeart className="h-5 w-5" />
+            </Button>
           </div>
         </div>
       </div>
