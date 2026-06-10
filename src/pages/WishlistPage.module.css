@@ -67,7 +67,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
@@ -235,7 +235,7 @@
   .page {
     padding: 1.5rem 1rem;
   }
-  
+
   .grid,
   .gridFew {
     grid-template-columns: repeat(2, 1fr);
@@ -248,7 +248,7 @@
   .gridFew {
     grid-template-columns: 1fr;
   }
-  
+
   .empty {
     padding: 2rem 1rem;
   }

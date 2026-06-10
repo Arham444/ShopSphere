@@ -7,6 +7,7 @@ import CheckoutPage from "../pages/CheckoutPage";
 import WishlistPage from "../pages/WishlistPage";
 import AddProductPage from "../pages/AddProductPage";
 import LoginPage from "../pages/LoginPage";
+import SignupPage from "../pages/SignupPage";
 import NotFoundPage from "../pages/NotFoundPage";
 
 const router = createBrowserRouter([
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "wishlist", element: <WishlistPage /> },
       { path: "AddProduct", element: <AddProductPage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "signup", element: <SignupPage /> },
       { path: "404", element: <NotFoundPage /> },
       { path: "*", element: <NotFoundPage /> },
     ],
