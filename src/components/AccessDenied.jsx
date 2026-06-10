@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./AccessDenied.module.css";
 import PropTypes from "prop-types";
 import { CiLock } from "react-icons/ci";
+import { Card, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
 
 function AccessDenied({
   message = "You do not have permission to view this page.",
-  icon = <CiLock />,
+  icon = <CiLock className="h-10 w-10 text-muted-foreground" />,
   actionText = "Go to Login",
   onAction,
 }) {
@@ -20,14 +21,18 @@ function AccessDenied({
   };
 
   return (
-    <div className={styles.deniedContainer}>
-      <div className={styles.deniedCard}>
-        <span className={styles.deniedIcon}>{icon}</span>
-        <p className={styles.deniedMessage}>{message}</p>
-        <button onClick={handleAction} className={styles.deniedBtn}>
-          {actionText}
-        </button>
-      </div>
+    <div className="flex flex-col flex-1 items-center justify-center p-6 min-h-[50vh]">
+      <Card className="w-full max-w-md border-muted">
+        <CardContent className="flex flex-col items-center justify-center p-8 gap-6 text-center">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
+            {icon}
+          </div>
+          <p className="text-lg font-medium text-foreground">{message}</p>
+          <Button onClick={handleAction} size="lg" className="mt-2 w-full sm:w-auto">
+            {actionText}
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

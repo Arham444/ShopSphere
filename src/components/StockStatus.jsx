@@ -1,31 +1,29 @@
 import { useSelector } from "react-redux";
 import { selectCartItems } from "../features/cart/cartSelectors";
 import PropTypes from "prop-types";
-import styles from "./StockStatus.module.css";
+import { Badge } from "./ui/badge";
 
-function StockStatus({ product, style, className }) {
+function StockStatus({ product, className }) {
   const cartItems = useSelector(selectCartItems);
   const cartItem = cartItems.find((item) => item.id === product.id);
   const cartQuantity = cartItem ? cartItem.quantity : 0;
   const isOutOfStock = product.stock <= 0;
+  const limitReached = cartQuantity >= product.stock;
 
-  const statusClass = isOutOfStock
-    ? styles.outOfStock
-    : cartQuantity >= product.stock
-      ? styles.limitReached
-      : styles.inStock;
+  const variant = isOutOfStock
+    ? "destructive"
+    : limitReached
+      ? "secondary"
+      : "default";
 
   return (
-    <span
-      className={`${styles.status} ${statusClass} ${className || ""}`}
-      style={style}
-    >
+    <Badge variant={variant} className={className}>
       {isOutOfStock
         ? "Out of Stock"
-        : cartQuantity >= product.stock
+        : limitReached
           ? `Limit Reached (${product.stock} in Cart)`
           : `In Stock (${product.stock - cartQuantity} left)`}
-    </span>
+    </Badge>
   );
 }
 
@@ -34,7 +32,6 @@ StockStatus.propTypes = {
     id: PropTypes.string.isRequired,
     stock: PropTypes.number.isRequired,
   }).isRequired,
-  style: PropTypes.object,
   className: PropTypes.string,
 };
 

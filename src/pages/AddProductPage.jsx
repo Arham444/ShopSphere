@@ -4,8 +4,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { addProduct } from "../features/products/productSlice";
 import { selectIsAdmin } from "../features/auth/authSelectors";
 import AccessDenied from "../components/AccessDenied";
-import styles from "./AddProductPage.module.css";
 import { CiLock } from "react-icons/ci";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../components/ui/breadcrumb";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Button } from "../components/ui/button";
 
 const Categories = [
   "Electronics",
@@ -48,7 +52,7 @@ function AddProductPage() {
     return (
       <AccessDenied
         message="Only Admin can create products."
-        icon={<CiLock />}
+        icon={<CiLock className="h-10 w-10 text-muted-foreground" />}
       />
     );
   }
@@ -112,123 +116,150 @@ function AddProductPage() {
   };
 
   return (
-    <div className={styles.page}>
-      {/* Breadcrumbs */}
-      <div className={styles.paths}>
-        <Link to="/" className={styles.pathLink}>
-          Home
-        </Link>
-        <span className={styles.pathSeparator}>/</span>
-        <span className={styles.pathActive}>Add Product</span>
+    <div className="container mx-auto px-4 py-8 max-w-3xl min-h-[calc(100vh-140px)]">
+      <div className="mb-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Add Product</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
-      <h1 className={styles.title}>Add New Product</h1>
-      {error && <p className={styles.error}>{error}</p>}
 
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.group}>
-          <label className={styles.label}>Product Name *</label>
-          <input
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            placeholder="e.g. Mechanical Keyboard"
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.group}>
-          <label className={styles.label}>Category *</label>
-          <select
-            name="category"
-            value={form.category}
-            onChange={handleChange}
-            className={styles.input}
-            required
-          >
-            {Categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles.group}>
-          <label className={styles.label}>Price ($) *</label>
-          <input
-            name="price"
-            value={form.price}
-            onChange={handleChange}
-            placeholder="e.g. 89.99"
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.group}>
-          <label className={styles.label}>Rating (0–5) *</label>
-          <input
-            name="rating"
-            value={form.rating}
-            onChange={handleChange}
-            placeholder="e.g. 4.5"
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.group}>
-          <label className={styles.label}>Stock *</label>
-          <input
-            name="stock"
-            value={form.stock}
-            onChange={handleChange}
-            placeholder="e.g. 15"
-            className={styles.input}
-            required
-          />
-        </div>
-
-        <div className={styles.group}>
-          <label className={styles.label}>Description *</label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            placeholder="Enter product details..."
-            className={styles.input}
-            style={{ resize: "vertical" }}
-            rows={4}
-            required
-          />
-        </div>
-
-        <div className={styles.group}>
-          <label className={styles.label}>Product Image *</label>
-          <button
-            type="button"
-            onClick={handleImageUpload}
-            className={styles.uploadBtn}
-          >
-            {imageUrl ? "Change Image" : "Upload Image"}
-          </button>
-          {imageUrl && (
-            <div className={styles.previewWrapper}>
-              <img
-                src={imageUrl}
-                alt="Uploaded preview"
-                className={styles.preview}
-              />
-              <p className={styles.previewNote}>Image uploaded successfully</p>
+      <Card className="shadow-md">
+        <CardHeader className="pb-6 border-b">
+          <CardTitle className="text-3xl font-bold tracking-tight">Add New Product</CardTitle>
+        </CardHeader>
+        
+        <CardContent className="pt-6">
+          {error && (
+            <div className="p-3 mb-6 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20 font-medium">
+              {error}
             </div>
           )}
-        </div>
 
-        <button type="submit" className={styles.submitBtn}>
-          Add Product
-        </button>
-      </form>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="name">Product Name *</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="e.g. Mechanical Keyboard"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="category">Category *</Label>
+                <select
+                  id="category"
+                  name="category"
+                  value={form.category}
+                  onChange={handleChange}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                  required
+                >
+                  {Categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="price">Price ($) *</Label>
+                <Input
+                  id="price"
+                  name="price"
+                  value={form.price}
+                  onChange={handleChange}
+                  placeholder="e.g. 89.99"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="rating">Rating (0–5) *</Label>
+                <Input
+                  id="rating"
+                  name="rating"
+                  value={form.rating}
+                  onChange={handleChange}
+                  placeholder="e.g. 4.5"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="stock">Stock *</Label>
+                <Input
+                  id="stock"
+                  name="stock"
+                  value={form.stock}
+                  onChange={handleChange}
+                  placeholder="e.g. 15"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <Label htmlFor="description">Description *</Label>
+                <textarea
+                  id="description"
+                  name="description"
+                  value={form.description}
+                  onChange={handleChange}
+                  placeholder="Enter product details..."
+                  className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-y"
+                  rows={4}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <Label>Product Image *</Label>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 border rounded-md p-4 bg-muted/20">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={handleImageUpload}
+                  >
+                    {imageUrl ? "Change Image" : "Upload Image"}
+                  </Button>
+                  
+                  {imageUrl && (
+                    <div className="flex items-center gap-4">
+                      <div className="h-16 w-16 rounded-md overflow-hidden border">
+                        <img
+                          src={imageUrl}
+                          alt="Uploaded preview"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                      <p className="text-sm font-medium text-success">Image uploaded successfully</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t">
+              <Button type="submit" size="lg" className="w-full sm:w-auto">
+                Add Product
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

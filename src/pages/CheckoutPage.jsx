@@ -13,10 +13,28 @@ import { TiTick } from "react-icons/ti";
 import { clearCart } from "../features/cart/cartSlice";
 import { checkoutProducts } from "../features/products/productSlice";
 import AccessDenied from "../components/AccessDenied";
-import styles from "./CheckoutPage.module.css";
 import { CiLock } from "react-icons/ci";
 import { RiVisaLine, RiMastercardLine } from "react-icons/ri";
 import { FaRegCreditCard } from "react-icons/fa6";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "../components/ui/breadcrumb";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Button } from "../components/ui/button";
+import { Separator } from "../components/ui/separator";
 
 const TAX_RATE = 0.08;
 
@@ -93,43 +111,50 @@ function CheckoutPage() {
             Please log in to complete your purchase.
           </>
         }
-        icon={<CiLock />}
+        icon={<CiLock className="h-10 w-10 text-muted-foreground" />}
       />
     );
   }
 
   if (items.length === 0 && !orderPlaced) {
     return (
-      <div className={styles.empty}>
-        <h2>Your Cart Is Empty.</h2>
-        <p>Add some products before checking out.</p>
-        <Link to="/" className={styles.link}>
-          Browse Products
-        </Link>
+      <div className="flex flex-col flex-1 items-center justify-center p-4 min-h-[50vh]">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">
+            Your Cart Is Empty.
+          </h2>
+          <p className="text-muted-foreground">
+            Add some products before checking out.
+          </p>
+          <Button asChild size="lg" className="mt-4">
+            <Link to="/">Browse Products</Link>
+          </Button>
+        </div>
       </div>
     );
   }
 
   if (orderPlaced) {
     return (
-      <div className={styles.confirmation}>
-        <div className={styles.confirmBox}>
-          <h1 className={styles.confirmIcon}>
-            <TiTick />
-          </h1>
-          <h2>Order Placed!</h2>
-          <p className={styles.confirmText}>
-            Thank you for your order. Your items will be delivered soon.
-          </p>
-          <button onClick={() => navigate("/")} className={styles.continueBtn}>
-            Continue Shopping
-          </button>
-        </div>
+      <div className="flex flex-col flex-1 items-center justify-center p-4 min-h-[60vh]">
+        <Card className="w-full max-w-md shadow-sm border-muted">
+          <CardContent className="flex flex-col items-center text-center pt-10 pb-10 gap-6">
+            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-success/20 text-success">
+              <TiTick className="h-16 w-16" />
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight">Order Placed!</h2>
+            <p className="text-base text-muted-foreground">
+              Thank you for your order. Your items will be delivered soon.
+            </p>
+            <Button asChild size="lg" className="mt-4 w-full sm:w-auto">
+              <Link to="/">Continue Shopping</Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
 
-  // Form Input Format Listeners
   const handleCardNumberChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 16) value = value.slice(0, 16);
@@ -153,275 +178,285 @@ function CheckoutPage() {
     formik.setFieldValue("cardCvv", value);
   };
 
+  const getInputProps = (field) => ({
+    id: field,
+    name: field,
+    value: formik.values[field],
+    onChange: formik.handleChange,
+    onBlur: formik.handleBlur,
+    className: `h-11 ${formik.touched[field] && formik.errors[field] ? "border-destructive focus-visible:ring-destructive" : ""}`,
+  });
+
   return (
-    <div className={styles.page}>
-      {/* Breadcrumbs */}
-      <div className={styles.paths}>
-        <Link to="/" className={styles.pathLink}>
-          Home
-        </Link>
-        <span className={styles.pathSeparator}>/</span>
-        <Link to="/cart" className={styles.pathLink}>
-          Cart
-        </Link>
-        <span className={styles.pathSeparator}>/</span>
-        <span className={styles.pathActive}>Checkout</span>
+    <div className="container mx-auto px-4 py-8 min-h-[calc(100vh-140px)]">
+      <div className="mb-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/cart">Cart</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Checkout</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
 
-      <div className={styles.layout}>
-        <div className={styles.mainContent}>
-          <div className={styles.card}>
-            <h3 className={styles.cardTitle}>Order Items ({itemCount})</h3>
-            <div className={styles.itemList}>
-              {items.map((item) => (
-                <div key={item.id} className={styles.item}>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className={styles.image}
-                  />
-                  <div className={styles.itemInfo}>
-                    <p className={styles.itemName}>{item.name}</p>
-                    <p className={styles.itemMeta}>
-                      ${item.price} x {item.quantity}
-                    </p>
+      <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex-1 space-y-8">
+          {/* Order Items */}
+          <Card className="shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle>Order Items ({itemCount})</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col divide-y">
+                {items.map((item) => (
+                  <div key={item.id} className="flex py-4 gap-4 items-center">
+                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border bg-muted">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-base line-clamp-1">
+                        {item.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        ${item.price} x {item.quantity}
+                      </p>
+                    </div>
+                    <div className="font-semibold text-base shrink-0">
+                      ${item.subtotal}
+                    </div>
                   </div>
-                  <p className={styles.itemSubtotal}>${item.subtotal}</p>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Checkout Form */}
+          <form id="checkout-form" onSubmit={formik.handleSubmit} noValidate>
+            <Card className="shadow-sm">
+              <CardHeader className="pb-4">
+                <CardTitle>Billing Details</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2 md:col-span-2">
+                    <Label htmlFor="fullName">Full Name *</Label>
+                    <Input
+                      type="text"
+                      placeholder="John Doe"
+                      {...getInputProps("fullName")}
+                    />
+                    {formik.touched.fullName && formik.errors.fullName && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.fullName}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2 md:col-span-2">
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input
+                      type="email"
+                      placeholder="john@example.com"
+                      {...getInputProps("email")}
+                    />
+                    {formik.touched.email && formik.errors.email && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2 md:col-span-2">
+                    <Label htmlFor="address">Street Address *</Label>
+                    <Input
+                      type="text"
+                      placeholder="123 Main St"
+                      {...getInputProps("address")}
+                    />
+                    {formik.touched.address && formik.errors.address && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.address}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="city">Town / City *</Label>
+                    <Input
+                      type="text"
+                      placeholder="New York"
+                      {...getInputProps("city")}
+                    />
+                    {formik.touched.city && formik.errors.city && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.city}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="zipCode">Postal Code / ZIP *</Label>
+                    <Input
+                      type="text"
+                      placeholder="10001"
+                      {...getInputProps("zipCode")}
+                    />
+                    {formik.touched.zipCode && formik.errors.zipCode && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.zipCode}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <form
-            id="checkout-form"
-            onSubmit={formik.handleSubmit}
-            className={styles.card}
-            noValidate
-          >
-            <h3 className={styles.cardTitle}>Billing Details</h3>
-            <div className={styles.formGrid}>
-              <div className={styles.inputGroup}>
-                <label className={styles.label}>Full Name *</label>
-                <input
-                  type="text"
-                  name="fullName"
-                  value={formik.values.fullName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="John Doe"
-                  className={`${styles.input} ${formik.touched.fullName && formik.errors.fullName ? styles.inputError : ""}`}
-                />
-                {formik.touched.fullName && formik.errors.fullName && (
-                  <span className={styles.errorText}>
-                    {formik.errors.fullName}
-                  </span>
-                )}
-              </div>
+                <div className="py-2">
+                  <Separator />
+                </div>
 
-              <div className={styles.inputGroup}>
-                <label className={styles.label}>Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="john@example.com"
-                  className={`${styles.input} ${formik.touched.email && formik.errors.email ? styles.inputError : ""}`}
-                />
-                {formik.touched.email && formik.errors.email && (
-                  <span className={styles.errorText}>
-                    {formik.errors.email}
-                  </span>
-                )}
-              </div>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold tracking-tight">
+                    Payment Method
+                  </h3>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <RiVisaLine className="h-8 w-8" />
+                    <RiMastercardLine className="h-8 w-8" />
+                    <FaRegCreditCard className="h-6 w-6 ml-1" />
+                  </div>
+                </div>
 
-              <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
-                <label className={styles.label}>Street Address *</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={formik.values.address}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="123 Main St"
-                  className={`${styles.input} ${formik.touched.address && formik.errors.address ? styles.inputError : ""}`}
-                />
-                {formik.touched.address && formik.errors.address && (
-                  <span className={styles.errorText}>
-                    {formik.errors.address}
-                  </span>
-                )}
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2 md:col-span-2">
+                    <Label htmlFor="cardName">Cardholder Name *</Label>
+                    <Input
+                      type="text"
+                      placeholder="John Doe"
+                      {...getInputProps("cardName")}
+                    />
+                    {formik.touched.cardName && formik.errors.cardName && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.cardName}
+                      </p>
+                    )}
+                  </div>
 
-              <div className={styles.inputGroup}>
-                <label className={styles.label}>Town/City *</label>
-                <input
-                  type="text"
-                  name="city"
-                  value={formik.values.city}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="New York"
-                  className={`${styles.input} ${formik.touched.city && formik.errors.city ? styles.inputError : ""}`}
-                />
-                {formik.touched.city && formik.errors.city && (
-                  <span className={styles.errorText}>{formik.errors.city}</span>
-                )}
-              </div>
+                  <div className="space-y-2 md:col-span-2">
+                    <Label htmlFor="cardNumber">Card Number *</Label>
+                    <Input
+                      type="text"
+                      placeholder="4111 2222 3333 4444"
+                      id="cardNumber"
+                      name="cardNumber"
+                      value={formik.values.cardNumber}
+                      onChange={handleCardNumberChange}
+                      onBlur={formik.handleBlur}
+                      className={`h-11 ${formik.touched.cardNumber && formik.errors.cardNumber ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                    />
+                    {formik.touched.cardNumber && formik.errors.cardNumber && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.cardNumber}
+                      </p>
+                    )}
+                  </div>
 
-              <div className={styles.inputGroup}>
-                <label className={styles.label}>Postal Code / ZIP *</label>
-                <input
-                  type="text"
-                  name="zipCode"
-                  value={formik.values.zipCode}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="10001"
-                  className={`${styles.input} ${formik.touched.zipCode && formik.errors.zipCode ? styles.inputError : ""}`}
-                />
-                {formik.touched.zipCode && formik.errors.zipCode && (
-                  <span className={styles.errorText}>
-                    {formik.errors.zipCode}
-                  </span>
-                )}
-              </div>
-            </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="cardExpiry">Expiration Date *</Label>
+                    <Input
+                      type="text"
+                      placeholder="MM/YY"
+                      id="cardExpiry"
+                      name="cardExpiry"
+                      value={formik.values.cardExpiry}
+                      onChange={handleExpiryChange}
+                      onBlur={formik.handleBlur}
+                      className={`h-11 ${formik.touched.cardExpiry && formik.errors.cardExpiry ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                    />
+                    {formik.touched.cardExpiry && formik.errors.cardExpiry && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.cardExpiry}
+                      </p>
+                    )}
+                  </div>
 
-            <hr className={styles.formDivider} />
-
-            <div className={styles.paymentHeader}>
-              <h3 className={styles.cardTitle} style={{ margin: 0 }}>
-                Payment Method
-              </h3>
-              <div className={styles.cardIcons}>
-                <RiVisaLine size={28} title="Visa" />
-                <RiMastercardLine size={28} title="Mastercard" />
-                <FaRegCreditCard size={20} title="Credit Card" />
-              </div>
-            </div>
-
-            <div className={styles.formGrid}>
-              <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
-                <label className={styles.label}>Cardholder Name *</label>
-                <input
-                  type="text"
-                  name="cardName"
-                  value={formik.values.cardName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="John Doe"
-                  className={`${styles.input} ${formik.touched.cardName && formik.errors.cardName ? styles.inputError : ""}`}
-                />
-                {formik.touched.cardName && formik.errors.cardName && (
-                  <span className={styles.errorText}>
-                    {formik.errors.cardName}
-                  </span>
-                )}
-              </div>
-
-              <div className={`${styles.inputGroup} ${styles.fullWidth}`}>
-                <label className={styles.label}>Card Number *</label>
-                <input
-                  type="text"
-                  name="cardNumber"
-                  value={formik.values.cardNumber}
-                  onChange={handleCardNumberChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="4111 2222 3333 4444"
-                  className={`${styles.input} ${formik.touched.cardNumber && formik.errors.cardNumber ? styles.inputError : ""}`}
-                />
-                {formik.touched.cardNumber && formik.errors.cardNumber && (
-                  <span className={styles.errorText}>
-                    {formik.errors.cardNumber}
-                  </span>
-                )}
-              </div>
-
-              <div className={styles.inputGroup}>
-                <label className={styles.label}>Expiration Date *</label>
-                <input
-                  type="text"
-                  name="cardExpiry"
-                  value={formik.values.cardExpiry}
-                  onChange={handleExpiryChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="MM/YY"
-                  className={`${styles.input} ${formik.touched.cardExpiry && formik.errors.cardExpiry ? styles.inputError : ""}`}
-                />
-                {formik.touched.cardExpiry && formik.errors.cardExpiry && (
-                  <span className={styles.errorText}>
-                    {formik.errors.cardExpiry}
-                  </span>
-                )}
-              </div>
-
-              <div className={styles.inputGroup}>
-                <label className={styles.label}>CVC / CVV *</label>
-                <input
-                  type="password"
-                  name="cardCvv"
-                  value={formik.values.cardCvv}
-                  onChange={handleCvvChange}
-                  onBlur={formik.handleBlur}
-                  placeholder="123"
-                  className={`${styles.input} ${formik.touched.cardCvv && formik.errors.cardCvv ? styles.inputError : ""}`}
-                />
-                {formik.touched.cardCvv && formik.errors.cardCvv && (
-                  <span className={styles.errorText}>
-                    {formik.errors.cardCvv}
-                  </span>
-                )}
-              </div>
-            </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="cardCvv">CVC / CVV *</Label>
+                    <Input
+                      type="password"
+                      placeholder="123"
+                      id="cardCvv"
+                      name="cardCvv"
+                      value={formik.values.cardCvv}
+                      onChange={handleCvvChange}
+                      onBlur={formik.handleBlur}
+                      className={`h-11 ${formik.touched.cardCvv && formik.errors.cardCvv ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                    />
+                    {formik.touched.cardCvv && formik.errors.cardCvv && (
+                      <p className="text-xs text-destructive font-medium">
+                        {formik.errors.cardCvv}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </form>
         </div>
 
-        <div className={styles.summaryCard}>
-          <h3 className={styles.summaryTitle}>Price Breakdown</h3>
-
-          <div className={styles.summaryRow}>
-            <span>Subtotal ({itemCount} items):</span>
-            <span>${total}</span>
-          </div>
-          <hr className={styles.summaryDivider} />
-
-          <div className={styles.summaryRow}>
-            <span>Shipping:</span>
-            <span style={{ color: "var(--color-success)", fontWeight: 500 }}>
-              Free
-            </span>
-          </div>
-          <hr className={styles.summaryDivider} />
-
-          <div className={styles.summaryRow}>
-            <span>Tax ({TAX_RATE * 100}%):</span>
-            <span>${taxAmount.toFixed(2)}</span>
-          </div>
-          <hr className={styles.summaryDivider} />
-
-          <div
-            className={styles.summaryRow}
-            style={{ fontWeight: "600", fontSize: "1.05rem" }}
-          >
-            <span>Grand Total:</span>
-            <span>${grandTotal.toFixed(2)}</span>
-          </div>
-
-          <div className={styles.orderWrapper}>
-            <button
-              type="submit"
-              form="checkout-form"
-              className={styles.orderBtn}
-            >
-              Place Order
-            </button>
-          </div>
-
-          <Link to="/cart" className={styles.backLink}>
-            Back to Cart
-          </Link>
+        <div className="w-full lg:w-80 xl:w-96 shrink-0">
+          <Card className="sticky top-24 shadow-sm">
+            <CardHeader className="pb-4">
+              <CardTitle>Price Breakdown</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">
+                  Subtotal ({itemCount} items):
+                </span>
+                <span className="font-medium">${total}</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">Shipping:</span>
+                <span className="font-medium text-success">Free</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground">
+                  Tax ({(TAX_RATE * 100).toFixed(0)}%):
+                </span>
+                <span className="font-medium">${taxAmount.toFixed(2)}</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between items-center text-lg font-bold">
+                <span>Grand Total:</span>
+                <span className="text-primary">${grandTotal.toFixed(2)}</span>
+              </div>
+            </CardContent>
+            <CardFooter className="pt-2 pb-6 flex-col gap-4">
+              <Button
+                type="submit"
+                form="checkout-form"
+                className="w-full h-12 text-base font-semibold"
+                disabled={formik.isSubmitting}
+              >
+                Place Order
+              </Button>
+              <Button asChild variant="ghost" className="w-full">
+                <Link to="/cart">Back to Cart</Link>
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </div>
     </div>

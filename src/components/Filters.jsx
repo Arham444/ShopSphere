@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { IoFilter, IoClose, IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { IoFilter, IoChevronDown, IoChevronUp } from "react-icons/io5";
 import {
   setSearchCategory,
   setPriceRange,
@@ -15,7 +15,16 @@ import {
   selectSortBy,
   selectCategories,
 } from "../features/products/productSelectors";
-import styles from "./Filters.module.css";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+} from "./ui/sheet";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Badge } from "./ui/badge";
 
 function Filters() {
   const dispatch = useDispatch();
@@ -57,10 +66,6 @@ function Filters() {
     setIsOpen(true);
   };
 
-  const handleCancel = () => {
-    setIsOpen(false);
-  };
-
   const handleApply = () => {
     const minVal = minPrice === "" ? 0 : Number(minPrice);
     const maxVal = maxPrice === "" ? Infinity : Number(maxPrice);
@@ -93,183 +98,187 @@ function Filters() {
     minRating !== 0;
 
   return (
-    <div className={styles.container}>
-      <button onClick={handleOpen} className={styles.filterTag}>
-        <IoFilter size={18} />
-        <span className={styles.filterTagText}>Filter and sort</span>
-        {hasActiveFilters && <span className={styles.filterDot} />}
-      </button>
+    <>
+      <Button
+        variant="outline"
+        onClick={handleOpen}
+        className="gap-2 bg-background shadow-sm hover:bg-muted"
+      >
+        <IoFilter className="h-4 w-4" />
+        <span>Filter and sort</span>
+        {hasActiveFilters && (
+          <span className="flex h-2 w-2 rounded-full bg-primary" />
+        )}
+      </Button>
 
-      {isOpen && (
-        <>
-          <div className={styles.backdrop} onClick={handleCancel} />
-          <div className={styles.sidebar}>
-            <div className={styles.sidebarHeader}>
-              <h2 className={styles.sidebarTitle}>FILTER AND SORT</h2>
-              <button onClick={handleClearAll} className={styles.clearAllBtn}>
-                Clear All
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <SheetContent
+          side="right"
+          className="w-[85vw] sm:max-w-md flex flex-col p-0 h-full overflow-hidden bg-background"
+        >
+          <SheetHeader className="p-4 pr-12 border-b shrink-0 flex flex-row items-center justify-between text-left">
+            <SheetTitle>FILTER AND SORT</SheetTitle>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleClearAll}
+              className="h-8 "
+            >
+              Clear All
+            </Button>
+          </SheetHeader>
+
+          <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+            {/* Categories */}
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <button
+                onClick={() => toggleSection("categories")}
+                className="flex w-full items-center justify-between p-4 font-medium"
+              >
+                <span>Categories</span>
+                {expandedSections.categories ? (
+                  <IoChevronUp className="h-4 w-4" />
+                ) : (
+                  <IoChevronDown className="h-4 w-4" />
+                )}
               </button>
-              <button onClick={handleCancel} className={styles.closeBtn}>
-                <IoClose size={18} />
-              </button>
+              {expandedSections.categories && (
+                <div className="p-4 pt-0 flex flex-wrap gap-2">
+                  {categories.map((category) => {
+                    const isActive = localCategory === category;
+                    return (
+                      <Badge
+                        key={category}
+                        variant={isActive ? "default" : "secondary"}
+                        className="cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => setLocalCategory(category)}
+                      >
+                        {category}
+                      </Badge>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
-            <div className={styles.sidebarContent}>
-              <div className={styles.accordionSection}>
-                <button
-                  onClick={() => toggleSection("categories")}
-                  className={styles.accordionHeader}
-                >
-                  <span>Categories</span>
-                  {expandedSections.categories ? (
-                    <IoChevronUp size={16} />
-                  ) : (
-                    <IoChevronDown size={16} />
-                  )}
-                </button>
-                {expandedSections.categories && (
-                  <div className={styles.accordionBody}>
-                    <div className={styles.pillContainer}>
-                      {categories.map((category) => {
-                        const isActive = localCategory === category;
-                        return (
-                          <button
-                            key={category}
-                            onClick={() => setLocalCategory(category)}
-                            className={`${styles.pill} ${isActive ? styles.activePill : ""}`}
-                          >
-                            {category}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+            {/* Price Range */}
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <button
+                onClick={() => toggleSection("price")}
+                className="flex w-full items-center justify-between p-4 font-medium"
+              >
+                <span>Price Range</span>
+                {expandedSections.price ? (
+                  <IoChevronUp className="h-4 w-4" />
+                ) : (
+                  <IoChevronDown className="h-4 w-4" />
                 )}
-              </div>
-
-              <div className={styles.accordionSection}>
-                <button
-                  onClick={() => toggleSection("price")}
-                  className={styles.accordionHeader}
-                >
-                  <span>Price Range</span>
-                  {expandedSections.price ? (
-                    <IoChevronUp size={16} />
-                  ) : (
-                    <IoChevronDown size={16} />
-                  )}
-                </button>
-                {expandedSections.price && (
-                  <div className={styles.accordionBody}>
-                    <div className={styles.inputRow}>
-                      <input
-                        type="number"
-                        placeholder="Min $"
-                        value={minPrice}
-                        onChange={(e) => setMinPrice(e.target.value)}
-                        className={styles.numberInput}
-                        min="0"
-                      />
-                      <span className={styles.separator}>-</span>
-                      <input
-                        type="number"
-                        placeholder="Max $"
-                        value={maxPrice === Infinity ? "" : maxPrice}
-                        onChange={(e) => setMaxPrice(e.target.value)}
-                        className={styles.numberInput}
-                        min="0"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className={styles.accordionSection}>
-                <button
-                  onClick={() => toggleSection("rating")}
-                  className={styles.accordionHeader}
-                >
-                  <span>Min. Rating</span>
-                  {expandedSections.rating ? (
-                    <IoChevronUp size={16} />
-                  ) : (
-                    <IoChevronDown size={16} />
-                  )}
-                </button>
-                {expandedSections.rating && (
-                  <div className={styles.accordionBody}>
-                    <div className={styles.inputRow}>
-                      <input
-                        type="number"
-                        placeholder="e.g. 4.0"
-                        value={localRating}
-                        onChange={(e) => setLocalRating(e.target.value)}
-                        className={styles.numberInput}
-                        min="0"
-                        max="5"
-                        step="0.1"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className={styles.accordionSection}>
-                <button
-                  onClick={() => toggleSection("sort")}
-                  className={styles.accordionHeader}
-                >
-                  <span>Sort By</span>
-                  {expandedSections.sort ? (
-                    <IoChevronUp size={16} />
-                  ) : (
-                    <IoChevronDown size={16} />
-                  )}
-                </button>
-                {expandedSections.sort && (
-                  <div className={styles.accordionBody}>
-                    <div className={styles.sortList}>
-                      {[
-                        { value: "newest", label: "Newest" },
-                        {
-                          value: "price-ascending",
-                          label: "Price: Low to High",
-                        },
-                        {
-                          value: "price-descending",
-                          label: "Price: High to Low",
-                        },
-                        { value: "name", label: "Name" },
-                      ].map((option) => {
-                        const isActive = localSortBy === option.value;
-                        return (
-                          <button
-                            key={option.value}
-                            onClick={() => handleSortBy(option.value)}
-                            className={`${styles.sortOption} ${isActive ? styles.activeSortOption : ""}`}
-                          >
-                            <span>{option.label}</span>
-                            {isActive && (
-                              <span className={styles.checkmark}>✓</span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
+              </button>
+              {expandedSections.price && (
+                <div className="p-4 pt-0 flex items-center gap-2">
+                  <Input
+                    type="number"
+                    placeholder="Min $"
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value)}
+                    min="0"
+                  />
+                  <span className="text-muted-foreground">-</span>
+                  <Input
+                    type="number"
+                    placeholder="Max $"
+                    value={maxPrice === Infinity ? "" : maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value)}
+                    min="0"
+                  />
+                </div>
+              )}
             </div>
 
-            <div className={styles.sidebarFooter}>
-              <button onClick={handleApply} className={styles.showItemsBtn}>
-                SHOW PRODUCTS
+            {/* Min Rating */}
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <button
+                onClick={() => toggleSection("rating")}
+                className="flex w-full items-center justify-between p-4 font-medium"
+              >
+                <span>Min. Rating</span>
+                {expandedSections.rating ? (
+                  <IoChevronUp className="h-4 w-4" />
+                ) : (
+                  <IoChevronDown className="h-4 w-4" />
+                )}
               </button>
+              {expandedSections.rating && (
+                <div className="p-4 pt-0">
+                  <Input
+                    type="number"
+                    placeholder="e.g. 4.0"
+                    value={localRating}
+                    onChange={(e) => setLocalRating(e.target.value)}
+                    min="0"
+                    max="5"
+                    step="0.1"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Sort By */}
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+              <button
+                onClick={() => toggleSection("sort")}
+                className="flex w-full items-center justify-between p-4 font-medium"
+              >
+                <span>Sort By</span>
+                {expandedSections.sort ? (
+                  <IoChevronUp className="h-4 w-4" />
+                ) : (
+                  <IoChevronDown className="h-4 w-4" />
+                )}
+              </button>
+              {expandedSections.sort && (
+                <div className="p-4 pt-0 flex flex-col gap-1">
+                  {[
+                    { value: "newest", label: "Newest" },
+                    {
+                      value: "price-ascending",
+                      label: "Price: Low to High",
+                    },
+                    {
+                      value: "price-descending",
+                      label: "Price: High to Low",
+                    },
+                    { value: "name", label: "Name" },
+                  ].map((option) => {
+                    const isActive = localSortBy === option.value;
+                    return (
+                      <button
+                        key={option.value}
+                        onClick={() => handleSortBy(option.value)}
+                        className={`flex items-center justify-between w-full p-2 rounded-md text-sm transition-colors ${
+                          isActive
+                            ? "bg-primary text-primary-foreground font-medium"
+                            : "hover:bg-muted"
+                        }`}
+                      >
+                        <span>{option.label}</span>
+                        {isActive && <span>✓</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
-        </>
-      )}
-    </div>
+
+          <SheetFooter className="p-4 border-t shrink-0">
+            <Button onClick={handleApply} className="w-full">
+              SHOW PRODUCTS
+            </Button>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }
 
