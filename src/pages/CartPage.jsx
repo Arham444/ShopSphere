@@ -75,6 +75,12 @@ function CartPage() {
         </Breadcrumb>
       </div>
 
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          Shopping Cart ({itemCount})
+        </h1>
+      </div>
+
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1">
           <Card className="shadow-sm border-0 bg-transparent sm:bg-card sm:border">
@@ -92,12 +98,8 @@ function CartPage() {
               ))}
             </div>
 
-            <div className="px-6 py-6 border-t mt-4 sm:mt-0 flex justify-between items-center bg-card rounded-b-xl">
-              <Button
-                asChild
-                variant="outline"
-                className="hidden sm:inline-flex"
-              >
+            <div className="px-6 py-6 border-t mt-4 sm:mt-0 flex items-center bg-card rounded-b-xl">
+              <Button asChild variant="outline" className="w-full sm:w-auto">
                 <Link to="/">Return To Shop</Link>
               </Button>
             </div>
@@ -107,21 +109,29 @@ function CartPage() {
         <div className="w-full lg:w-80 xl:w-96 shrink-0">
           <Card className="sticky top-24 shadow-sm">
             <CardHeader className="pb-4">
-              <CardTitle>Cart Total</CardTitle>
+              <CardTitle className="text-2xl font-black uppercase tracking-tighter text-primary">
+                Cart Total
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-muted-foreground">Subtotal:</span>
-                <span className="font-medium">${total}</span>
+                <span className="text-muted-foreground font-medium">
+                  Subtotal
+                </span>
+                <span className="font-semibold">${total}</span>
               </div>
               <Separator />
               <div className="flex justify-between items-center text-sm">
-                <span className="text-muted-foreground">Shipping:</span>
-                <span className="font-medium text-success">Free</span>
+                <span className="text-muted-foreground font-medium">
+                  Shipping
+                </span>
+                <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+                  Free
+                </span>
               </div>
               <Separator />
-              <div className="flex justify-between items-center text-lg font-bold">
-                <span>Total:</span>
+              <div className="flex justify-between items-center text-xl font-bold">
+                <span className="uppercase tracking-tight">Total</span>
                 <span className="text-primary">${total}</span>
               </div>
             </CardContent>

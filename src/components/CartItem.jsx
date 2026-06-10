@@ -8,18 +8,21 @@ function CartItem({ item }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center py-6 border-b gap-4 last:border-0">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center py-6 border-b gap-4 sm:gap-0 last:border-0">
       <div className="flex items-center gap-4 flex-1">
-        <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border bg-muted">
+        <Link
+          to={`/product/${item.id}`}
+          className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg border bg-muted aspect-square block group/img relative transition-all hover:border-primary/50"
+        >
           <img
             src={item.image}
             alt={item.name}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center transition-transform duration-300 group-hover/img:scale-105"
           />
-        </div>
+        </Link>
         <Link
           to={`/product/${item.id}`}
-          className="font-medium text-base hover:text-primary transition-colors line-clamp-2"
+          className="font-semibold text-base text-foreground hover:text-primary hover:underline transition-all duration-200 line-clamp-2"
         >
           {item.name}
         </Link>
@@ -29,7 +32,7 @@ function CartItem({ item }) {
         ${item.price}
       </div>
 
-      <div className="flex items-center gap-4 sm:w-48">
+      <div className="flex items-center gap-4 sm:w-48 sm:justify-center">
         <div className="flex items-center border rounded-md h-9">
           <button
             type="button"

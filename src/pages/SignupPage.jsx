@@ -24,9 +24,9 @@ const validationSchema = Yup.object({
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Please confirm your password"),
   fullName: Yup.string().required("Full name is required"),
-  address: Yup.string().required("Street address is required"),
-  city: Yup.string().required("Town/City is required"),
-  zipCode: Yup.string().required("Postal Code / ZIP is required"),
+  address: Yup.string(),
+  city: Yup.string(),
+  zipCode: Yup.string(),
 });
 
 function SignupPage() {
@@ -227,7 +227,7 @@ function SignupPage() {
                     </div>
 
                     <div className="flex flex-col gap-2 md:col-span-2">
-                      <Label htmlFor="address">Street Address *</Label>
+                      <Label htmlFor="address">Street Address (Optional)</Label>
                       <Input
                         type="text"
                         placeholder="123 Main St"
@@ -241,7 +241,7 @@ function SignupPage() {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="city">Town / City *</Label>
+                      <Label htmlFor="city">Town / City (Optional)</Label>
                       <Input
                         type="text"
                         placeholder="New York"
@@ -255,7 +255,9 @@ function SignupPage() {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="zipCode">Postal Code / ZIP *</Label>
+                      <Label htmlFor="zipCode">
+                        Postal Code / ZIP (Optional)
+                      </Label>
                       <Input
                         type="text"
                         placeholder="10001"

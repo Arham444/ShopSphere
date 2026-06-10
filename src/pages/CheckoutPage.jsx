@@ -35,6 +35,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
 import { Separator } from "../components/ui/separator";
+import { loadState } from "../utils/localStorage";
 
 const TAX_RATE = 0.08;
 
@@ -43,9 +44,9 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  address: Yup.string().required("Street address is required"),
-  city: Yup.string().required("Town/City is required"),
-  zipCode: Yup.string().required("Postal Code / ZIP is required"),
+  address: Yup.string(),
+  city: Yup.string(),
+  zipCode: Yup.string(),
   cardName: Yup.string().required("Cardholder name is required"),
   cardNumber: Yup.string()
     .required("Card number is required")
@@ -83,14 +84,18 @@ function CheckoutPage() {
     setOrderPlaced(true);
   };
 
+  const savedDetails = currentUser?.username
+    ? loadState(`billingDetails_${currentUser.username}`, {})
+    : {};
+
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      email: "",
-      address: "",
-      city: "",
-      zipCode: "",
-      cardName: "",
+      fullName: savedDetails.fullName || "",
+      email: savedDetails.email || "",
+      address: savedDetails.address || "",
+      city: savedDetails.city || "",
+      zipCode: savedDetails.zipCode || "",
+      cardName: savedDetails.fullName || "",
       cardNumber: "",
       cardExpiry: "",
       cardCvv: "",
@@ -254,7 +259,7 @@ function CheckoutPage() {
                     <Label htmlFor="fullName">Full Name *</Label>
                     <Input
                       type="text"
-                      placeholder="John Doe"
+                      placeholder={savedDetails.fullName || "John Doe"}
                       {...getInputProps("fullName")}
                     />
                     {formik.touched.fullName && formik.errors.fullName && (
@@ -268,7 +273,7 @@ function CheckoutPage() {
                     <Label htmlFor="email">Email Address *</Label>
                     <Input
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder={savedDetails.email || "john@example.com"}
                       {...getInputProps("email")}
                     />
                     {formik.touched.email && formik.errors.email && (
@@ -279,10 +284,10 @@ function CheckoutPage() {
                   </div>
 
                   <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="address">Street Address *</Label>
+                    <Label htmlFor="address">Street Address (Optional)</Label>
                     <Input
                       type="text"
-                      placeholder="123 Main St"
+                      placeholder={savedDetails.address || "123 Main St"}
                       {...getInputProps("address")}
                     />
                     {formik.touched.address && formik.errors.address && (
@@ -293,10 +298,10 @@ function CheckoutPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="city">Town / City *</Label>
+                    <Label htmlFor="city">Town / City (Optional)</Label>
                     <Input
                       type="text"
-                      placeholder="New York"
+                      placeholder={savedDetails.city || "New York"}
                       {...getInputProps("city")}
                     />
                     {formik.touched.city && formik.errors.city && (
@@ -307,10 +312,12 @@ function CheckoutPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="zipCode">Postal Code / ZIP *</Label>
+                    <Label htmlFor="zipCode">
+                      Postal Code / ZIP (Optional)
+                    </Label>
                     <Input
                       type="text"
-                      placeholder="10001"
+                      placeholder={savedDetails.zipCode || "10001"}
                       {...getInputProps("zipCode")}
                     />
                     {formik.touched.zipCode && formik.errors.zipCode && (
