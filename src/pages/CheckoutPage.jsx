@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -17,7 +17,9 @@ import { CiLock } from "react-icons/ci";
 import { RiVisaLine, RiMastercardLine } from "react-icons/ri";
 import { FaRegCreditCard } from "react-icons/fa6";
 import PageBreadcrumb from "../components/PageBreadcrumb";
-import BillingForm, { billingValidationSchema } from "../components/BillingForm";
+import BillingForm, {
+  billingValidationSchema,
+} from "../components/BillingForm";
 import {
   Card,
   CardContent,
@@ -54,7 +56,6 @@ function CheckoutPage() {
   const currentUser = useSelector(selectCurrentUser);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const isGuest = !currentUser || currentUser.role === "guest";
@@ -184,10 +185,7 @@ function CheckoutPage() {
     <div className="w-full px-4 md:px-8 lg:px-12 py-8 min-h-[calc(100vh-140px)]">
       <div className="mb-6">
         <PageBreadcrumb
-          items={[
-            { label: "Cart", href: "/cart" },
-            { label: "Checkout" },
-          ]}
+          items={[{ label: "Cart", href: "/cart" }, { label: "Checkout" }]}
         />
       </div>
 
