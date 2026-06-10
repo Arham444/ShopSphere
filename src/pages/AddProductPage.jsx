@@ -5,14 +5,7 @@ import { addProduct } from "../features/products/productSlice";
 import { selectIsAdmin } from "../features/auth/authSelectors";
 import AccessDenied from "../components/AccessDenied";
 import { CiLock } from "react-icons/ci";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../components/ui/breadcrumb";
+import PageBreadcrumb from "../components/PageBreadcrumb";
 import {
   Card,
   CardContent,
@@ -130,17 +123,7 @@ function AddProductPage() {
   return (
     <div className="w-full mx-auto px-4 md:px-8 py-8 max-w-3xl min-h-[calc(100vh-140px)]">
       <div className="mb-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Add Product</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <PageBreadcrumb items={[{ label: "Add Product" }]} />
       </div>
 
       <Card className="shadow-md">

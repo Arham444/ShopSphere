@@ -16,14 +16,8 @@ import AccessDenied from "../components/AccessDenied";
 import { CiLock } from "react-icons/ci";
 import { RiVisaLine, RiMastercardLine } from "react-icons/ri";
 import { FaRegCreditCard } from "react-icons/fa6";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../components/ui/breadcrumb";
+import PageBreadcrumb from "../components/PageBreadcrumb";
+import BillingForm, { billingValidationSchema } from "../components/BillingForm";
 import {
   Card,
   CardContent,
@@ -40,13 +34,7 @@ import { loadState } from "../utils/localStorage";
 const TAX_RATE = 0.08;
 
 const validationSchema = Yup.object({
-  fullName: Yup.string().required("Full name is required"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  address: Yup.string(),
-  city: Yup.string(),
-  zipCode: Yup.string(),
+  ...billingValidationSchema,
   cardName: Yup.string().required("Cardholder name is required"),
   cardNumber: Yup.string()
     .required("Card number is required")
@@ -195,21 +183,12 @@ function CheckoutPage() {
   return (
     <div className="w-full px-4 md:px-8 lg:px-12 py-8 min-h-[calc(100vh-140px)]">
       <div className="mb-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/cart">Cart</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Checkout</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <PageBreadcrumb
+          items={[
+            { label: "Cart", href: "/cart" },
+            { label: "Checkout" },
+          ]}
+        />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
@@ -254,79 +233,7 @@ function CheckoutPage() {
                 <CardTitle>Billing Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="fullName">Full Name *</Label>
-                    <Input
-                      type="text"
-                      placeholder={savedDetails.fullName || "John Doe"}
-                      {...getInputProps("fullName")}
-                    />
-                    {formik.touched.fullName && formik.errors.fullName && (
-                      <p className="text-xs text-destructive font-medium">
-                        {formik.errors.fullName}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="email">Email Address *</Label>
-                    <Input
-                      type="email"
-                      placeholder={savedDetails.email || "john@example.com"}
-                      {...getInputProps("email")}
-                    />
-                    {formik.touched.email && formik.errors.email && (
-                      <p className="text-xs text-destructive font-medium">
-                        {formik.errors.email}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="address">Street Address (Optional)</Label>
-                    <Input
-                      type="text"
-                      placeholder={savedDetails.address || "123 Main St"}
-                      {...getInputProps("address")}
-                    />
-                    {formik.touched.address && formik.errors.address && (
-                      <p className="text-xs text-destructive font-medium">
-                        {formik.errors.address}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="city">Town / City (Optional)</Label>
-                    <Input
-                      type="text"
-                      placeholder={savedDetails.city || "New York"}
-                      {...getInputProps("city")}
-                    />
-                    {formik.touched.city && formik.errors.city && (
-                      <p className="text-xs text-destructive font-medium">
-                        {formik.errors.city}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="zipCode">
-                      Postal Code / ZIP (Optional)
-                    </Label>
-                    <Input
-                      type="text"
-                      placeholder={savedDetails.zipCode || "10001"}
-                      {...getInputProps("zipCode")}
-                    />
-                    {formik.touched.zipCode && formik.errors.zipCode && (
-                      <p className="text-xs text-destructive font-medium">
-                        {formik.errors.zipCode}
-                      </p>
-                    )}
-                  </div>
-                </div>
+                <BillingForm formik={formik} getInputProps={getInputProps} />
 
                 <div className="py-2">
                   <Separator />

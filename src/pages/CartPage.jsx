@@ -9,14 +9,7 @@ import {
 import { selectCurrentUser } from "../features/auth/authSelectors";
 import AccessDenied from "../components/AccessDenied";
 import { CiLock } from "react-icons/ci";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../components/ui/breadcrumb";
+import PageBreadcrumb from "../components/PageBreadcrumb";
 import {
   Card,
   CardContent,
@@ -62,17 +55,7 @@ function CartPage() {
   return (
     <div className="w-full px-4 md:px-8 lg:px-12 py-8 min-h-[calc(100vh-140px)]">
       <div className="mb-6">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Cart</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <PageBreadcrumb items={[{ label: "Cart" }]} />
       </div>
 
       <div className="mb-8">
