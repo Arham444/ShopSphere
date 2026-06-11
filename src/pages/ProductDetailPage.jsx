@@ -39,6 +39,14 @@ function ProductDetailPage() {
 
   const reviews = reviewsByProductId[product.id] || [];
   const reviewCount = reviews.length;
+  const rating =
+    reviewCount > 0
+      ? Number(
+          (reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount).toFixed(
+            1,
+          ),
+        )
+      : product.rating;
 
   const handleToggleWishlist = () => {
     if (isGuest) {
@@ -105,9 +113,9 @@ function ProductDetailPage() {
 
           {/* Rating & Reviews */}
           <div className="flex items-center gap-3 flex-wrap">
-            <StarRating rating={product.rating} />
+            <StarRating rating={rating} />
             <span className="text-sm font-semibold text-foreground">
-              {product.rating}
+              {rating}
             </span>
             <span className="text-sm text-muted-foreground">
               ({reviewCount} reviews)
@@ -194,7 +202,7 @@ function ProductDetailPage() {
             <div className="divide-y">
               {[
                 { label: "Category", value: product.category },
-                { label: "Rating", value: `${product.rating} / 5.0` },
+                { label: "Rating", value: `${rating} / 5.0` },
                 {
                   label: "Availability",
                   value:
@@ -239,7 +247,7 @@ function ProductDetailPage() {
                 Customer Reviews
               </h2>
               <div className="flex items-center gap-2 mt-1">
-                <StarRating rating={product.rating} size="text-sm" />
+                <StarRating rating={rating} size="text-sm" />
                 <span className="text-sm text-muted-foreground">
                   Based on {reviewCount} reviews
                 </span>
@@ -248,11 +256,9 @@ function ProductDetailPage() {
 
             {/* Rating Summary Bar */}
             <div className="flex items-center gap-3 bg-muted/50 rounded-xl px-5 py-3">
-              <span className="text-3xl font-black text-primary">
-                {product.rating}
-              </span>
+              <span className="text-3xl font-black text-primary">{rating}</span>
               <div className="flex flex-col">
-                <StarRating rating={product.rating} size="text-xs" />
+                <StarRating rating={rating} size="text-xs" />
                 <span className="text-xs text-muted-foreground mt-0.5">
                   {reviewCount} ratings
                 </span>
