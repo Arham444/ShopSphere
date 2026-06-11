@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import products from "./productData";
+import reviewsByProductId from "./reviewsData";
 import { loadState, saveState } from "../../utils/localStorage";
 const persistedStocks = loadState("productStocks", {});
 
@@ -9,6 +10,7 @@ const initialState = {
     stock:
       persistedStocks[p.id] !== undefined ? persistedStocks[p.id] : p.stock,
   })),
+  reviews: loadState("productReviews", reviewsByProductId),
   searchQuery: "",
   selectedCategory: "All",
   priceRange: [0, 500],
@@ -53,6 +55,11 @@ const productSlice = createSlice({
         if (product) product.stock -= quantity;
       });
     },
+    addReview(state, action) {
+      const { productId, review } = action.payload;
+      if (!state.reviews[productId]) state.reviews[productId] = [];
+      state.reviews[productId].push(review);
+    },
   },
 });
 export const {
@@ -64,5 +71,6 @@ export const {
   clearFilters,
   addProduct,
   checkoutProducts,
+  addReview,
 } = productSlice.actions;
 export default productSlice.reducer;

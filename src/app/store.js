@@ -50,8 +50,9 @@ store.subscribe(() => {
     acc[product.id] = product.stock;
     return acc;
   }, {});
-  saveState("productStocks", productStocks);
 
+  saveState("productStocks", productStocks);
+  saveState("productReviews", state.products.reviews);
   saveState("userSession", currentUser);
 });
 

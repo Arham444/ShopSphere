@@ -57,3 +57,7 @@ export const selectCategories = createSelector([selectAllProducts], (items) => [
   "All",
   ...new Set(items.map((p) => p.category)),
 ]);
+
+export const selectProductReviews = (state, productId) => {
+  return state.products.reviews[productId] || [];
+};

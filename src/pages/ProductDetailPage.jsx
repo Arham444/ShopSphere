@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectProductById } from "../features/products/productSelectors";
-import { setSearchCategory } from "../features/products/productSlice";
-import reviewsByProductId from "../features/products/reviewsData";
-import { FaHeart } from "react-icons/fa";
+import {
+  selectProductById,
+  selectProductReviews,
+} from "../features/products/productSelectors";
+import {
+  setSearchCategory,
+  addReview,
+} from "../features/products/productSlice";
+import { selectCurrentUser } from "../features/auth/authSelectors";
+import { FaHeart, FaStar } from "react-icons/fa";
 import {
   IoShieldCheckmarkOutline,
   IoRocketOutline,
@@ -37,8 +44,8 @@ function ProductDetailPage() {
 
   if (!product) return <Navigate to="/404" replace />;
 
-  // Get reviews specific to this product ID, defaulting to an empty list if none exist
-  const reviews = reviewsByProductId[product.id] || [];
+  const currentUser = useSelector(selectCurrentUser);
+  const reviews = useSelector((state) => selectProductReviews(state, id));
   const reviewCount = reviews.length;
   // Calculate average rating based on the reviews list; fallback to original product rating if empty
   const rating =
@@ -50,6 +57,11 @@ function ProductDetailPage() {
         )
       : product.rating;
 
+  const [newRating, setNewRating] = useState(5);
+  const [newTitle, setNewTitle] = useState("");
+  const [newBody, setNewBody] = useState("");
+  const [formError, setFormError] = useState("");
+
   const handleToggleWishlist = () => {
     if (isGuest) navigate("/wishlist");
     else toggleWishlist();
@@ -59,6 +71,33 @@ function ProductDetailPage() {
     e.preventDefault();
     dispatch(setSearchCategory(product.category));
     navigate("/");
+  };
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+    setFormError("");
+
+    if (!newTitle.trim()) return setFormError("Review title is required.");
+    if (!newBody.trim()) return setFormError("Review body is required.");
+
+    const newReview = {
+      id: `review-${Date.now()}`,
+      name: currentUser ? currentUser.username : "Anonymous",
+      rating: newRating,
+      title: newTitle.trim(),
+      body: newBody.trim(),
+      date: new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+    };
+
+    dispatch(addReview({ productId: product.id, review: newReview }));
+
+    setNewTitle("");
+    setNewBody("");
+    setNewRating(5);
   };
 
   return (
@@ -297,6 +336,89 @@ function ProductDetailPage() {
               </Card>
             ))}
           </div>
+
+          {!isGuest && (
+            <Card className="mt-8 shadow-sm">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-foreground mb-4">
+                  Write a Review
+                </h3>
+                {formError && (
+                  <div className="p-3 mb-4 text-sm text-destructive bg-destructive/10 rounded-md border border-destructive/20 font-medium">
+                    {formError}
+                  </div>
+                )}
+                <form onSubmit={handleSubmitReview} className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-foreground block">
+                      Overall Rating *
+                    </label>
+                    <div className="flex items-center gap-1.5">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setNewRating(star)}
+                          className="cursor-pointer transition-transform hover:scale-110 focus:outline-none"
+                        >
+                          <FaStar
+                            className={`h-6 w-6 ${
+                              star <= newRating
+                                ? "text-yellow-500"
+                                : "text-muted-foreground/30"
+                            }`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label
+                      htmlFor="review-title"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Review Title *
+                    </label>
+                    <input
+                      id="review-title"
+                      type="text"
+                      value={newTitle}
+                      onChange={(e) => setNewTitle(e.target.value)}
+                      placeholder="Summarize your experience..."
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label
+                      htmlFor="review-body"
+                      className="text-sm font-semibold text-foreground"
+                    >
+                      Review Details *
+                    </label>
+                    <textarea
+                      id="review-body"
+                      value={newBody}
+                      onChange={(e) => setNewBody(e.target.value)}
+                      placeholder="What did you like or dislike?"
+                      rows={4}
+                      className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-y"
+                      required
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full sm:w-auto cursor-pointer"
+                  >
+                    Submit Review
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          )}
         </section>
       </div>
     </div>
