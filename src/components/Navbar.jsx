@@ -62,25 +62,26 @@ function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-purple-200/90 to-fuchsia-100/90 dark:from-purple-950/90 dark:to-fuchsia-950/90 backdrop-blur shadow-sm">
-      <div className="w-full px-4 md:px-8 lg:px-12 h-16 flex items-center justify-between">
+      <div className="w-full px-3 min-[380px]:px-4 md:px-8 lg:px-12 h-16 flex items-center justify-between">
         <Link
           to="/"
           onClick={() => dispatch(clearFilters())}
-          className="flex items-center gap-2 group"
+          className="flex items-center gap-1.5 sm:gap-2 group shrink-0"
         >
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md transition-transform group-hover:scale-105">
             <IoCartOutline className="h-5 w-5" />
           </div>
-          <span className="text-2xl font-black uppercase tracking-tighter text-primary">
+          <span className="text-lg min-[380px]:text-xl sm:text-2xl font-black uppercase tracking-tighter text-primary">
             ShopSphere
           </span>
         </Link>
-        <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+        <div className="flex items-center gap-1.5 min-[380px]:gap-2 sm:gap-4 md:gap-6">
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
             aria-label="Toggle Theme"
+            className="h-9 w-9 shrink-0"
           >
             {themeName === "dark" ? (
               <IoSunnyOutline className="h-5 w-5" />
@@ -98,10 +99,10 @@ function Navbar() {
           {currentUser && currentUser.role !== "guest" && (
             <>
               <NavLink to="/wishlist" className={getLinkClass}>
-                <div className="relative flex items-center">
-                  <FaHeart className="h-4 w-4 sm:mr-1.5" />
+                <div className="relative flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted/30 transition-colors shrink-0">
+                  <FaHeart className="h-5 w-5" />
                   {wishlistCount > 0 && (
-                    <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground ring-2 ring-purple-100 dark:ring-purple-950">
+                    <span className="absolute top-[-2px] right-[-2px] flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold leading-none text-primary-foreground ring-2 ring-purple-200 dark:ring-purple-950">
                       {wishlistCount}
                     </span>
                   )}
@@ -109,10 +110,10 @@ function Navbar() {
                 <span className="hidden sm:inline">Wishlist</span>
               </NavLink>
               <NavLink to="/cart" className={getLinkClass}>
-                <div className="relative flex items-center">
-                  <IoCartOutline className="h-5 w-5 sm:mr-1.5" />
+                <div className="relative flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted/30 transition-colors shrink-0">
+                  <IoCartOutline className="h-5 w-5" />
                   {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground ring-2 ring-purple-100 dark:ring-purple-950">
+                    <span className="absolute top-[-2px] right-[-2px] flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold leading-none text-primary-foreground ring-2 ring-purple-200 dark:ring-purple-950">
                       {cartCount}
                     </span>
                   )}
@@ -123,13 +124,15 @@ function Navbar() {
           )}
           {isAdmin && (
             <NavLink to="/AddProduct" className={getLinkClass}>
-              <IoMdAddCircle className="h-5 w-5 sm:mr-1.5" />
+              <div className="relative flex h-8 w-8 items-center justify-center rounded-full hover:bg-muted/30 transition-colors shrink-0">
+                <IoMdAddCircle className="h-5 w-5" />
+              </div>
               <span className="hidden sm:inline">Add Product</span>
             </NavLink>
           )}
 
           {currentUser && currentUser.role !== "guest" && page !== "/login" ? (
-            <div className="flex items-center gap-2 sm:gap-3 ml-1 sm:ml-2 border-l pl-2 sm:pl-4 border-border/30">
+            <div className="flex items-center gap-1.5 sm:gap-3 ml-1 border-l pl-1.5 sm:pl-4 border-border/30 shrink-0">
               <Badge
                 variant="secondary"
                 className="font-medium text-xs hidden md:inline-flex"
@@ -140,16 +143,21 @@ function Navbar() {
                 variant="ghost"
                 size="sm"
                 onClick={() => dispatch(logout())}
-                className="gap-2 h-8 px-2 sm:px-3"
+                className="gap-1.5 sm:gap-2 h-8 px-2 sm:px-3 text-xs sm:text-sm"
               >
                 <IoLogOutOutline className="h-4 w-4" />
                 <span className="hidden sm:inline">Logout</span>
               </Button>
             </div>
           ) : page !== "/login" ? (
-            <div className="ml-2 border-l pl-4">
-              <Button asChild variant="default" size="sm" className="h-8">
-                <NavLink to="/login" className="gap-2">
+            <div className="ml-1 sm:ml-2 border-l pl-2 sm:pl-4 shrink-0">
+              <Button
+                asChild
+                variant="default"
+                size="sm"
+                className="h-8 text-xs sm:text-sm"
+              >
+                <NavLink to="/login" className="gap-1.5 sm:gap-2">
                   <IoLogInOutline className="h-4 w-4" />
                   <span>Login</span>
                 </NavLink>

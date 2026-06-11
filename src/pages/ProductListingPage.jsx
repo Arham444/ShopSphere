@@ -8,14 +8,18 @@ function ProductListingPage() {
   const products = useSelector(selectFilteredProducts);
 
   return (
-    <div className="w-full px-4 md:px-8 lg:px-12 py-8 flex flex-col min-h-[calc(100vh-140px)]">
+    <div className="w-full px-4 md:px-8 lg:px-12 py-8 flex flex-col min-h-[calc(100dvh-140px)]">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Explore Our Products
         </h1>
-        <div className="flex items-center gap-4">
-          <SearchBar />
-          <Filters />
+        <div className="flex items-center gap-2 sm:gap-4 w-full md:w-auto">
+          <div className="flex-1 md:w-64">
+            <SearchBar />
+          </div>
+          <div className="shrink-0">
+            <Filters />
+          </div>
         </div>
       </div>
 

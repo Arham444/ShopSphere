@@ -101,7 +101,7 @@ function ProductDetailPage() {
   };
 
   return (
-    <div className="w-full px-4 md:px-8 lg:px-12 py-6 md:py-8 min-h-[calc(100vh-140px)]">
+    <div className="w-full px-4 md:px-8 lg:px-12 py-6 md:py-8 min-h-[calc(100dvh-140px)]">
       {/* Breadcrumbs */}
       <div className="mb-6">
         <PageBreadcrumb
@@ -127,7 +127,7 @@ function ProductDetailPage() {
           <img
             src={product.image}
             alt={product.name}
-            className="w-full max-h-[400px] object-contain mix-blend-multiply dark:mix-blend-normal"
+            className="w-full max-h-[280px] sm:max-h-[400px] object-contain mix-blend-multiply dark:mix-blend-normal"
           />
         </div>
 

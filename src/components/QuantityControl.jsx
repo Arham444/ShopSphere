@@ -11,7 +11,7 @@ function QuantityControl({ product }) {
   if (cartQuantity <= 0) return null;
 
   return (
-    <div className="flex items-center justify-between w-full h-10 border-[3px] border-[#FFC107] rounded-full px-4 text-foreground font-bold text-lg lg:h-12 lg:text-xl lg:px-6">
+    <div className="flex items-center justify-between w-full h-9 sm:h-10 lg:h-12 border-2 sm:border-[3px] border-[#FFC107] rounded-full px-2 sm:px-4 text-foreground font-bold text-sm sm:text-base lg:text-xl">
       <button
         onClick={(e) => {
           e.preventDefault();
@@ -27,12 +27,18 @@ function QuantityControl({ product }) {
         className="text-foreground/80 hover:text-foreground transition-colors flex items-center justify-center cursor-pointer"
       >
         {cartQuantity === 1 ? (
-          <IoTrashOutline size={24} className="h-5 w-5 lg:h-6 lg:w-6" />
+          <IoTrashOutline
+            size={20}
+            className="h-4.5 w-4.5 sm:h-5 sm:w-5 lg:h-6 lg:w-6"
+          />
         ) : (
-          <IoRemove size={24} className="h-5 w-5 lg:h-6 lg:w-6" />
+          <IoRemove
+            size={20}
+            className="h-4.5 w-4.5 sm:h-5 sm:w-5 lg:h-6 lg:w-6"
+          />
         )}
       </button>
-      <span className="text-base lg:text-xl text-foreground">
+      <span className="text-sm sm:text-base lg:text-xl text-foreground">
         {cartQuantity}
       </span>
       <button
@@ -48,7 +54,7 @@ function QuantityControl({ product }) {
         disabled={cartQuantity >= product.stock}
         className="text-foreground/80 hover:text-foreground transition-colors disabled:opacity-50 flex items-center justify-center cursor-pointer"
       >
-        <IoAdd size={24} className="h-5 w-5 lg:h-6 lg:w-6" />
+        <IoAdd size={20} className="h-4.5 w-4.5 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
       </button>
     </div>
   );
