@@ -1,0 +1,16 @@
+const authData = {
+  users: [
+    {
+      username: "admin",
+      password: "password123",
+      role: "admin",
+    },
+    {
+      username: "user1",
+      password: "password12345",
+      role: "user",
+    },
+  ],
+};
+
+export default authData;

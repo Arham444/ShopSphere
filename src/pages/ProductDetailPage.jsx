@@ -2,6 +2,7 @@ import { Navigate, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectProductById } from "../features/products/productSelectors";
 import { setSearchCategory } from "../features/products/productSlice";
+import reviewsByProductId from "../features/products/reviewsData";
 import { FaHeart } from "react-icons/fa";
 import {
   IoShieldCheckmarkOutline,
@@ -18,94 +19,6 @@ import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent } from "../components/ui/card";
 import { Separator } from "../components/ui/separator";
-
-function seededRandom(seed) {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) {
-    h = Math.imul(31, h) + seed.charCodeAt(i);
-  }
-  return function () {
-    h |= 0;
-    h = (h + 0x6d2b79f5) | 0;
-    let t = Math.imul(h ^ (h >>> 15), 1 | h);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-const REVIEW_NAMES = [
-  "Alex M.",
-  "Jordan K.",
-  "Sam P.",
-  "Morgan R.",
-  "Casey L.",
-  "Taylor W.",
-  "Riley J.",
-  "Quinn B.",
-];
-
-const REVIEW_TITLES = [
-  "Exceeded my expectations!",
-  "Great value for money",
-  "Solid quality product",
-  "Very happy with this purchase",
-  "Exactly what I needed",
-  "Good but could be better",
-  "Impressive build quality",
-  "Would definitely recommend",
-];
-
-const REVIEW_BODIES = [
-  "I've been using this for a few weeks now and I'm genuinely impressed. The quality is noticeably better than what I expected at this price point. Shipping was fast too!",
-  "Really solid product overall. It does exactly what it promises and the build quality feels premium. I've recommended it to several friends already.",
-  "Great purchase! The product matches the description perfectly. I was a bit hesitant at first but I'm glad I went ahead. Would buy again without hesitation.",
-  "This has become my daily go-to. The attention to detail is remarkable and you can tell the manufacturer cares about quality. Five stars from me.",
-  "Decent product for the price. There are a few minor things I'd change but overall it delivers good value. The packaging was also really well done.",
-  "Love it! Arrived earlier than expected and the quality blew me away. It's clear that a lot of thought went into the design. Highly recommended.",
-];
-
-function generateReviews(productId, productRating) {
-  const rng = seededRandom(productId);
-  const count = 3 + Math.floor(rng() * 2); // 3-4 reviews
-  const reviews = [];
-
-  for (let i = 0; i < count; i++) {
-    const nameIdx = Math.floor(rng() * REVIEW_NAMES.length);
-    const titleIdx = Math.floor(rng() * REVIEW_TITLES.length);
-    const bodyIdx = Math.floor(rng() * REVIEW_BODIES.length);
-    // Ratings cluster around the product rating
-    const baseRating = Math.max(
-      3,
-      Math.min(5, Math.round(productRating + (rng() - 0.5))),
-    );
-    const daysAgo = Math.floor(rng() * 90) + 7;
-    const date = new Date(Date.now() - daysAgo * 86400000);
-
-    reviews.push({
-      id: `${productId}-r${i}`,
-      name: REVIEW_NAMES[nameIdx],
-      title: REVIEW_TITLES[titleIdx],
-      body: REVIEW_BODIES[bodyIdx],
-      rating: baseRating,
-      date: date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
-      verified: rng() > 0.3,
-    });
-  }
-
-  return reviews;
-}
-
-function generateReviewCount(productId) {
-  const rng = seededRandom(productId + "_count");
-  return Math.floor(rng() * 180) + 24;
-}
-
-// ── Star rendering ──────────────────────────────────────────
-// ── Star rendering extracted to component ─────────────
 
 // ── Main component ──────────────────────────────────────────
 function ProductDetailPage() {
@@ -124,8 +37,8 @@ function ProductDetailPage() {
 
   if (!product) return <Navigate to="/404" replace />;
 
-  const reviews = generateReviews(product.id, product.rating);
-  const reviewCount = generateReviewCount(product.id);
+  const reviews = reviewsByProductId[product.id] || [];
+  const reviewCount = reviews.length;
 
   const handleToggleWishlist = () => {
     if (isGuest) {
@@ -351,28 +264,18 @@ function ProductDetailPage() {
             {reviews.map((review) => (
               <Card key={review.id} className="shadow-sm">
                 <CardContent className="p-5 space-y-3">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-400 to-fuchsia-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
-                        {review.name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">
-                          {review.name}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {review.date}
-                        </p>
-                      </div>
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-400 to-fuchsia-400 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                      {review.name.charAt(0)}
                     </div>
-                    {review.verified && (
-                      <Badge
-                        variant="secondary"
-                        className="text-[10px] shrink-0"
-                      >
-                        Verified
-                      </Badge>
-                    )}
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">
+                        {review.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {review.date}
+                      </p>
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-2">
