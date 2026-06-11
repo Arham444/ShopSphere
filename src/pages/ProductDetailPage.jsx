@@ -49,11 +49,8 @@ function ProductDetailPage() {
       : product.rating;
 
   const handleToggleWishlist = () => {
-    if (isGuest) {
-      navigate("/wishlist");
-    } else {
-      toggleWishlist();
-    }
+    if (isGuest) navigate("/wishlist");
+    else toggleWishlist();
   };
 
   const handleCategoryClick = (e) => {

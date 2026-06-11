@@ -53,14 +53,13 @@ function AddProductPage() {
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
 
-  if (!isAdmin) {
+  if (!isAdmin)
     return (
       <AccessDenied
         message="Only Admin can create products."
         icon={<CiLock className="h-10 w-10 text-muted-foreground" />}
       />
     );
-  }
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

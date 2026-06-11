@@ -20,7 +20,7 @@ function WishlistPage() {
 
   const isGuest = !currentUser || currentUser.role === "guest";
 
-  if (isGuest) {
+  if (isGuest)
     return (
       <AccessDenied
         message={
@@ -31,9 +31,8 @@ function WishlistPage() {
         icon={<CiLock className="h-10 w-10 text-muted-foreground" />}
       />
     );
-  }
 
-  if (items.length === 0) {
+  if (items.length === 0)
     return (
       <div className="flex flex-col flex-1 items-center justify-center p-4 min-h-[50vh]">
         <div className="flex flex-col items-center gap-4 text-center">
@@ -46,7 +45,6 @@ function WishlistPage() {
         </div>
       </div>
     );
-  }
 
   return (
     <div className="w-full px-4 md:px-8 lg:px-12 py-8 min-h-[calc(100vh-140px)]">
@@ -61,7 +59,7 @@ function WishlistPage() {
       </div>
 
       <div
-        className={`grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${items.length <= 4 ? "max-w-6xl" : ""}`}
+        className={`grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${items.length <= 4 ? "max-w-6xl" : ""}`}
       >
         {items.map((item) => {
           const savedProduct =
@@ -82,39 +80,39 @@ function WishlistPage() {
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                 />
               </Link>
-              <CardContent className="p-5 flex flex-col flex-1 gap-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <CardContent className="p-3 sm:p-5 flex flex-col flex-1 gap-1.5 sm:gap-2">
+                <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground line-clamp-1">
                   {item.category}
                 </p>
                 <Link
                   to={`/product/${item.id}`}
-                  className="font-semibold text-lg hover:text-primary transition-colors line-clamp-2"
+                  className="font-semibold text-sm sm:text-lg hover:text-primary transition-colors leading-snug line-clamp-2 min-h-[2.5rem]"
                 >
                   {item.name}
                 </Link>
 
-                <div className="flex items-center justify-between mt-auto pt-2">
-                  <p className="text-xl font-bold text-primary">
+                <div className="flex flex-wrap items-center justify-between mt-auto pt-1 sm:pt-2 gap-1">
+                  <p className="text-base sm:text-xl font-bold text-primary">
                     ${item.price}
                   </p>
-                  <p className="text-sm font-medium flex items-center">
-                    <span className="text-yellow-500 mr-1">⭐</span>{" "}
+                  <p className="text-xs sm:text-sm font-medium flex items-center shrink-0">
+                    <span className="text-yellow-500 mr-0.5">⭐</span>{" "}
                     {item.rating}
                   </p>
                 </div>
 
-                <div className="mt-2 mb-4">
+                <div className="mt-1 mb-2 sm:mt-2 sm:mb-4">
                   <StockStatus product={savedProduct} />
                 </div>
 
-                <div className="flex flex-col gap-2 mt-auto">
+                <div className="flex flex-col gap-1.5 sm:gap-2 mt-auto">
                   <Button
                     onClick={() => {
                       dispatch(addToCart(item));
                       dispatch(removeFromWishlist(item.id));
                     }}
                     disabled={isOutOfStock}
-                    className="w-full"
+                    className="w-full h-9 sm:h-10 text-xs sm:text-sm cursor-pointer"
                     variant={isOutOfStock ? "secondary" : "default"}
                   >
                     {isOutOfStock ? "Out of Stock" : "Move To Cart!"}
@@ -122,7 +120,7 @@ function WishlistPage() {
                   <Button
                     onClick={() => dispatch(removeFromWishlist(item.id))}
                     variant="outline"
-                    className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
+                    className="w-full h-9 sm:h-10 text-xs sm:text-sm text-destructive hover:text-destructive hover:bg-destructive/10 cursor-pointer"
                   >
                     Remove
                   </Button>

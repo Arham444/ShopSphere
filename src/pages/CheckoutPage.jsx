@@ -95,7 +95,7 @@ function CheckoutPage() {
     },
   });
 
-  if (isGuest) {
+  if (isGuest)
     return (
       <AccessDenied
         message={
@@ -108,9 +108,8 @@ function CheckoutPage() {
         icon={<CiLock className="h-10 w-10 text-muted-foreground" />}
       />
     );
-  }
 
-  if (items.length === 0 && !orderPlaced) {
+  if (items.length === 0 && !orderPlaced)
     return (
       <div className="flex flex-col flex-1 items-center justify-center p-4 min-h-[50vh]">
         <div className="flex flex-col items-center gap-4 text-center">
@@ -126,9 +125,8 @@ function CheckoutPage() {
         </div>
       </div>
     );
-  }
 
-  if (orderPlaced) {
+  if (orderPlaced)
     return (
       <div className="flex flex-col flex-1 items-center justify-center p-4 min-h-[60vh]">
         <Card className="w-full max-w-md shadow-sm border-muted">
@@ -147,7 +145,6 @@ function CheckoutPage() {
         </Card>
       </div>
     );
-  }
 
   const handleCardNumberChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");

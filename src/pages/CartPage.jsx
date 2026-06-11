@@ -28,16 +28,15 @@ function CartPage() {
 
   const isGuest = !currentUser || currentUser.role === "guest";
 
-  if (isGuest) {
+  if (isGuest)
     return (
       <AccessDenied
         message="Guests cannot have a shopping cart. Please log in to shop."
         icon={<CiLock className="h-10 w-10 text-muted-foreground" />}
       />
     );
-  }
 
-  if (items.length === 0) {
+  if (items.length === 0)
     return (
       <div className="flex flex-col flex-1 items-center justify-center p-4 min-h-[50vh]">
         <div className="flex flex-col items-center gap-4">
@@ -50,7 +49,6 @@ function CartPage() {
         </div>
       </div>
     );
-  }
 
   return (
     <div className="w-full px-4 md:px-8 lg:px-12 py-8 min-h-[calc(100vh-140px)]">
