@@ -2,7 +2,7 @@ import { FaCopyright } from "react-icons/fa6";
 
 function Footer() {
   return (
-    <footer className="w-full border-t bg-gradient-to-r from-purple-100 to-fuchsia-50 dark:from-purple-950 dark:to-fuchsia-950 mt-auto">
+    <footer className="w-full border-t bg-gradient-to-r from-purple-200 to-fuchsia-100 dark:from-purple-950 dark:to-fuchsia-950 mt-auto">
       <div className="w-full px-4 md:px-8 lg:px-12 py-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
