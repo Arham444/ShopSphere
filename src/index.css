@@ -169,6 +169,13 @@
   html {
     @apply font-sans;
   }
+  button,
+  select,
+  label,
+  input[type="button"],
+  input[type="submit"] {
+    @apply cursor-pointer;
+  }
 }
 
 /* ───────────── Base Structure ───────────── */
