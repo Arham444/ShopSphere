@@ -82,7 +82,7 @@ function ProductDetailPage() {
 
     const newReview = {
       id: `review-${Date.now()}`,
-      name: currentUser ? currentUser.username : "Anonymous",
+      name: currentUser.username,
       rating: newRating,
       title: newTitle.trim(),
       body: newBody.trim(),
