@@ -35,6 +35,13 @@ const productSlice = createSlice({
     setSortBy(state, action) {
       state.sortBy = action.payload;
     },
+    clearFilters(state) {
+      state.searchQuery = "";
+      state.selectedCategory = "All";
+      state.priceRange = [0, 500];
+      state.minRating = 0;
+      state.sortBy = "newest";
+    },
     addProduct(state, action) {
       state.items.push(action.payload);
       const currentAdded = loadState("addedProducts", []);
@@ -54,6 +61,7 @@ export const {
   setPriceRange,
   setMinRating,
   setSortBy,
+  clearFilters,
   addProduct,
   checkoutProducts,
 } = productSlice.actions;

@@ -8,6 +8,7 @@ import {
   selectIsAdmin,
 } from "../features/auth/authSelectors";
 import { logout } from "../features/auth/authSlice";
+import { clearFilters } from "../features/products/productSlice";
 import { FaHeart } from "react-icons/fa";
 import {
   IoCartOutline,
@@ -62,7 +63,11 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-gradient-to-r from-purple-100/90 to-fuchsia-50/90 dark:from-purple-950/90 dark:to-fuchsia-950/90 backdrop-blur shadow-sm">
       <div className="w-full px-4 md:px-8 lg:px-12 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 group">
+        <Link
+          to="/"
+          onClick={() => dispatch(clearFilters())}
+          className="flex items-center gap-2 group"
+        >
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-md transition-transform group-hover:scale-105">
             <IoCartOutline className="h-5 w-5" />
           </div>
@@ -83,7 +88,11 @@ function Navbar() {
               <IoMoonOutline className="h-5 w-5" />
             )}
           </Button>
-          <NavLink to="/" className={`${getLinkClass} hidden md:flex`}>
+          <NavLink
+            to="/"
+            onClick={() => dispatch(clearFilters())}
+            className={`${getLinkClass} hidden md:flex`}
+          >
             <span>Home</span>
           </NavLink>
           {currentUser && currentUser.role !== "guest" && (

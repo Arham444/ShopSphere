@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearFilters } from "../features/products/productSlice";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,12 +12,16 @@ import {
 } from "./ui/breadcrumb";
 
 function PageBreadcrumb({ items }) {
+  const dispatch = useDispatch();
+
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link to="/">Home</Link>
+            <Link to="/" onClick={() => dispatch(clearFilters())}>
+              Home
+            </Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         {items.map((item, index) => {
