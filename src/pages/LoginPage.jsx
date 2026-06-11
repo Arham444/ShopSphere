@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
-import authData from "../features/auth/authData.json";
+import authData from "../features/auth/authData";
 import { loadState } from "../utils/localStorage";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";

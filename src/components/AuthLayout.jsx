@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
 
-function AuthLayout({ children, maxWidth = "max-w-sm", pl = "lg:pl-[10%] xl:pl-[15%]" }) {
+function AuthLayout({
+  children,
+  maxWidth = "max-w-sm",
+  pl = "lg:pl-[10%] xl:pl-[15%]",
+}) {
   return (
     <div className="grid flex-1 w-full lg:grid-cols-[1fr_1.2fr]">
       <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className={`flex flex-1 items-center justify-center lg:justify-start ${pl}`}>
-          <div className={`w-full ${maxWidth}`}>
-            {children}
-          </div>
+        <div
+          className={`flex flex-1 items-center justify-center lg:justify-start ${pl}`}
+        >
+          <div className={`w-full ${maxWidth}`}>{children}</div>
         </div>
       </div>
 
