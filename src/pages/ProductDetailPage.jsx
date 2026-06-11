@@ -10,7 +10,7 @@ import {
   addReview,
 } from "../features/products/productSlice";
 import { selectCurrentUser } from "../features/auth/authSelectors";
-import { FaHeart, FaStar } from "react-icons/fa";
+import { FaHeart, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import {
   IoShieldCheckmarkOutline,
   IoRocketOutline,
@@ -351,25 +351,47 @@ function ProductDetailPage() {
                 <form onSubmit={handleSubmitReview} className="space-y-4">
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-foreground block">
-                      Overall Rating *
+                      Overall Rating *{" "}
+                      <span className="text-xs text-muted-foreground font-normal">
+                        ({newRating} {newRating === 1 ? "star" : "stars"})
+                      </span>
                     </label>
-                    <div className="flex items-center gap-1.5">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          type="button"
-                          onClick={() => setNewRating(star)}
-                          className="cursor-pointer transition-transform hover:scale-110 focus:outline-none"
-                        >
-                          <FaStar
-                            className={`h-6 w-6 ${
-                              star <= newRating
-                                ? "text-yellow-500"
-                                : "text-muted-foreground/30"
-                            }`}
-                          />
-                        </button>
-                      ))}
+                    <div className="flex items-center gap-1">
+                      {[1, 2, 3, 4, 5].map((index) => {
+                        const halfValue = index - 0.5;
+                        const fullValue = index;
+                        return (
+                          <div
+                            key={index}
+                            className="relative w-8 h-8 flex items-center justify-center group/star"
+                          >
+                            {/* Star Icon Display */}
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none transition-transform group-hover/star:scale-110">
+                              {newRating >= fullValue ? (
+                                <FaStar className="h-7 w-7 text-yellow-500" />
+                              ) : newRating >= halfValue ? (
+                                <FaStarHalfAlt className="h-7 w-7 text-yellow-500" />
+                              ) : (
+                                <FaRegStar className="h-7 w-7 text-yellow-500/30" />
+                              )}
+                            </div>
+                            {/* Left half clickable trigger */}
+                            <button
+                              type="button"
+                              onClick={() => setNewRating(halfValue)}
+                              className="absolute left-0 top-0 w-4 h-8 cursor-pointer focus:outline-none z-10"
+                              title={`${halfValue} Stars`}
+                            />
+                            {/* Right half clickable trigger */}
+                            <button
+                              type="button"
+                              onClick={() => setNewRating(fullValue)}
+                              className="absolute right-0 top-0 w-4 h-8 cursor-pointer focus:outline-none z-10"
+                              title={`${fullValue} Stars`}
+                            />
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
