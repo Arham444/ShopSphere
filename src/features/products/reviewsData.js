@@ -3,9 +3,9 @@ const reviewsByProductId = {
   e1: [
     {
       id: "e1-r1",
-      name: "Alex M.",
+      name: "A M.",
       rating: 5,
-      title: "Best noise cancellation at this price",
+      title: "Great product",
       body: "I commute on the subway daily and these headphones completely block out the noise. The 30-hour battery is no joke either — I charge them once a week at most. Comfortable enough to wear for hours without fatigue.",
       date: "Mar 12, 2025",
     },
@@ -28,8 +28,24 @@ const reviewsByProductId = {
     {
       id: "e1-r4",
       name: "Sam T.",
-      rating: 4,
+      rating: 1,
       title: "Solid everyday headphones",
+      body: "They do everything well without being exceptional at any one thing. ANC works great on planes and trains. Wish the app had more EQ options but out of the box they sound balanced and natural.",
+      date: "Dec 5, 2024",
+    },
+    {
+      id: "e1-r5",
+      name: "Samy T.",
+      rating: 4.5,
+      title: "Great everyday headphones",
+      body: "They do everything well without being exceptional at any one thing. ANC works great on planes and trains. Wish the app had more EQ options but out of the box they sound balanced and natural.",
+      date: "Dec 5, 2024",
+    },
+    {
+      id: "e1-r6",
+      name: "Lio R.",
+      rating: 4.5,
+      title: "Nice headphones",
       body: "They do everything well without being exceptional at any one thing. ANC works great on planes and trains. Wish the app had more EQ options but out of the box they sound balanced and natural.",
       date: "Dec 5, 2024",
     },

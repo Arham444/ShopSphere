@@ -8,8 +8,10 @@ import { Input } from "./ui/input";
 function SearchBar() {
   const dispatch = useDispatch();
   const Query = useSelector(selectSearchQuery);
+  // Local state to keep track of the text field input as the user types
   const [localQuery, setLocalQuery] = useState(Query);
 
+  // Debounce effect: dispatches the search action to Redux after the user stops typing for 300ms
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(setSearchQuery(localQuery));
@@ -18,6 +20,7 @@ function SearchBar() {
     return () => clearTimeout(timer);
   }, [localQuery, dispatch]);
 
+  // Sync effect: keeps the local text input in sync if the search filter is cleared from outside (e.g. clicking Home)
   useEffect(() => {
     setLocalQuery(Query);
   }, [Query]);

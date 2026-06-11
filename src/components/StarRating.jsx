@@ -2,8 +2,11 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 function StarRating({ rating, size = "text-base" }) {
+  // Determine number of full stars by rounding down the rating value (e.g., 4.5 -> 4)
   const full = Math.floor(rating);
+  // Show a half-star if the decimal remainder is 0.3 or higher
   const hasHalf = rating - full >= 0.3;
+  // Compute remaining stars to fill the maximum scale of 5 stars
   const empty = 5 - full - (hasHalf ? 1 : 0);
 
   return (

@@ -37,8 +37,10 @@ function ProductDetailPage() {
 
   if (!product) return <Navigate to="/404" replace />;
 
+  // Get reviews specific to this product ID, defaulting to an empty list if none exist
   const reviews = reviewsByProductId[product.id] || [];
   const reviewCount = reviews.length;
+  // Calculate average rating based on the reviews list; fallback to original product rating if empty
   const rating =
     reviewCount > 0
       ? Number(
