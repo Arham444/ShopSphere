@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useCartActions } from "../features/cart/useCartActions";
 import { useWishlist } from "../features/wishlist/useWishlist";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaStar } from "react-icons/fa";
 import PropTypes from "prop-types";
 import QuantityControl from "./QuantityControl";
 import StockStatus from "./StockStatus";
@@ -57,7 +57,7 @@ function ProductCard({ product }) {
             {product.category}
           </p>
           <div className="flex items-center text-[10px] sm:text-xs font-medium text-foreground shrink-0">
-            <span className="text-yellow-500 mr-0.5">⭐</span>
+            <FaStar className="text-yellow-500 mr-0.5" />
             {product.rating}
           </div>
         </div>
