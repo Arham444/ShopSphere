@@ -8,7 +8,7 @@ function CartItem({ item }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex py-6 border-b gap-4 last:border-0 sm:items-center sm:gap-0">
+    <div className="flex py-6 border-b gap-4 last:border-0 sm:items-center sm:gap-6">
       <Link
         to={`/product/${item.id}`}
         className="h-20 w-20 sm:h-24 sm:w-24 flex-shrink-0 overflow-hidden rounded-lg border bg-muted aspect-square block group/img relative transition-all hover:border-primary/50"
@@ -22,10 +22,10 @@ function CartItem({ item }) {
 
       <div className="flex flex-col flex-1 sm:flex-row sm:items-center gap-2 sm:gap-0 min-w-0">
         {/* Product Name */}
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 flex flex-col gap-1">
           <Link
             to={`/product/${item.id}`}
-            className="font-semibold text-sm sm:text-base text-foreground hover:text-primary hover:underline transition-all duration-200 line-clamp-2 pr-4 sm:pr-0"
+            className="font-semibold text-sm sm:text-base text-foreground hover:text-primary hover:underline transition-all duration-200 line-clamp-2 pr-4 sm:pr-0 "
           >
             {item.name}
           </Link>
