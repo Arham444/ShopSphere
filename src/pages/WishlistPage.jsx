@@ -8,6 +8,7 @@ import { selectCurrentUser } from "../features/auth/authSelectors";
 import StockStatus from "../components/StockStatus";
 import AccessDenied from "../components/AccessDenied";
 import { CiLock } from "react-icons/ci";
+import { FaStar } from "react-icons/fa";
 import PageBreadcrumb from "../components/PageBreadcrumb";
 import { Card, CardContent } from "../components/ui/card";
 import { Button } from "../components/ui/button";
@@ -93,10 +94,10 @@ function WishlistPage() {
                   <p className="text-base sm:text-xl font-bold text-primary">
                     ${item.price}
                   </p>
-                  <p className="text-xs sm:text-sm font-medium flex items-center shrink-0">
-                    <span className="text-yellow-500 mr-0.5">⭐</span>{" "}
-                    {item.rating}
-                  </p>
+                  <div className="flex items-center gap-1 bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full text-xs sm:text-sm font-bold shrink-0">
+                    <FaStar className="h-3.5 w-3.5 fill-current" />
+                    <span>{savedProduct.rating}</span>
+                  </div>
                 </div>
 
                 <div className="mt-1 mb-2 sm:mt-2 sm:mb-4">

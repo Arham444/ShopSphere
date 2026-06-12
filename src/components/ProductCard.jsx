@@ -52,13 +52,13 @@ function ProductCard({ product }) {
         </Button>
       </Link>
       <CardContent className="flex flex-col flex-1 gap-1.5 sm:gap-2 p-3 sm:p-4">
-        <div className="flex justify-between items-start gap-2">
+        <div className="flex justify-between items-center gap-2">
           <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-muted-foreground line-clamp-1">
             {product.category}
           </p>
-          <div className="flex items-center text-[10px] sm:text-xs font-medium text-foreground shrink-0">
-            <FaStar className="text-yellow-500 mr-0.5" />
-            {product.rating}
+          <div className="flex items-center gap-1 bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full text-xs sm:text-sm font-bold shrink-0">
+            <FaStar className="h-3.5 w-3.5 fill-current" />
+            <span>{product.rating}</span>
           </div>
         </div>
         <Link
