@@ -68,6 +68,10 @@
   --shadow-2xl: 0px 4px 10px 0px hsl(240 30% 25% / 0.3);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
+  --navbar-bg: #2a2238;
+  --navbar-text: #f8f8ff;
+  --navbar-badge-bg: #f43f5e;
+  --navbar-badge-text: #ffffff;
 }
 
 .dark {
@@ -103,6 +107,10 @@
   --sidebar-accent-foreground: oklch(0.9185 0.0257 285.8834);
   --sidebar-border: oklch(0.3261 0.0597 282.5832);
   --sidebar-ring: oklch(0.7162 0.1597 290.3962);
+  --navbar-bg: #0f0b16;
+  --navbar-text: #f8f8ff;
+  --navbar-badge-bg: #f43f5e;
+  --navbar-badge-text: #ffffff;
 }
 
 @theme inline {
@@ -138,6 +146,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-navbar-bg: var(--navbar-bg);
+  --color-navbar-text: var(--navbar-text);
+  --color-navbar-badge-bg: var(--navbar-badge-bg);
+  --color-navbar-badge-text: var(--navbar-badge-text);
 
   --font-sans: "Geist Variable", sans-serif;
   --font-heading: var(--font-sans);
