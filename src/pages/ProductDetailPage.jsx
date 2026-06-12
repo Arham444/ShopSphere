@@ -42,17 +42,18 @@ function ProductDetailPage() {
     isGuest,
   } = useCartActions(product);
 
-  if (!product) return <Navigate to="/404" replace />;
-
   const currentUser = useSelector(selectCurrentUser);
   const reviews = useSelector((state) => selectProductReviews(state, id));
   const reviewCount = reviews.length;
-  const rating = product.rating;
 
   const [newRating, setNewRating] = useState(5);
   const [newTitle, setNewTitle] = useState("");
   const [newBody, setNewBody] = useState("");
   const [formError, setFormError] = useState("");
+
+  if (!product) return <Navigate to="/404" replace />;
+
+  const rating = product.rating;
 
   const handleToggleWishlist = () => {
     if (isGuest) navigate("/wishlist");

@@ -122,6 +122,26 @@ Open `http://localhost:5173` in your browser.
 
 ## Technical Design Details
 
+### Redux Slice Architecture & Rationale
+
+ShopSphere uses a modular Redux slice architecture to manage application state. The state is divided into four domain-driven slices, each managing a specific scope of state and logic:
+
+1. **`productSlice`**
+   - **What it owns**: The catalog items (composed of standard seed products plus user-created products), product reviews, and active filtering/sorting parameters (e.g. search query, selected category, price range, minimum rating, and sort order).
+   - **Rationale**: Centralizes catalog state. Having filtering parameters co-located with catalog items enables clean, memoized selectors to dynamically compute lists of filtered and sorted products on the fly without polluting local component state. It also manages review submissions, dynamically computing average ratings for products based on their associated reviews.
+
+2. **`cartSlice`**
+   - **What it owns**: The list of active cart items and quantities added by the logged-in user.
+   - **Rationale**: Isolates shopping cart states. Intercepts the `login` and `logout` actions of the `auth` slice to dynamically hydrate or clear cart items based on the active user session.
+
+3. **`wishlistSlice`**
+   - **What it owns**: The list of bookmarked products saved in the user's wishlist.
+   - **Rationale**: Decouples bookmarking interactions from cart activities. Like the cart slice, it listens to the `auth` slice actions to sync wishlist items with the user session upon login/logout.
+
+4. **`authSlice`**
+   - **What it owns**: The session of the currently logged-in user (username, role, and mock credentials token).
+   - **Rationale**: Serves as the source of truth for user authentication state, controlling administrative routing access (e.g., adding products), review submission permissions, and triggers session-specific state hydration events.
+
 ### Redux Persistence & Hydration
 
 The cart, wishlist, and custom added products are saved locally inside the browser's `localStorage` using serialized JSON. The Redux store listens to changes via `store.subscribe()` and hydrates the initial store values on mount, ensuring data is not lost on page reload.
