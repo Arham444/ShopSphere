@@ -47,15 +47,7 @@ function ProductDetailPage() {
   const currentUser = useSelector(selectCurrentUser);
   const reviews = useSelector((state) => selectProductReviews(state, id));
   const reviewCount = reviews.length;
-  // Calculate average rating based on the reviews list; fallback to original product rating if empty
-  const rating =
-    reviewCount > 0
-      ? Number(
-          (reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount).toFixed(
-            1,
-          ),
-        )
-      : product.rating;
+  const rating = product.rating;
 
   const [newRating, setNewRating] = useState(5);
   const [newTitle, setNewTitle] = useState("");

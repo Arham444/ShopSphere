@@ -1,15 +1,40 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-export const selectAllProducts = (state) => state.products.items;
+export const selectRawProducts = (state) => state.products.items;
+export const selectReviews = (state) => state.products.reviews;
+
+export const selectAllProducts = createSelector(
+  [selectRawProducts, selectReviews],
+  (items, reviews) =>
+    items.map((product) => {
+      const productReviews = reviews[product.id] || [];
+      const reviewCount = productReviews.length;
+      const rating =
+        reviewCount > 0
+          ? Number(
+              (
+                productReviews.reduce((sum, r) => sum + r.rating, 0) /
+                reviewCount
+              ).toFixed(1),
+            )
+          : 5;
+      return {
+        ...product,
+        rating,
+      };
+    }),
+);
+
 export const selectSearchQuery = (state) => state.products.searchQuery;
 export const selectCategory = (state) => state.products.selectedCategory;
 export const selectPriceRange = (state) => state.products.priceRange;
 export const selectMinRating = (state) => state.products.minRating;
 export const selectSortBy = (state) => state.products.sortBy;
 
-export const selectProductById = (state, productId) => {
-  return state.products.items.find((item) => item.id === productId);
-};
+export const selectProductById = createSelector(
+  [selectAllProducts, (state, productId) => productId],
+  (products, productId) => products.find((item) => item.id === productId),
+);
 
 export const selectFilteredProducts = createSelector(
   [

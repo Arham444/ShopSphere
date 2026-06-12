@@ -5,7 +5,6 @@ const products = [
     name: "Wireless Noise-Cancelling Headphones",
     category: "Electronics",
     price: 129.99,
-    rating: 4.5,
     stock: 12,
     createdAt: "2024-01-10",
     image:
@@ -18,7 +17,6 @@ const products = [
     name: "Mechanical Keyboard",
     category: "Electronics",
     price: 89.99,
-    rating: 4.7,
     stock: 8,
     createdAt: "2024-02-14",
     image:
@@ -31,7 +29,6 @@ const products = [
     name: "USB-C Hub 7-in-1",
     category: "Electronics",
     price: 45.99,
-    rating: 4.3,
     stock: 20,
     createdAt: "2024-03-01",
     image:
@@ -44,7 +41,6 @@ const products = [
     name: "Portable Bluetooth Speaker",
     category: "Electronics",
     price: 59.99,
-    rating: 4.2,
     stock: 15,
     createdAt: "2024-03-15",
     image:
@@ -58,7 +54,6 @@ const products = [
     name: "Clean Code",
     category: "Books",
     price: 34.99,
-    rating: 4.8,
     stock: 7,
     createdAt: "2024-01-05",
     image:
@@ -71,7 +66,6 @@ const products = [
     name: "Dragon Lance 1: DragonFall",
     category: "Books",
     price: 39.99,
-    rating: 4.7,
     stock: 3,
     createdAt: "2024-01-20",
     image:
@@ -84,7 +78,6 @@ const products = [
     name: "You Don't Know JS",
     category: "Books",
     price: 29.99,
-    rating: 4.6,
     stock: 18,
     createdAt: "2024-02-10",
     image:
@@ -97,7 +90,6 @@ const products = [
     name: "ASOIAF book 1: A Game of Thrones",
     category: "Books",
     price: 49.99,
-    rating: 4.9,
     stock: 10,
     createdAt: "2024-02-28",
     image:
@@ -112,7 +104,6 @@ const products = [
     name: "Classic White T-Shirt",
     category: "Clothing",
     price: 19.99,
-    rating: 4.1,
     stock: 50,
     createdAt: "2024-03-05",
     image:
@@ -125,7 +116,6 @@ const products = [
     name: "Nike Dri-FIT T-Shirt",
     category: "Clothing",
     price: 49.99,
-    rating: 4.3,
     stock: 12,
     createdAt: "2024-03-10",
     image:
@@ -138,7 +128,6 @@ const products = [
     name: "Hooded Zip Sweatshirt",
     category: "Clothing",
     price: 64.99,
-    rating: 4.4,
     stock: 22,
     createdAt: "2024-03-20",
     image:
@@ -150,7 +139,6 @@ const products = [
     name: "Running Sneakers",
     category: "Clothing",
     price: 89.99,
-    rating: 4.6,
     stock: 10,
     createdAt: "2024-04-01",
     image:

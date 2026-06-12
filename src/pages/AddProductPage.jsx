@@ -40,7 +40,6 @@ const initialFormState = {
   name: "",
   category: Categories[0],
   price: "",
-  rating: "",
   stock: "",
   description: "",
 };
@@ -90,13 +89,6 @@ function AddProductPage() {
     if (!form.name.trim()) return setError("Product name is required.");
     if (!form.price || isNaN(form.price) || Number(form.price) <= 0)
       return setError("Please enter a valid price.");
-    if (
-      !form.rating ||
-      isNaN(form.rating) ||
-      Number(form.rating) < 0 ||
-      Number(form.rating) > 5
-    )
-      return setError("Rating must be between 0 and 5.");
     if (!form.stock || isNaN(form.stock) || Number(form.stock) < 0)
       return setError("Please enter a valid stock amount.");
     if (!imageUrl) return setError("Please upload a product image.");
@@ -106,7 +98,6 @@ function AddProductPage() {
       name: form.name.trim(),
       category: form.category,
       price: parseFloat(Number(form.price).toFixed(2)),
-      rating: parseFloat(Number(form.rating).toFixed(1)),
       stock: parseInt(form.stock, 10),
       description: form.description.trim(),
       image: imageUrl,
@@ -179,18 +170,6 @@ function AddProductPage() {
                   value={form.price}
                   onChange={handleChange}
                   placeholder="e.g. 89.99"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="rating">Rating (0–5) *</Label>
-                <Input
-                  id="rating"
-                  name="rating"
-                  value={form.rating}
-                  onChange={handleChange}
-                  placeholder="e.g. 4.5"
                   required
                 />
               </div>
