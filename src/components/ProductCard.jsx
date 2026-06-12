@@ -76,7 +76,10 @@ function ProductCard({ product }) {
       </CardContent>
       <CardFooter className="p-3 sm:p-4 pt-0">
         {!isOutOfStock && cartQuantity > 0 ? (
-          <QuantityControl product={product} />
+          <QuantityControl
+            product={product}
+            className="h-9 sm:h-10 text-xs sm:text-sm"
+          />
         ) : (
           <Button
             className="w-full h-9 sm:h-10 text-xs sm:text-sm rounded-full cursor-pointer"

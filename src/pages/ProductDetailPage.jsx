@@ -193,7 +193,7 @@ function ProductDetailPage() {
           <div className="flex flex-col sm:flex-row gap-3 mt-4">
             {!isOutOfStock && cartQuantity > 0 ? (
               <div className="flex-1 w-full">
-                <QuantityControl product={product} />
+                <QuantityControl product={product} className="h-12 text-base px-4" />
               </div>
             ) : (
               <Button

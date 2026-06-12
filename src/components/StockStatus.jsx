@@ -10,19 +10,24 @@ function StockStatus({ product, className }) {
   const isOutOfStock = product.stock <= 0;
   const limitReached = cartQuantity >= product.stock;
 
-  const variant = isOutOfStock
-    ? "destructive"
-    : limitReached
-      ? "secondary"
-      : "default";
+  if (isOutOfStock) {
+    return (
+      <Badge
+        variant="outline"
+        className={`bg-stone-200/60 text-stone-500 border-stone-300/50 dark:bg-stone-800/40 dark:text-stone-400 dark:border-stone-700/50 ${className || ""}`}
+      >
+        Out of Stock
+      </Badge>
+    );
+  }
+
+  const variant = limitReached ? "secondary" : "default";
 
   return (
     <Badge variant={variant} className={className}>
-      {isOutOfStock
-        ? "Out of Stock"
-        : limitReached
-          ? `Limit Reached (${product.stock} in Cart)`
-          : `In Stock (${product.stock - cartQuantity} left)`}
+      {limitReached
+        ? `Limit Reached (${product.stock} in Cart)`
+        : `In Stock (${product.stock - cartQuantity} left)`}
     </Badge>
   );
 }
