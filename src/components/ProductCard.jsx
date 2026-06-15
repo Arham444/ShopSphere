@@ -53,7 +53,7 @@ function ProductCard({ product }) {
       </Link>
       <CardContent className="flex flex-col flex-1 gap-1.5 sm:gap-2 p-3 sm:p-4">
         <div className="flex justify-between items-center gap-2">
-          <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-muted-foreground line-clamp-1">
+          <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground line-clamp-1">
             {product.category}
           </p>
           <div className="flex items-center gap-1 bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-0.5 rounded-full text-xs sm:text-sm font-bold shrink-0">
@@ -63,12 +63,12 @@ function ProductCard({ product }) {
         </div>
         <Link
           to={`/product/${product.id}`}
-          className="font-semibold text-sm sm:text-base line-clamp-2 hover:text-primary transition-colors leading-snug min-h-[2.5rem]"
+          className="font-bold text-[15px] sm:text-lg line-clamp-2 hover:text-primary transition-colors leading-snug min-h-[2.5rem]"
         >
           {product.name}
         </Link>
         <div className="mt-auto pt-1 sm:pt-2 flex flex-wrap items-center justify-between gap-1">
-          <p className="font-bold text-base sm:text-lg text-primary">
+          <p className="font-extrabold text-lg sm:text-xl text-primary">
             ${product.price}
           </p>
           <StockStatus product={product} />

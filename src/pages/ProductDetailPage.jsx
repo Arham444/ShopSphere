@@ -138,7 +138,7 @@ function ProductDetailPage() {
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground leading-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-foreground leading-tight">
             {product.name}
           </h1>
 
@@ -193,7 +193,10 @@ function ProductDetailPage() {
           <div className="flex flex-col sm:flex-row gap-3 mt-4">
             {!isOutOfStock && cartQuantity > 0 ? (
               <div className="flex-1 w-full">
-                <QuantityControl product={product} className="h-12 text-base px-4" />
+                <QuantityControl
+                  product={product}
+                  className="h-12 text-base px-4"
+                />
               </div>
             ) : (
               <Button

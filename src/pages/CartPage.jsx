@@ -65,12 +65,15 @@ function CartPage() {
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-1">
           <Card className="shadow-sm border-0 bg-transparent sm:bg-card sm:border">
-            <div className="hidden sm:flex items-center px-6 py-4 border-b text-sm font-medium text-muted-foreground">
-              <span className="flex-1">Product</span>
-              <span className="w-24">Price</span>
-              <span className="w-48 text-center">Quantity</span>
-              <span className="w-24 text-right">Subtotal</span>
-              <span className="w-20 ml-4"></span>
+            <div className="hidden sm:flex items-center px-6 py-4 border-b text-sm font-semibold text-muted-foreground gap-6">
+              <span className="w-24 shrink-0"></span>
+              <div className="flex flex-1 items-center gap-0">
+                <span className="flex-1">Product</span>
+                <span className="w-24 pl-6">Price</span>
+                <span className="w-48 text-center">Quantity</span>
+                <span className="w-24 text-right">Subtotal</span>
+                <span className="w-20 ml-4"></span>
+              </div>
             </div>
 
             <div className="flex flex-col sm:px-6">

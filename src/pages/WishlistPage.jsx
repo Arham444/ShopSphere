@@ -80,12 +80,12 @@ function WishlistPage() {
                 />
               </Link>
               <CardContent className="p-3 sm:p-5 flex flex-col flex-1 gap-1.5 sm:gap-2">
-                <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground line-clamp-1">
+                <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground line-clamp-1">
                   {item.category}
                 </p>
                 <Link
                   to={`/product/${item.id}`}
-                  className="font-semibold text-sm sm:text-lg hover:text-primary transition-colors leading-snug line-clamp-2 min-h-[2.5rem]"
+                  className="font-bold text-[15px] sm:text-lg hover:text-primary transition-colors leading-snug line-clamp-2 min-h-[2.5rem]"
                 >
                   {item.name}
                 </Link>

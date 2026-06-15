@@ -25,18 +25,18 @@ function CartItem({ item }) {
         <div className="flex-1 min-w-0 flex flex-col gap-1">
           <Link
             to={`/product/${item.id}`}
-            className="font-semibold text-sm sm:text-base text-foreground hover:text-primary hover:underline transition-all duration-200 line-clamp-2 pr-4 sm:pr-0 "
+            className="font-bold text-sm sm:text-[17px] text-foreground hover:text-primary hover:underline transition-all duration-200 line-clamp-2 pr-4 sm:pr-0 "
           >
             {item.name}
           </Link>
           {/* Price (Mobile Only) */}
-          <div className="text-xs text-muted-foreground mt-1 sm:hidden">
+          <div className="text-xs font-semibold text-muted-foreground mt-1 sm:hidden">
             Price: ${item.price}
           </div>
         </div>
 
         {/* Price (Desktop Only) */}
-        <div className="w-24 font-medium text-muted-foreground hidden sm:block pl-2">
+        <div className="w-24 font-bold text-muted-foreground/90 hidden sm:block pl-6 text-sm sm:text-base">
           ${item.price}
         </div>
 
@@ -74,13 +74,13 @@ function CartItem({ item }) {
             </button>
           </div>
           {/* Subtotal (Mobile Only) */}
-          <div className="font-bold text-sm sm:hidden text-foreground">
+          <div className="font-extrabold text-sm sm:hidden text-foreground">
             Subtotal: ${item.subtotal}
           </div>
         </div>
 
         {/* Subtotal (Desktop Only) */}
-        <div className="w-24 font-bold hidden sm:block text-right">
+        <div className="w-24 font-extrabold text-sm sm:text-base hidden sm:block text-right">
           ${item.subtotal}
         </div>
 
@@ -89,7 +89,7 @@ function CartItem({ item }) {
           <Button
             variant="outline"
             size="sm"
-            className="text-destructive hover:text-destructive hover:bg-destructive/10 -ml-2 sm:-mr-2 h-8 px-2 text-xs sm:text-sm cursor-pointer"
+            className="text-destructive hover:text-destructive hover:bg-destructive/10 -ml-2 sm:-mr-2 h-8 px-2 sm:px-3 text-xs sm:text-sm font-semibold cursor-pointer"
             onClick={() => dispatch(removeFromCart(item.id))}
           >
             Remove

@@ -56,7 +56,7 @@ function Navbar() {
   };
 
   const getLinkClass = ({ isActive }) =>
-    `flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-navbar-text ${
+    `flex items-center gap-1.5 text-[15px] sm:text-base font-semibold transition-colors hover:text-navbar-text ${
       isActive ? "text-navbar-text" : "text-navbar-text/70"
     }`;
 
@@ -135,7 +135,7 @@ function Navbar() {
             <div className="flex items-center gap-1.5 sm:gap-3 ml-1 border-l pl-1.5 sm:pl-4 border-white/10 shrink-0">
               <Badge
                 variant="secondary"
-                className="font-medium text-xs hidden md:inline-flex"
+                className="font-bold text-[13px] hidden md:inline-flex"
               >
                 {isAdmin === true ? "Admin" : `${currentUser.username}`}
               </Badge>
@@ -143,7 +143,7 @@ function Navbar() {
                 variant="ghost"
                 size="sm"
                 onClick={() => dispatch(logout())}
-                className="gap-1.5 sm:gap-2 h-8 px-2 sm:px-3 text-xs sm:text-sm text-navbar-text hover:bg-white/10 hover:text-navbar-text"
+                className="gap-1.5 sm:gap-2 h-8 px-2 sm:px-3 text-sm sm:text-base font-semibold text-navbar-text hover:bg-white/10 hover:text-navbar-text"
               >
                 <IoLogOutOutline className="h-4 w-4" />
                 <span className="hidden sm:inline">Logout</span>
@@ -155,7 +155,7 @@ function Navbar() {
                 asChild
                 variant="default"
                 size="sm"
-                className="h-8 text-xs sm:text-sm"
+                className="h-8 text-sm sm:text-base font-semibold"
               >
                 <NavLink to="/login" className="gap-1.5 sm:gap-2">
                   <IoLogInOutline className="h-4 w-4" />
