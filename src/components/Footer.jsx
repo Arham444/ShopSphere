@@ -52,7 +52,9 @@ function Footer() {
                 <Twitter className="h-4.5 w-4.5" />
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
+                target="_blank"
+                rel="noreferrer"
                 className="p-2 rounded-full hover:bg-navbar-text/10 transition-colors"
                 aria-label="Youtube"
               >
