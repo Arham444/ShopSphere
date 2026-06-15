@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import {
-  FaEnvelope as Mail,
-  FaPhone as Phone,
-  FaLocationDot as MapPin,
-  FaClock as Clock,
-  FaFacebook as Facebook,
-  FaInstagram as Instagram,
-  FaXTwitter as Twitter,
-  FaYoutube as Youtube,
-  FaCopyright as Copyright,
+  FaEnvelope,
+  FaPhone,
+  FaClock,
+  FaFacebook,
+  FaInstagram,
+  FaXTwitter,
+  FaYoutube,
+  FaCopyright,
 } from "react-icons/fa6";
 import { Button } from "./ui/button";
 
@@ -35,21 +34,21 @@ function Footer() {
                 className="p-2 rounded-full hover:bg-navbar-text/10 transition-colors"
                 aria-label="Facebook"
               >
-                <Facebook className="h-4.5 w-4.5" />
+                <FaFacebook className="h-4.5 w-4.5" />
               </a>
               <a
                 href="#"
                 className="p-2 rounded-full hover:bg-navbar-text/10 transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram className="h-4.5 w-4.5" />
+                <FaInstagram className="h-4.5 w-4.5" />
               </a>
               <a
                 href="#"
                 className="p-2 rounded-full hover:bg-navbar-text/10 transition-colors"
                 aria-label="Twitter"
               >
-                <Twitter className="h-4.5 w-4.5" />
+                <FaXTwitter className="h-4.5 w-4.5" />
               </a>
               <a
                 href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
@@ -58,7 +57,7 @@ function Footer() {
                 className="p-2 rounded-full hover:bg-navbar-text/10 transition-colors"
                 aria-label="Youtube"
               >
-                <Youtube className="h-4.5 w-4.5" />
+                <FaYoutube className="h-4.5 w-4.5" />
               </a>
             </div>
           </div>
@@ -97,19 +96,15 @@ function Footer() {
             </h4>
             <div className="flex flex-col gap-3 text-sm text-navbar-text/80">
               <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0 text-navbar-text/60" />
+                <FaPhone className="h-4 w-4 shrink-0 text-navbar-text/60" />
                 <span>+1 (800) 555-0199</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0 text-navbar-text/60" />
+                <FaEnvelope className="h-4 w-4 shrink-0 text-navbar-text/60" />
                 <span>support@shopsphere.com</span>
               </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 shrink-0 text-navbar-text/60 mt-0.5" />
-                <span>100 Innovation Way, Suite 400, Boston, MA</span>
-              </div>
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 shrink-0 text-navbar-text/60" />
+                <FaClock className="h-4 w-4 shrink-0 text-navbar-text/60" />
                 <span>Mon - Fri: 9am - 6pm EST</span>
               </div>
             </div>
@@ -147,7 +142,7 @@ function Footer() {
         {/* Bottom Bar: Copyright & Payments */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs text-navbar-text/70">
           <div className="flex items-center gap-1.5 justify-center">
-            <Copyright className="h-3.5 w-3.5" />
+            <FaCopyright className="h-3.5 w-3.5" />
             <span>2026 ShopSphere. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-3 font-semibold text-[10px] tracking-wider uppercase opacity-80">
