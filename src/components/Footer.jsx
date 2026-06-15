@@ -61,50 +61,53 @@ function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="flex flex-col gap-3 sm:gap-4">
-            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-navbar-text text-center">
-              Quick Links
-            </h4>
-            <div className="flex flex-col gap-2 sm:gap-2.5 text-sm text-navbar-text/80 text-center">
-              <Link to="/" className="hover:text-navbar-text transition-colors">
-                Shop All Products
-              </Link>
-              <Link
-                to="/wishlist"
-                className="hover:text-navbar-text transition-colors"
-              >
-                My Wishlist
-              </Link>
-              <Link
-                to="/cart"
-                className="hover:text-navbar-text transition-colors"
-              >
-                Shopping Cart
-              </Link>
-              <a href="#" className="hover:text-navbar-text transition-colors">
-                Our Story
-              </a>
+          {/* Quick Links & Contact Support wrapper to keep them in the same row on mobile viewports */}
+          <div className="grid grid-cols-2 gap-8 sm:col-span-2 lg:contents">
+            {/* Quick Links */}
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-navbar-text text-left">
+                Quick Links
+              </h4>
+              <div className="flex flex-col gap-2 sm:gap-2.5 text-sm text-navbar-text/80 text-left">
+                <Link to="/" className="hover:text-navbar-text transition-colors">
+                  Shop All Products
+                </Link>
+                <Link
+                  to="/wishlist"
+                  className="hover:text-navbar-text transition-colors"
+                >
+                  My Wishlist
+                </Link>
+                <Link
+                  to="/cart"
+                  className="hover:text-navbar-text transition-colors"
+                >
+                  Shopping Cart
+                </Link>
+                <a href="#" className="hover:text-navbar-text transition-colors">
+                  Our Story
+                </a>
+              </div>
             </div>
-          </div>
 
-          {/* Contact Details */}
-          <div className="flex flex-col gap-3 sm:gap-4">
-            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-navbar-text">
-              Contact Support
-            </h4>
-            <div className="flex flex-col gap-2.5 sm:gap-3 text-sm text-navbar-text/80">
-              <div className="flex items-center gap-2">
-                <FaPhone className="h-4 w-4 shrink-0 text-navbar-text/60" />
-                <span>+1 (800) 555-0199</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaEnvelope className="h-4 w-4 shrink-0 text-navbar-text/60" />
-                <span>support@shopsphere.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaClock className="h-4 w-4 shrink-0 text-navbar-text/60" />
-                <span>Mon - Fri: 9am - 6pm EST</span>
+            {/* Contact Details */}
+            <div className="flex flex-col gap-3 sm:gap-4">
+              <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-navbar-text text-left">
+                Contact Support
+              </h4>
+              <div className="flex flex-col gap-2.5 sm:gap-3 text-sm text-navbar-text/80">
+                <div className="flex items-center gap-2">
+                  <FaPhone className="h-4 w-4 shrink-0 text-navbar-text/60" />
+                  <span>+1 (800) 555-0199</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaEnvelope className="h-4 w-4 shrink-0 text-navbar-text/60" />
+                  <span>support@shopsphere.com</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaClock className="h-4 w-4 shrink-0 text-navbar-text/60" />
+                  <span>Mon - Fri: 9am - 6pm EST</span>
+                </div>
               </div>
             </div>
           </div>
