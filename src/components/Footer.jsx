@@ -63,10 +63,10 @@ function Footer() {
 
           {/* Quick Links */}
           <div className="flex flex-col gap-3 sm:gap-4">
-            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-navbar-text">
+            <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-navbar-text text-center">
               Quick Links
             </h4>
-            <div className="flex flex-col gap-2 sm:gap-2.5 text-sm text-navbar-text/80">
+            <div className="flex flex-col gap-2 sm:gap-2.5 text-sm text-navbar-text/80 text-center">
               <Link to="/" className="hover:text-navbar-text transition-colors">
                 Shop All Products
               </Link>
