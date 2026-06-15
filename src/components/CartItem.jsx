@@ -87,7 +87,7 @@ function CartItem({ item }) {
         {/* Remove Button */}
         <div className="sm:w-20 text-left sm:text-right sm:ml-4">
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             className="text-destructive hover:text-destructive hover:bg-destructive/10 -ml-2 sm:-mr-2 h-8 px-2 text-xs sm:text-sm cursor-pointer"
             onClick={() => dispatch(removeFromCart(item.id))}
